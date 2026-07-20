@@ -402,37 +402,9 @@
             </ul>
           </div>
 
-          <!-- Interactive Repair Tracker Widget Simulator -->
-          <div class="simulator-card">
-            <div class="simulator-header">
-              <span class="simulator-title">
-                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
-                REPAIR TICKET LIVE SIMULATOR
-              </span>
-              <span id="sim-status-badge" style="font-size: 0.6875rem; font-weight: 700; color: var(--success);">IN DIAGNOSTICS</span>
-            </div>
-            <div class="simulator-input-wrap">
-              <input type="text" id="sim-job-id" class="simulator-input" value="REP-2026-8812" placeholder="Enter Job ID...">
-              <button id="sim-search-btn" class="simulator-btn">Track Job</button>
-            </div>
-            <div class="simulator-steps">
-              <div class="step-node completed">
-                <div class="step-dot">1</div>
-                <span class="step-label">Intake</span>
-              </div>
-              <div class="step-node active">
-                <div class="step-dot">2</div>
-                <span class="step-label">Diagnostics</span>
-              </div>
-              <div class="step-node">
-                <div class="step-dot">3</div>
-                <span class="step-label">Repaired</span>
-              </div>
-              <div class="step-node">
-                <div class="step-dot">4</div>
-                <span class="step-label">Delivered</span>
-              </div>
-            </div>
+          <!-- Dynamic Category Simulator Widget (adapted to active vertical) -->
+          <div id="cat-simulator-container" class="simulator-card" style="min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
+            <!-- Rendered dynamically by main.js -->
           </div>
         </div>
       </div>
@@ -636,99 +608,106 @@
   <section id="pricing" class="section pricing-section">
     <div class="container">
       <div class="section-title-wrap reveal">
-        <h2>Subscription Plans</h2>
-        <p>Free to download. Advanced PRO features available via authorized SM Technologies resellers.</p>
+        <h2>Simple, Honest Pricing</h2>
+        <p>Start completely free. No credit card required. No surprises.</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 860px; margin: 0 auto;" class="reveal">
+      <div class="pricing-grid">
 
-        <!-- LITE Plan -->
-        <div class="pricing-card glass">
-          <div class="pricing-badge" style="background: rgba(22,163,74,0.15); color: #16A34A; border: 1px solid rgba(22,163,74,0.3);">Free to Download</div>
-          <h3>LITE</h3>
-          <p>For individual merchants getting started with digital billing and inventory.</p>
+        <!-- FREE TRIAL Card -->
+        <div class="pricing-card glass reveal">
+          <div class="pricing-badge" style="background: linear-gradient(90deg, #16A34A, #15803D);">Free Trial</div>
+          <h3 style="color: var(--success);">1 Month Free</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9375rem;">Full access to all features. No payment. No registration required except app login.</p>
 
           <div class="price-box">
-            <span class="price-amount" style="font-size: 2.5rem;">Free</span>
+            <span class="price-amount" style="font-size: 3rem; color: var(--success);">₹0</span>
+            <span class="price-period">&nbsp;/ first month</span>
           </div>
 
           <ul class="pricing-features-list">
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>GST Billing &amp; Invoicing</span>
+              <span>All 16 Business Types Unlocked</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Full Inventory Management</span>
+              <span>Unlimited GST Billing &amp; Invoicing</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Repair Job Sheets</span>
+              <span>Full Inventory &amp; Repair Management</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Customer &amp; Supplier Ledger</span>
+              <span>Ledger, Reports &amp; GST Exports</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Restaurant KOT Printing</span>
+              <span>AES-256 Encrypted Local Database</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>AES-256 Encrypted Local DB</span>
+              <span>Google Drive Backup &amp; Smart Clone</span>
             </li>
           </ul>
 
-          <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-secondary" style="width: 100%;" target="_blank" rel="noopener">Download Free on Google Play</a>
+          <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-secondary" style="width: 100%; margin-top: auto;" target="_blank" rel="noopener">
+            Download Free on Google Play
+          </a>
         </div>
 
-        <!-- PRO Plan -->
-        <div class="pricing-card glass" style="border-color: var(--primary); position: relative; overflow: hidden;">
-          <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent));"></div>
-          <div class="pricing-badge">PRO License</div>
-          <h3>PRO</h3>
-          <p>Advanced feature bundles for growing stores and multi-vertical operations.</p>
+        <!-- CONTINUE Card -->
+        <div class="pricing-card glass reveal" style="border-color: var(--primary);">
+          <div style="position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); border-radius: var(--radius-lg) var(--radius-lg) 0 0;"></div>
+          <div class="pricing-badge">Continue After Trial</div>
+          <h3>Pro Access</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9375rem;">After your trial ends, simply contact us via WhatsApp <strong>directly from inside the app</strong> to extend your access.</p>
 
-          <div class="price-box">
-            <span class="price-amount" style="font-size: 1.6rem; letter-spacing: -0.5px;">Via Reseller</span>
+          <div class="price-box" style="flex-direction: column; gap: 2px;">
+            <span style="font-size: 1rem; color: var(--text-secondary); font-weight: 500;">Pricing discussed</span>
+            <span class="price-amount" style="font-size: 2rem;">on WhatsApp</span>
           </div>
-          <p style="font-size: 0.8rem; color: var(--text-tertiary); margin-top: -8px; margin-bottom: 16px;">Contact SM Technologies for activation key</p>
 
           <ul class="pricing-features-list">
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Everything in LITE</span>
+              <span>All features remain active after extension</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>IMEI History Audit Trail</span>
+              <span>Contact us via the <strong>in-app WhatsApp button</strong></span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Wholesale Billing &amp; Tools</span>
+              <span>SM Technologies extends your time via Firebase console instantly</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>BOM &amp; Manufacturing Production Orders</span>
+              <span>Buy from a local authorized reseller near you</span>
             </li>
             <li class="pricing-feature-item">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Advanced Reports &amp; Analytics</span>
-            </li>
-            <li class="pricing-feature-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Multi-Pricing Tiers &amp; Margin Scheme Tax</span>
-            </li>
-            <li class="pricing-feature-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-              <span>Google Drive Secure Sync</span>
+              <span>No hidden charges. No auto-renewals.</span>
             </li>
           </ul>
 
-          <a href="#contact" class="btn btn-primary" style="width: 100%;">Contact for License Key</a>
+          <div style="display: flex; flex-direction: column; gap: 10px; margin-top: auto;">
+            <a href="#contact" class="btn btn-primary" style="width: 100%;">Contact via WhatsApp / Support</a>
+            <a href="pages/resellers/index.html" class="btn btn-secondary" style="width: 100%; font-size: 0.875rem;">Find a Reseller Near You →</a>
+          </div>
         </div>
 
       </div>
+
+      <!-- How it works note -->
+      <div class="reveal" style="text-align: center; margin-top: 36px; padding: 20px 24px; background: rgba(var(--primary-rgb), 0.05); border: 1px solid rgba(var(--primary-rgb), 0.12); border-radius: var(--radius-md); max-width: 680px; margin-left: auto; margin-right: auto;">
+        <p style="font-size: 0.9375rem; color: var(--text-secondary); margin: 0;">
+          <strong style="color: var(--text-primary);">How it works:</strong>
+          Download &rarr; Use free for 1 month &rarr; Open app &rarr; Tap the WhatsApp support button &rarr; We extend your access. Simple.
+        </p>
+      </div>
+
     </div>
   </section>
 

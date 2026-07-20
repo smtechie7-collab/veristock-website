@@ -921,13 +921,14 @@ body.dark .phone-mockup {
 }
 
 .pricing-card {
-  max-width: 450px;
-  margin: 0 auto;
   border-radius: var(--radius-lg);
-  padding: var(--space-10);
+  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-8);
+  padding-top: calc(var(--space-8) + 14px);
   border: 1px solid rgba(var(--accent-rgb), 0.3);
   position: relative;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .pricing-badge {
@@ -937,13 +938,14 @@ body.dark .phone-mockup {
   transform: translateX(-50%);
   background-color: var(--accent);
   color: #FFFFFF;
-  padding: 4px 16px;
+  padding: 4px 18px;
   border-radius: var(--radius-full);
   font-size: 0.8125rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 10px rgba(var(--accent-rgb), 0.25);
+  box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.3);
+  white-space: nowrap;
 }
 
 .pricing-card h3 {
@@ -952,7 +954,11 @@ body.dark .phone-mockup {
 }
 
 .price-box {
-  margin: var(--space-6) 0;
+  margin: var(--space-5) 0 var(--space-4) 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 4px;
 }
 
 .price-currency {
@@ -966,6 +972,7 @@ body.dark .phone-mockup {
   font-size: 3.5rem;
   font-weight: 800;
   color: var(--text-primary);
+  line-height: 1;
 }
 
 .price-period {
@@ -976,22 +983,42 @@ body.dark .phone-mockup {
 .pricing-features-list {
   text-align: left;
   list-style: none;
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
+  margin-top: var(--space-2);
+  flex-grow: 1;
 }
 
 .pricing-feature-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: var(--space-3);
   padding: var(--space-2) 0;
-  font-size: 0.9375rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
 }
 
 .pricing-feature-item svg {
-  width: 18px;
-  height: 18px;
+  width: 16px;
+  height: 16px;
   color: var(--success);
   flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Pricing grid wrapper responsive */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 880px;
+  margin: 48px auto 0 auto;
+}
+
+@media (max-width: 680px) {
+  .pricing-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+  }
 }
 
 /* ── FAQ ACCORDION ──────────────────────────────────────────────────── */

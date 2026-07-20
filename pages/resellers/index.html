@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Find an authorized VeriStock Pro reseller near you in Mumbai, Anand, Baroda, and Delhi. Our trusted channel partners help you with app setup, licensing, and local support.">
+  <meta name="keywords" content="VeriStock Pro reseller, VeriStock Pro distributor, mobile ERP reseller India, SM Technologies authorized partner, Anand, Mumbai, Baroda, Delhi">
+  <meta name="author" content="SM Technologies">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://veristockpro.com/pages/resellers/">
+
+  <title>Authorized Resellers - VERISTOCK PRO | Find a Partner Near You</title>
+
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="icon" type="image/svg+xml" href="../../assets/images/logo.svg">
+
+  <style>
+    /* ── Page-specific styles ── */
+    .reseller-hero {
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
+      padding: 72px 0 56px;
+      text-align: center;
+      color: #fff;
+    }
+    .reseller-hero h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .reseller-hero p {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Reseller grid */
+    .reseller-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 64px 24px 80px;
+    }
+
+    /* Reseller card */
+    .reseller-card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .reseller-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .reseller-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(var(--primary-rgb), 0.15);
+      border-color: rgba(var(--primary-rgb), 0.35);
+    }
+
+    /* Card number badge */
+    .reseller-number {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), #4F46E5);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9375rem;
+      font-weight: 800;
+      margin-bottom: 18px;
+      flex-shrink: 0;
+    }
+
+    .reseller-name {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+    .reseller-business {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .reseller-detail-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-grow: 1;
+      margin-bottom: 24px;
+    }
+    .reseller-detail-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+    .reseller-detail-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      color: var(--primary);
+      margin-top: 1px;
+    }
+
+    .reseller-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 12px 20px;
+      background: linear-gradient(135deg, #25D366, #1ebe5d);
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius-md);
+      font-weight: 700;
+      font-size: 0.9375rem;
+      transition: opacity 0.18s ease, transform 0.18s ease;
+      margin-top: auto;
+    }
+    .reseller-cta:hover {
+      opacity: 0.92;
+      transform: scale(1.02);
+    }
+    .reseller-cta svg {
+      width: 18px;
+      height: 18px;
+      fill: #fff;
+    }
+
+    /* Become a reseller CTA */
+    .become-reseller-section {
+      background: rgba(var(--primary-rgb), 0.04);
+      border-top: 1px solid var(--surface-border);
+      padding: 60px 24px;
+      text-align: center;
+    }
+    .become-reseller-section h2 {
+      font-size: 1.75rem;
+      margin-bottom: 10px;
+    }
+    .become-reseller-section p {
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 28px;
+      line-height: 1.6;
+    }
+
+    /* Coverage tag */
+    .city-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(var(--primary-rgb), 0.08);
+      border: 1px solid rgba(var(--primary-rgb), 0.18);
+      color: var(--primary);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      margin-bottom: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── HEADER ── -->
+  <header class="scrolled">
+    <div class="container nav-container">
+      <a href="../../index.html" class="logo-link" aria-label="VeriStock Pro Home">
+        <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="resLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#1A3FDB" />
+              <stop offset="100%" stop-color="#4F46E5" />
+            </linearGradient>
+          </defs>
+          <path fill="url(#resLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
+          <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
+          <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
+        </svg>
+        <span>VERISTOCK PRO</span>
+      </a>
+
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="../../index.html" class="nav-link">Home</a></li>
+          <li><a href="../../index.html#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="../features/index.html" class="nav-link">Features</a></li>
+          <li><a href="../support/index.html" class="nav-link">Support</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle></svg>
+        </button>
+        <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Download Free</a>
+      </div>
+
+      <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ── HERO ── -->
+  <div class="reseller-hero">
+    <div class="container">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 5px 16px; font-size: 0.8125rem; font-weight: 600; color: rgba(255,255,255,0.9); margin-bottom: 20px; letter-spacing: 0.04em;">
+        ✓ Authorized Channel Partners
+      </div>
+      <h1>Find a Reseller Near You</h1>
+      <p>Our authorized channel partners help you with setup, licensing, and hands-on local support in your city. Walk in, or WhatsApp them directly.</p>
+    </div>
+  </div>
+
+  <!-- ── RESELLER CARDS ── -->
+  <main>
+    <div class="reseller-grid">
+
+      <!-- Reseller 1: Harun Pathan -->
+      <div class="reseller-card glass">
+        <div class="reseller-number">1</div>
+        <div class="city-tag">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Anand, Gujarat
+        </div>
+        <div class="reseller-name">Harun Pathan</div>
+        <div class="reseller-business">SM Mobile</div>
+        <ul class="reseller-detail-list">
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Bhalej Road, Anand, Gujarat
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.79 16z"></path></svg>
+            +91 98240 69400
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Walk-in &amp; WhatsApp support available
+          </li>
+        </ul>
+        <a href="https://wa.me/919824069400?text=Hi%20Harun%20bhai%2C%20I%20need%20help%20with%20VeriStock%20Pro%20licensing" class="reseller-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp Harun Bhai
+        </a>
+      </div>
+
+      <!-- Reseller 2: Moin Memon -->
+      <div class="reseller-card glass">
+        <div class="reseller-number">2</div>
+        <div class="city-tag">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Mumbai, Maharashtra
+        </div>
+        <div class="reseller-name">Moin Memon</div>
+        <div class="reseller-business">SM Mobile</div>
+        <ul class="reseller-detail-list">
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Shop No. 13, 74 Memonwada Road, Below Minara Masjid, Gate No. 2, Mumbai – 400003
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.79 16z"></path></svg>
+            +91 80970 38091
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Walk-in &amp; WhatsApp support available
+          </li>
+        </ul>
+        <a href="https://wa.me/918097038091?text=Hi%20Moin%20bhai%2C%20I%20need%20help%20with%20VeriStock%20Pro%20licensing" class="reseller-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp Moin Bhai
+        </a>
+      </div>
+
+      <!-- Reseller 3: Ashish Barnwal -->
+      <div class="reseller-card glass">
+        <div class="reseller-number">3</div>
+        <div class="city-tag">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Vadodara (Baroda), Gujarat
+        </div>
+        <div class="reseller-name">Ashish Barnwal</div>
+        <div class="reseller-business">Blaxe Pvt. Ltd.</div>
+        <ul class="reseller-detail-list">
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Vadodara (Baroda), Gujarat
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.79 16z"></path></svg>
+            +91 70163 25363
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            Blaxe Pvt. Ltd. — Technology Partner &amp; Reseller
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            WhatsApp support available
+          </li>
+        </ul>
+        <a href="https://wa.me/917016325363?text=Hi%20Ashish%20bhai%2C%20I%20need%20help%20with%20VeriStock%20Pro%20licensing" class="reseller-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp Ashish Bhai
+        </a>
+      </div>
+
+      <!-- Reseller 4: Hanif Memon -->
+      <div class="reseller-card glass">
+        <div class="reseller-number">4</div>
+        <div class="city-tag">
+          <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          Delhi
+        </div>
+        <div class="reseller-name">Hanif Memon</div>
+        <div class="reseller-business">Authorized Reseller</div>
+        <ul class="reseller-detail-list">
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            Turkman Gate, Delhi
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l1.06-1.06a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.79 16z"></path></svg>
+            +91 98919 75197
+          </li>
+          <li class="reseller-detail-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            Walk-in &amp; WhatsApp support available
+          </li>
+        </ul>
+        <a href="https://wa.me/919891975197?text=Hi%20Hanif%20bhai%2C%20I%20need%20help%20with%20VeriStock%20Pro%20licensing" class="reseller-cta" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+          WhatsApp Hanif Bhai
+        </a>
+      </div>
+
+    </div>
+
+    <!-- ── BECOME A RESELLER CTA ── -->
+    <div class="become-reseller-section">
+      <h2>Want to Become a Reseller?</h2>
+      <p>Are you a mobile shop owner, IT distributor, or technology professional? Join the VeriStock Pro authorized partner program and earn by helping local businesses go digital.</p>
+      <a href="https://wa.me/919824069400?text=Hi%2C%20I%27m%20interested%20in%20becoming%20a%20VeriStock%20Pro%20authorized%20reseller" class="btn btn-primary" target="_blank" rel="noopener" style="gap: 8px; display: inline-flex; align-items: center;">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        Enquire on WhatsApp
+      </a>
+    </div>
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="container footer-bottom" style="border-top: none; padding-top: 0;">
+      <p class="footer-copy">&copy; 2026 SM Technologies. All Rights Reserved. VERISTOCK PRO.</p>
+      <div class="footer-compliance">
+        <a href="../../index.html" style="color: var(--text-secondary); margin-right: 16px;">Home</a>
+        <a href="../features/index.html" style="color: var(--text-secondary); margin-right: 16px;">Features</a>
+        <a href="../privacy-policy/index.html" style="color: var(--text-secondary); margin-right: 16px;">Privacy</a>
+        <a href="../terms/index.html" style="color: var(--text-secondary); margin-right: 16px;">Terms</a>
+        <a href="../support/index.html" style="color: var(--text-secondary);">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
