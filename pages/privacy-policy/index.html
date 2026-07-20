@@ -3,15 +3,159 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Official Google Play Compliant Privacy Policy for VERISTOCK PRO. Learn how we secure your billing, inventory, and repair logs offline.">
+  <meta name="description" content="Official Privacy Policy for VERISTOCK PRO: Complete disclosures on offline SQLCipher encryption, Firebase Auth, Google Drive backup, permissions, and Google Play Data Safety compliance.">
+  <meta name="keywords" content="VeriStock Pro Privacy Policy, Data Safety, Offline ERP Security, SQLCipher encryption, Google Play compliance, SM Technologies">
+  <meta name="author" content="SM Technologies">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://veristockpro.com/pages/privacy-policy/">
+
+  <!-- OpenGraph & Twitter Cards -->
+  <meta property="og:title" content="Privacy Policy - VERISTOCK PRO">
+  <meta property="og:description" content="Transparent disclosures on offline-first database encryption, permissions, and data privacy.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://veristockpro.com/pages/privacy-policy/">
+  <meta property="og:image" content="../../assets/images/logo.svg">
+
   <title>Privacy Policy - VERISTOCK PRO</title>
-  
-  <!-- CSS Styles -->
+
+  <!-- CSS Style -->
   <link rel="stylesheet" href="../../assets/css/style.css">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../../assets/images/logo.svg">
+
+  <!-- Schema.org JSON-LD LegalDocument Metadata -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Privacy Policy - VERISTOCK PRO",
+    "url": "https://veristockpro.com/pages/privacy-policy/",
+    "publisher": {
+      "@type": "Organization",
+      "name": "SM Technologies",
+      "email": "smtechie7@gmail.com",
+      "url": "https://veristockpro.com"
+    },
+    "dateModified": "2026-07-20"
+  }
+  </script>
+
+  <style>
+    /* Printable and Table of Contents Custom Styling */
+    .legal-container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: var(--space-8) var(--space-4);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: var(--space-8);
+    }
+    @media (max-width: 868px) {
+      .legal-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    .toc-sticky {
+      position: sticky;
+      top: 100px;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-4);
+      max-height: calc(100vh - 120px);
+      overflow-y: auto;
+    }
+    .toc-title {
+      font-size: 0.875rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-secondary);
+      margin-bottom: var(--space-3);
+      padding-bottom: var(--space-2);
+      border-bottom: 1px solid var(--surface-border);
+    }
+    .toc-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-size: 0.8125rem;
+    }
+    .toc-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-fast);
+      display: block;
+      padding: 3px 0;
+    }
+    .toc-link:hover {
+      color: var(--primary);
+    }
+    .breadcrumb {
+      display: flex;
+      gap: var(--space-2);
+      font-size: 0.8125rem;
+      color: var(--text-tertiary);
+      margin-bottom: var(--space-4);
+    }
+    .breadcrumb a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .legal-content-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-8);
+    }
+    .legal-h2 {
+      font-size: 1.35rem;
+      color: var(--text-primary);
+      margin-top: var(--space-8);
+      margin-bottom: var(--space-3);
+      padding-top: var(--space-4);
+      border-top: 1px solid var(--surface-border);
+      scroll-margin-top: 100px;
+    }
+    .legal-h2:first-of-type {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: none;
+    }
+    .legal-h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-top: var(--space-4);
+      margin-bottom: var(--space-2);
+    }
+    .legal-p {
+      color: var(--text-secondary);
+      line-height: 1.65;
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-3);
+    }
+    .legal-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-4) 0;
+      font-size: 0.875rem;
+    }
+    .legal-table th, .legal-table td {
+      border: 1px solid var(--surface-border);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .legal-table th {
+      background: rgba(var(--primary-rgb), 0.08);
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+    @media print {
+      header, footer, .toc-sticky, #theme-toggle { display: none !important; }
+      .legal-container { display: block; width: 100%; }
+      .legal-content-box { border: none; padding: 0; }
+    }
+  </style>
 </head>
 <body>
 
@@ -21,12 +165,12 @@
       <a href="../../index.html" class="logo-link" aria-label="VeriStock Pro Home">
         <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id="policyLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+            <linearGradient id="privLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stop-color="#1A3FDB" />
               <stop offset="100%" stop-color="#4F46E5" />
             </linearGradient>
           </defs>
-          <path fill="url(#policyLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
+          <path fill="url(#privLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
           <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
           <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
         </svg>
@@ -38,35 +182,20 @@
           <li><a href="../../index.html" class="nav-link">Home</a></li>
           <li><a href="../../index.html#features" class="nav-link">Features</a></li>
           <li><a href="../support/index.html" class="nav-link">Support</a></li>
+          <li><a href="../account-deletion/index.html" class="nav-link">Account Deletion</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
-          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle></svg>
         </button>
         <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get Android App</a>
       </div>
 
       <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
       </button>
     </div>
   </header>
@@ -74,82 +203,265 @@
   <!-- ── LEGAL PAGE HEADER ──────────────────────────────────────────────── -->
   <div class="legal-page-header">
     <div class="container">
-      <h1>Privacy Policy</h1>
-      <p>Last Updated: July 20, 2026</p>
+      <h1>Privacy Policy & Security Disclosures</h1>
+      <p>Official Legal Document | Last Updated: July 20, 2026</p>
     </div>
   </div>
 
-  <!-- ── POLICY CONTENT ─────────────────────────────────────────────────── -->
-  <main class="container legal-content-container">
-    <div class="legal-card glass">
+  <!-- ── MAIN BODY CONTAINER ────────────────────────────────────────────── -->
+  <div class="legal-container">
+    
+    <!-- Table of Contents Sidebar -->
+    <aside class="toc-sticky">
+      <div class="toc-title">Table of Contents</div>
+      <ul class="toc-list">
+        <li><a href="#intro" class="toc-link">1. Introduction</a></li>
+        <li><a href="#data-collected" class="toc-link">2. Information We Collect</a></li>
+        <li><a href="#how-used" class="toc-link">3. How Information Is Used</a></li>
+        <li><a href="#firebase-auth" class="toc-link">4. Firebase Authentication</a></li>
+        <li><a href="#business-info" class="toc-link">5. Business Information</a></li>
+        <li><a href="#customer-data" class="toc-link">6. Customer Data</a></li>
+        <li><a href="#supplier-data" class="toc-link">7. Supplier Data</a></li>
+        <li><a href="#inventory-data" class="toc-link">8. Inventory Data</a></li>
+        <li><a href="#repair-records" class="toc-link">9. Repair Records</a></li>
+        <li><a href="#documents-images" class="toc-link">10. Documents & Images</a></li>
+        <li><a href="#invoices" class="toc-link">11. Invoices & Accounting</a></li>
+        <li><a href="#sqlcipher" class="toc-link">12. Local SQLCipher Storage</a></li>
+        <li><a href="#google-drive" class="toc-link">13. Google Drive Backup</a></li>
+        <li><a href="#third-parties" class="toc-link">14. Third-Party Services</a></li>
+        <li><a href="#permissions" class="toc-link">15. Permissions Used</a></li>
+        <li><a href="#security" class="toc-link">16. Data Security</a></li>
+        <li><a href="#retention" class="toc-link">17. Data Retention</a></li>
+        <li><a href="#rights" class="toc-link">18. User Rights</a></li>
+        <li><a href="#account-deletion" class="toc-link">19. Account Deletion</a></li>
+        <li><a href="#children" class="toc-link">20. Children's Privacy</a></li>
+        <li><a href="#international" class="toc-link">21. International Users</a></li>
+        <li><a href="#updates" class="toc-link">22. Policy Updates</a></li>
+        <li><a href="#contact" class="toc-link">23. Contact Information</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content Box -->
+    <main class="legal-content-box glass">
+      <div class="breadcrumb">
+        <a href="../../index.html">Home</a> &gt; <span>Privacy Policy</span>
+      </div>
+
+      <!-- Section 1 -->
+      <h2 id="intro" class="legal-h2">1. Introduction</h2>
+      <p class="legal-p">Welcome to <strong>VERISTOCK PRO</strong>, owned and operated by <strong>SM Technologies</strong> ("we", "us", or "our"). VeriStock Pro is an offline-first B2B Business Management and ERP system designed for mobile retailers, repair centers, pharmacy stores, garments merchants, and small businesses in India and worldwide.</p>
+      <p class="legal-p">We respect your data privacy and autonomy. Unlike standard cloud-only SaaS systems that store your business ledgers on central remote servers, VeriStock Pro operates on an <strong>Offline-First Architecture</strong>. Your core financial ledgers, inventory records, customer contacts, and repair tickets are processed and encrypted locally on your Android device.</p>
+
+      <!-- Section 2 -->
+      <h2 id="data-collected" class="legal-h2">2. Information We Collect</h2>
+      <p class="legal-p">We strictly limit data collection to what is necessary for managing account authentication, app performance diagnostics, and subscription licensing:</p>
+      <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.9375rem; line-height: 1.6;">
+        <li><strong>Account Identifiers:</strong> Name, Email Address, Mobile Phone Number (provided during registration).</li>
+        <li><strong>Device Identifiers:</strong> Firebase Installation ID, Android OS Version, Device Model (used for notification dispatch and licensing).</li>
+        <li><strong>Diagnostic & Performance Logs:</strong> Anonymized app crash logs, stack traces, and feature performance metrics via Firebase Crashlytics.</li>
+      </ul>
+
+      <!-- Section 3 -->
+      <h2 id="how-used" class="legal-h2">3. How Information Is Used</h2>
+      <p class="legal-p">Your information is used strictly to provide and improve the VeriStock Pro application:</p>
+      <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.9375rem; line-height: 1.6;">
+        <li>To authenticate your user session and manage multi-device licensing.</li>
+        <li>To send push notifications for low-stock alerts, repair status milestones, and payment reminders.</li>
+        <li>To diagnose software crashes and maintain high stability on budget Android hardware.</li>
+        <li>To enable user-initiated Google Drive encrypted database backups.</li>
+      </ul>
+
+      <!-- Section 4 -->
+      <h2 id="firebase-auth" class="legal-h2">4. Firebase Authentication</h2>
+      <p class="legal-p">We use <strong>Google Firebase Authentication</strong> (`com.google.firebase:firebase-auth`) to verify user credentials and secure user account sessions. Your email address, encrypted authentication token, and account creation timestamp are transmitted securely over TLS 1.3 to Firebase servers. We do not sell or share your account credentials with third parties.</p>
+
+      <!-- Section 5 -->
+      <h2 id="business-info" class="legal-h2">5. Business Information</h2>
+      <p class="legal-p">Information regarding your shop name, store address, GSTIN, PAN, and business logo is entered locally during shop onboarding (`SetupScreen.kt`). This data is stored on your device's local database and printed on your sales receipts. It is NOT published to any public index or sold to data brokers.</p>
+
+      <!-- Section 6 -->
+      <h2 id="customer-data" class="legal-h2">6. Customer Data</h2>
+      <p class="legal-p">Customer names, phone numbers, delivery addresses, and outstanding balance ledgers (Udhari) entered into VeriStock Pro remain stored exclusively in your local device's encrypted database. When you choose to send a WhatsApp invoice or SMS receipt, the data is passed directly via standard Android System Intents (`WhatsAppUtil.kt`) to your installed WhatsApp application under your explicit action.</p>
+
+      <!-- Section 7 -->
+      <h2 id="supplier-data" class="legal-h2">7. Supplier Data</h2>
+      <p class="legal-p">Vendor profiles, purchase bills, and payables ledgers are maintained locally. We do not collect or monitor your supplier pricing, wholesale discounts, or vendor contact lists.</p>
+
+      <!-- Section 8 -->
+      <h2 id="inventory-data" class="legal-h2">8. Inventory Data</h2>
+      <p class="legal-p">Your product catalog, HSN codes, cost prices, selling margins, batch numbers, expiry dates, and IMEI / Serial numbers are private business assets. They are stored locally in Room database encrypted via SQLCipher. Developer cloud servers have zero access to your inventory stock value.</p>
+
+      <!-- Section 9 -->
+      <h2 id="repair-records" class="legal-h2">9. Repair Records</h2>
+      <p class="legal-p">Repair job tickets, device lock patterns, diagnostic checklists, technician assignments, and estimated repair costs are stored locally. Diagnostic logs are used on-device to compute repair delivery deadlines.</p>
+
+      <!-- Section 10 -->
+      <h2 id="documents-images" class="legal-h2">10. Documents & Images</h2>
+      <p class="legal-p">Images captured using CameraX (such as shop logo, inventory product photos, repair intake condition photos, and used phone seller ID proofs) are saved in app-specific private storage (`Context.filesDir`). They are not scanned or harvested for machine learning model training.</p>
+
+      <!-- Section 11 -->
+      <h2 id="invoices" class="legal-h2">11. Invoices & Accounting</h2>
+      <p class="legal-p">All invoice math (CGST, SGST, IGST, discounts, double-entry financial posting) is executed on-device using exact integer paise math. Tax summaries generated for GSTR-1 and GSTR-3B exports are compiled into local CSV files on your phone.</p>
+
+      <!-- Section 12 -->
+      <h2 id="sqlcipher" class="legal-h2">12. Local SQLCipher Storage</h2>
+      <p class="legal-p">VeriStock Pro uses <strong>Zetetic SQLCipher</strong> (`android-database-sqlcipher:4.5.4`) paired with AndroidX Security Crypto (`androidx.security.crypto`). Your SQLite database file (`encrypted.db`) is encrypted using 256-bit AES encryption at rest. Even if a physical device is lost, the database cannot be read without your private encryption key.</p>
+
+      <!-- Section 13 -->
+      <h2 id="google-drive" class="legal-h2">13. Google Drive Backup</h2>
+      <p class="legal-p">VeriStock Pro offers an optional Google Drive Sync integration (`play-services-auth`, `google-api-services-drive`). When enabled, encrypted database backup snapshots are written directly to your personal Google Drive account scope (`drive.appdata` / `drive.file`). SM Technologies does NOT store or host your backup files on developer servers.</p>
+
+      <!-- Section 14 -->
+      <h2 id="third-parties" class="legal-h2">14. Third-Party Services</h2>
+      <p class="legal-p">The app incorporates trusted Google Play Services SDKs. The table below lists all third-party libraries and their data handling:</p>
       
-      <div class="legal-section-block">
-        <h3>1. Introduction</h3>
-        <p>SM Technologies ("we", "us", or "our") builds the <strong>VERISTOCK PRO</strong> mobile application as a commercial B2B Business ERP utility. This service is intended for retail businesses, shop managers, and service technicians. This policy details how we collect, use, and protect your information when using our Android application and website.</p>
-        <p>VeriStock Pro is designed with an <strong>Offline-First Architecture</strong>. This means all business inventory, sales tickets, bills, customer ledgers, and transaction logs are processed and stored locally on your device rather than on our cloud servers.</p>
+      <table class="legal-table">
+        <thead>
+          <tr>
+            <th>SDK / Library Name</th>
+            <th>Purpose</th>
+            <th>Data Exchanged</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Firebase Authentication</strong></td>
+            <td>User Account Authentication</td>
+            <td>Email, Encrypted Password Token, Mobile</td>
+          </tr>
+          <tr>
+            <td><strong>Firebase Crashlytics</strong></td>
+            <td>App Crash Diagnostics</td>
+            <td>Anonymized Stack Traces & Device OS Version</td>
+          </tr>
+          <tr>
+            <td><strong>Firebase Analytics</strong></td>
+            <td>Performance Monitoring</td>
+            <td>Anonymized App Interaction Events</td>
+          </tr>
+          <tr>
+            <td><strong>Google Play Services Drive</strong></td>
+            <td>Opt-In Encrypted Backup</td>
+            <td>Encrypted Backup Files to User's Drive</td>
+          </tr>
+          <tr>
+            <td><strong>Google Play Services Nearby</strong></td>
+            <td>Local P2P Smart Clone Migration</td>
+            <td>Direct Phone-to-Phone Local Transfer (No Internet)</td>
+          </tr>
+          <tr>
+            <td><strong>Google ML Kit Barcode</strong></td>
+            <td>On-Device Barcode Recognition</td>
+            <td>100% On-Device Local Camera Frames (No Remote Sync)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Section 15 -->
+      <h2 id="permissions" class="legal-h2">15. Permissions Used</h2>
+      <p class="legal-p">Every Android permission declared in `AndroidManifest.xml` serves a specific operational purpose:</p>
+      <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.875rem; line-height: 1.6;">
+        <li>`POST_NOTIFICATIONS`: Dispatches low-stock alerts, repair deadlines, and due payment reminders.</li>
+        <li>`CAMERA`: Scans product barcodes and takes photos for repair intake & used phone KYC reports.</li>
+        <li>`READ_MEDIA_IMAGES`: Selects shop logo, signature, and product photos from device gallery.</li>
+        <li>`BLUETOOTH_CONNECT` / `BLUETOOTH_SCAN`: Connects to local 2-inch and 3-inch ESC/POS thermal printers.</li>
+        <li>`ACCESS_FINE_LOCATION`: Geotags local invoice creation logs and KYC buyback receipts for tax compliance audit trails.</li>
+        <li>`NEARBY_WIFI_DEVICES`: Powers P2P Smart Clone data migration between two devices.</li>
+      </ul>
+
+      <!-- Section 16 -->
+      <h2 id="security" class="legal-h2">16. Data Security</h2>
+      <p class="legal-p">We employ rigorous technical safeguards to protect your business data: 256-bit AES database encryption at rest via SQLCipher, mandatory HTTPS / TLS 1.3 transport security for network requests, and sandboxed app storage.</p>
+
+      <!-- Section 17 -->
+      <h2 id="retention" class="legal-h2">17. Data Retention</h2>
+      <p class="legal-p">Local database records remain on your device for as long as the application is installed. Uninstalling the app erases local private databases unless you have created an external Google Drive backup. Firebase authentication profiles are retained until you request account deletion.</p>
+
+      <!-- Section 18 -->
+      <h2 id="rights" class="legal-h2">18. User Rights</h2>
+      <p class="legal-p">You retain full rights to access, export, or erase your business data at any time. Local database records can be exported directly as CSV files. Cloud auth profiles can be deleted self-serve or via written request.</p>
+
+      <!-- Section 19 -->
+      <h2 id="account-deletion" class="legal-h2">19. Account Deletion</h2>
+      <p class="legal-p">Under Google Play User Data Policy, we provide two pathways to request permanent account deletion:</p>
+      <ol style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.875rem; line-height: 1.6;">
+        <li><strong>In-App Self-Serve Deletion:</strong> Open VeriStock Pro -> Settings -> About App -> Click <strong>Delete Account</strong>.</li>
+        <li><strong>Web Portal Request:</strong> Visit our <a href="../account-deletion/index.html">Account Deletion Portal</a> and submit your registered email address.</li>
+      </ol>
+      <p class="legal-p">Upon request, cloud auth tokens and account metadata are permanently purged within 7 business days.</p>
+
+      <!-- Section 20 -->
+      <h2 id="children" class="legal-h2">20. Children's Privacy</h2>
+      <p class="legal-p">VeriStock Pro is a commercial B2B ERP system intended strictly for adult business operators (18+). We do not knowingly collect personal information from children under 13.</p>
+
+      <!-- Section 21 -->
+      <h2 id="international" class="legal-h2">21. International Users</h2>
+      <p class="legal-p">While primary compliance maps to Indian tax and trade guidelines (GST/HSN), local encryption and offline-first principles comply with international data autonomy standards including GDPR and CCPA.</p>
+
+      <!-- Section 22 -->
+      <h2 id="updates" class="legal-h2">22. Policy Updates</h2>
+      <p class="legal-p">We may update this Privacy Policy periodically to reflect app enhancements or regulatory changes. The "Last Updated" timestamp at the top of this page indicates the latest revision date.</p>
+
+      <!-- Section 23 -->
+      <h2 id="contact" class="legal-h2">23. Contact Information</h2>
+      <p class="legal-p">For questions, privacy inquiries, or data deletion assistance, contact our legal and support team:</p>
+      <div style="background: rgba(var(--primary-rgb), 0.05); border: 1px solid var(--surface-border); padding: var(--space-4); border-radius: var(--radius-md); font-size: 0.875rem;">
+        <p style="margin-bottom: 4px;"><strong>SM Technologies</strong></p>
+        <p style="margin-bottom: 4px;">Product: VERISTOCK PRO</p>
+        <p style="margin-bottom: 4px;">Official Domain: <a href="https://veristockpro.com">https://veristockpro.com</a></p>
+        <p>Support Email: <a href="mailto:smtechie7@gmail.com">smtechie7@gmail.com</a></p>
       </div>
 
-      <div class="legal-section-block">
-        <h3>2. Permissions and Data We Collect</h3>
-        <p>To deliver advanced local ERP operations, VeriStock Pro requires specific device permissions. These are triggered dynamically and used solely for in-app features:</p>
-        <ul>
-          <li><strong>CAMERA:</strong> Used to scan barcodes for product catalog management and billing lookup, and to capture photos of device conditions for repair job sheets.</li>
-          <li><strong>ACCESS_FINE_LOCATION:</strong> Used to attach geographic stamps to billing logs and merchant audit trails, ensuring local compliance under Indian business accounting guidelines.</li>
-          <li><strong>READ_MEDIA_IMAGES:</strong> Used to let merchants upload their business logo, signature, and product listing photos into the local inventory database.</li>
-          <li><strong>POST_NOTIFICATIONS:</strong> Used to display in-app alerts for low stock levels, repair delivery milestones, and unpaid ledger credits.</li>
-          <li><strong>BLUETOOTH:</strong> Used to establish connections to external 2-inch and 3-inch ESC/POS thermal printers for wireless receipt printing.</li>
-        </ul>
-      </div>
-
-      <div class="legal-section-block">
-        <h3>3. Data Safety and Third-Party Sharing</h3>
-        <p>We do not sell, rent, or lease your business data. Your information is treated as follows:</p>
-        <ul>
-          <li><strong>Financial and Account Records:</strong> Stored locally in a secure database encrypted at rest with SQLCipher (256-bit AES). It remains private to your device.</li>
-          <li><strong>Cloud Authentication (Firebase):</strong> Used for secure session management and subscription validation. This details your account username and email only, secured via TLS 1.3 in transit.</li>
-          <li><strong>Google Drive Sync (Opt-In):</strong> If you activate the backup utility, the encrypted database file is written directly to your personal Google Drive account. We have no access to this folder.</li>
-          <li><strong>Crash Diagnostics (Firebase Crashlytics):</strong> Anonymized logs containing system metadata and stack traces are shared to help us debug application errors.</li>
-        </ul>
-      </div>
-
-      <div class="legal-section-block">
-        <h3>4. Security of Data</h3>
-        <p>We implement industry-standard practices to protect your data. All database structures are encrypted locally. Cloud authentication sessions use standard SSL/TLS encryption. However, because data resides locally, you are responsible for maintaining the physical security of your Android device.</p>
-      </div>
-
-      <div class="legal-section-block">
-        <h3>5. Your Rights & Account Deletion</h3>
-        <p>You have full control over your credentials and cloud authentication data. Under Google Play Store policies, we provide direct self-serve account deletion:</p>
-        <p>You can delete your cloud-registered authentication records instantly inside the app by heading to <strong>Settings -> About -> Delete Account</strong>. You can also file a deletion request using our online <a href="../account-deletion/index.html">Account Deletion Form</a>. Cloud authentication credentials will be permanently purged within 7 business days.</p>
-      </div>
-
-      <div class="legal-section-block">
-        <h3>6. Changes to This Privacy Policy</h3>
-        <p>We may update our Privacy Policy from time to time. We will notify you of any adjustments by posting the new policy on this page and updating the "Last Updated" date at the top.</p>
-      </div>
-
-      <div class="legal-section-block">
-        <h3>7. Contact Us</h3>
-        <p>If you have any questions or feedback regarding this Privacy Policy, contact us at:</p>
-        <p><strong>SM Technologies</strong><br>Email: <a href="mailto:smtechie7@gmail.com">smtechie7@gmail.com</a></p>
-      </div>
-
-    </div>
-  </main>
+    </main>
+  </div>
 
   <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
   <footer>
-    <div class="container footer-bottom" style="border-top: none; padding-top: 0;">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="footerPrivGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1A3FDB" />
+                <stop offset="100%" stop-color="#4F46E5" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#footerPrivGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
+            <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
+            <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
+          </svg>
+          <span>VERISTOCK PRO</span>
+        </div>
+        <p class="footer-description">Secure, offline-first billing and B2B stock management system.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Compliance Links</h4>
+        <ul>
+          <li><a href="index.html">Privacy Policy</a></li>
+          <li><a href="../terms/index.html">Terms & Conditions</a></li>
+          <li><a href="../account-deletion/index.html">Account Deletion Portal</a></li>
+          <li><a href="../support/index.html">Customer Support</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Developer Details</h4>
+        <p style="font-size: 0.9375rem;"><strong>SM Technologies</strong></p>
+        <p style="font-size: 0.8125rem; color: var(--text-tertiary); margin-top: 8px;">Contact: smtechie7@gmail.com</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
       <p class="footer-copy">&copy; 2026 SM Technologies. All Rights Reserved. VERISTOCK PRO.</p>
       <div class="footer-compliance">
-        <a href="../../index.html" style="color: var(--text-secondary); margin-right: 16px;">Home</a>
-        <a href="../terms/index.html" style="color: var(--text-secondary); margin-right: 16px;">Terms</a>
-        <a href="../support/index.html" style="color: var(--text-secondary);">Support</a>
+        <span>🔒 AES-256 SQLCipher Encrypted</span>
+        <span>🇮🇳 Proudly Built in India</span>
       </div>
     </div>
   </footer>
 
-  <!-- JS Logic -->
   <script src="../../assets/js/main.js"></script>
 </body>
 </html>
