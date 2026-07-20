@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://veristockpro.com/sitemap.xml
