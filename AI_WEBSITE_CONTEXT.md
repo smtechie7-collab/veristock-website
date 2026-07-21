@@ -74,7 +74,7 @@ The following mapping aligns with the official Play Console declarations of July
 Under Google Play Policy (Deletability Section), users must have a pathway to request deletion both in-app and on the website:
 
 1. **In-App Trigger:** Located in the **About Screen** (`AboutAppScreen.kt`). Triggers `deleteAccount()` in `AuthRepository`.
-2. **Website Trigger:** A clean, easy-to-use form on `/pages/account-deletion/index.html`.
+2. **Website Trigger:** A clean, easy-to-use form on `/account-deletion/index.html`.
 3. **Scope of Deletion:**
    - Firebase Auth User records are permanently purged.
    - Firestore cloud subscriptions and metadata are deleted.

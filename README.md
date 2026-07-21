@@ -16,6 +16,8 @@ The official website, landing page, support center, and legal privacy/terms port
 
 ```text
 veristock-website/
+├── account-deletion/
+│   └── index.html           # Self-serve/manual account deletion instructions and form
 ├── assets/
 │   ├── css/
 │   │   └── style.css            # Custom CSS variables, themes, animations & layouts
@@ -28,8 +30,6 @@ veristock-website/
 │   │   └── index.html           # Google Play Policy compliant privacy disclosure
 │   ├── terms/
 │   │   └── index.html           # B2B SaaS terms and conditions
-│   ├── account-deletion/
-│   │   └── index.html           # Self-serve/manual account deletion instructions and form
 │   └── support/
 │       └── index.html           # Customer support page with FAQs and email guides
 ├── index.html                   # Main page with Hero, Features, Screenshots, FAQ, and Contacts

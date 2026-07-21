@@ -6,19 +6,20 @@
   <meta name="description" content="Request permanent account deletion and data removal from VERISTOCK PRO. Learn about self-serve and manual deletion procedures.">
   <meta name="robots" content="index, follow">
   <title>Account Deletion Request - VERISTOCK PRO</title>
+  <link rel="canonical" href="https://veristockpro.com/account-deletion">
   
   <!-- CSS Styles -->
-  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
   
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="../../assets/images/logo.svg">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg">
 </head>
 <body>
 
   <!-- ── HEADER NAVBAR ────────────────────────────────────────────────── -->
   <header class="scrolled">
     <div class="container nav-container">
-      <a href="../../index.html" class="logo-link" aria-label="VeriStock Pro Home">
+      <a href="../index.html" class="logo-link" aria-label="VeriStock Pro Home">
         <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="delLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
@@ -35,9 +36,9 @@
 
       <nav aria-label="Main Navigation">
         <ul class="nav-menu">
-          <li><a href="../../index.html" class="nav-link">Home</a></li>
-          <li><a href="../../index.html#features" class="nav-link">Features</a></li>
-          <li><a href="../support/index.html" class="nav-link">Support</a></li>
+          <li><a href="../index.html" class="nav-link">Home</a></li>
+          <li><a href="../index.html#features" class="nav-link">Features</a></li>
+          <li><a href="../pages/support/index.html" class="nav-link">Support</a></li>
         </ul>
       </nav>
 
@@ -85,13 +86,13 @@
     <!-- Information panel -->
     <div class="legal-card glass">
       <h3>Data Deletion Process</h3>
-      <p style="margin-bottom: 16px;">We respect your privacy and data autonomy. If you wish to stop using VeriStock Pro, read how data deletion works:</p>
+      <p style="margin-bottom: 16px;">We respect your privacy and data autonomy. If you wish to stop using <strong>VERISTOCK PRO</strong> (developed by <strong>SM Technologies</strong>), read how data deletion works:</p>
       
       <div class="legal-section-block">
         <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">Method 1: In-App Self-Serve Deletion (Recommended)</h4>
-        <p>This is the fastest way to clear your credentials. In the Android App:</p>
+        <p>This is the fastest way to clear your credentials. Inside the <strong>VERISTOCK PRO</strong> Android App:</p>
         <ol style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
-          <li>Open VeriStock Pro and click on <strong>Settings</strong>.</li>
+          <li>Open <strong>VERISTOCK PRO</strong> and click on <strong>Settings</strong>.</li>
           <li>Scroll down to the <strong>About App</strong> section.</li>
           <li>Click the <strong>Delete Account</strong> button.</li>
           <li>Confirm the prompt. This deletes your credentials and cloud authentication links immediately.</li>
@@ -100,16 +101,29 @@
 
       <div class="legal-section-block">
         <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What gets deleted?</h4>
+        <p style="font-size: 0.875rem; margin-bottom: 8px;">When you request account deletion, the following data is permanently purged from our servers:</p>
         <ul style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
-          <li><strong>Firebase Authentication profile:</strong> Deleted permanently.</li>
-          <li><strong>Cloud session sync links:</strong> Voided immediately. Previous backups stored on Google Drive become unlinked.</li>
-          <li><strong>Local Database:</strong> Your local database remains on your device. To delete it, simply uninstall the app from your device.</li>
+          <li><strong>Firebase Authentication Profile:</strong> Your registered account details (name, email address, mobile number, and unique user ID) are permanently deleted.</li>
+          <li><strong>Cloud Session Sync Tokens:</strong> Active authentication tokens and cloud-linked sync metadata are voided immediately, preventing any future remote access.</li>
         </ul>
       </div>
 
       <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">Processing Window</h4>
-        <p style="font-size: 0.875rem;">Requests submitted via the website request form on the right require manual database verification and will be executed within <strong>7 business days</strong>.</p>
+        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What data is kept (Not stored on our servers)?</h4>
+        <p style="font-size: 0.875rem; margin-bottom: 8px;">Because <strong>VERISTOCK PRO</strong> operates on an offline-first architecture, your main business data does not reside on our servers:</p>
+        <ul style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
+          <li><strong>Local Database:</strong> Your core business ledgers, customer lists, inventory stocks, and invoices are stored 100% offline on your device using 256-bit AES SQLCipher encryption. This data is never uploaded to our servers, and is kept only on your local device. To delete this data, simply uninstall the <strong>VERISTOCK PRO</strong> app from your device.</li>
+          <li><strong>Google Drive Backups:</strong> If you enabled optional cloud backup, the backup database is stored directly in your personal Google Drive account. We do not have access to this data. You can delete these backups at any time directly from your Google Drive.</li>
+        </ul>
+      </div>
+
+      <div class="legal-section-block">
+        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">Retention Period & Processing Window</h4>
+        <ul style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
+          <li><strong>In-App Deletion:</strong> Instantly deleted. Doing this via Settings immediately purges your cloud account profile.</li>
+          <li><strong>Website Form Deletion:</strong> Requests submitted via the form on this page are processed within <strong>7 business days</strong>.</li>
+          <li><strong>Post-Deletion Retention:</strong> Once processed, no personal account data or authentication tokens are retained on our servers. There is no additional retention period for deleted account credentials.</li>
+        </ul>
       </div>
     </div>
 
@@ -141,7 +155,7 @@
         <div class="form-group" style="display: flex; gap: 12px; align-items: flex-start; margin-top: 24px;">
           <input type="checkbox" id="del-confirm" required style="margin-top: 4px; width: 18px; height: 18px; cursor: pointer;">
           <label for="del-confirm" style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.4; cursor: pointer;">
-            I confirm that I want SM Technologies to permanently delete my cloud login credentials and sync tokens, and I understand this action cannot be undone. *
+            I confirm that I want SM Technologies to permanently delete my cloud login credentials and sync tokens for VERISTOCK PRO, and I understand this action cannot be undone. *
           </label>
         </div>
         <button type="submit" class="btn btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--error), #DC2626); box-shadow: 0 4px 14px 0 rgba(239, 68, 68, 0.25);">Request Account Deletion</button>
@@ -155,14 +169,14 @@
     <div class="container footer-bottom" style="border-top: none; padding-top: 0;">
       <p class="footer-copy">&copy; 2026 SM Technologies. All Rights Reserved. VERISTOCK PRO.</p>
       <div class="footer-compliance">
-        <a href="../../index.html" style="color: var(--text-secondary); margin-right: 16px;">Home</a>
-        <a href="../../privacy.html" style="color: var(--text-secondary); margin-right: 16px;">Privacy</a>
-        <a href="../support/index.html" style="color: var(--text-secondary);">Support</a>
+        <a href="../index.html" style="color: var(--text-secondary); margin-right: 16px;">Home</a>
+        <a href="../privacy.html" style="color: var(--text-secondary); margin-right: 16px;">Privacy</a>
+        <a href="../pages/support/index.html" style="color: var(--text-secondary);">Support</a>
       </div>
     </div>
   </footer>
 
   <!-- JS Logic -->
-  <script src="../../assets/js/main.js"></script>
+  <script src="../assets/js/main.js"></script>
 </body>
 </html>
