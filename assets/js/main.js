@@ -721,6 +721,13 @@ function initCategorySelector() {
       chips.forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
 
+      // Smoothly center the clicked chip in the horizontal scroll container
+      chip.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center'
+      });
+
       // Update content with smooth transition
       titleEl.innerHTML = data.title;
       descEl.textContent = data.desc;

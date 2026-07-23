@@ -218,6 +218,7 @@ p {
   padding-top: var(--space-16);
   padding-bottom: var(--space-16);
   position: relative;
+  scroll-margin-top: 100px;
 }
 
 .section-title-wrap {
