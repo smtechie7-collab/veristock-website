@@ -252,6 +252,11 @@ function initContactForms() {
 
       setTimeout(() => {
         deletionAlert.style.display = 'none';
+      }, 7000);
+    });
+  }
+}
+
 /* ── 7. INTERSECTION OBSERVER FOR SCROLL REVEAL ──────────────────────── */
 function initScrollReveal() {
   const revealElements = document.querySelectorAll('.reveal');
