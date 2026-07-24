@@ -1,16 +1,18 @@
 {
   "name": "VERISTOCK PRO Official Website",
   "short_name": "VeriStock Pro",
-  "description": "Offline-First retail ERP and invoicing system for Mobile Shops and Repair Centers.",
-  "start_url": "index.html",
+  "description": "Offline-First retail ERP and invoicing system for 16 business types including Mobile Shops, Repair Centers, Pharmacy, and Garments.",
+  "start_url": "/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#0A0A0F",
   "theme_color": "#1A56DB",
   "orientation": "any",
+  "categories": ["business", "finance", "productivity"],
   "icons": [
     {
       "src": "assets/images/logo.svg",
-      "sizes": "any",
+      "sizes": "48x48 72x72 96x96 128x128 144x144 192x192 512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
     }

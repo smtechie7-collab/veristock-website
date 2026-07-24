@@ -923,13 +923,26 @@ body.dark .phone-mockup {
 
 .pricing-card {
   border-radius: var(--radius-lg);
-  padding: var(--space-8) var(--space-8) var(--space-8) var(--space-8);
-  padding-top: calc(var(--space-8) + 14px);
+  padding: var(--space-6) var(--space-5);
+  padding-top: calc(var(--space-6) + 14px);
   border: 1px solid rgba(var(--accent-rgb), 0.3);
   position: relative;
   text-align: center;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+.pricing-card .btn {
+  white-space: normal !important;
+  text-align: center;
+  word-break: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  font-size: 0.9375rem;
+  line-height: 1.35;
 }
 
 .pricing-badge {
@@ -1010,15 +1023,16 @@ body.dark .phone-mockup {
 .pricing-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 32px;
-  max-width: 880px;
+  gap: 28px;
+  max-width: 900px;
   margin: 48px auto 0 auto;
 }
 
-@media (max-width: 680px) {
+@media (max-width: 768px) {
   .pricing-grid {
     grid-template-columns: 1fr;
-    max-width: 420px;
+    max-width: 440px;
+    gap: 40px;
   }
 }
 

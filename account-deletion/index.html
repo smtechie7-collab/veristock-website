@@ -134,18 +134,25 @@
       
       <div id="deletion-alert" class="alert alert-success"></div>
 
-      <form id="deletion-form" action="#" method="POST">
+      <form id="deletion-form" action="https://formsubmit.co/smtechie7@gmail.com" method="POST">
+        <!-- FormSubmit Config -->
+        <input type="hidden" name="_subject" value="URGENT: VeriStock Pro Account Deletion Request">
+        <input type="hidden" name="_next" value="https://veristockpro.com/account-deletion/?msg=sent">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+
         <div class="form-group">
           <label for="del-email">Registered Email Address *</label>
-          <input type="email" id="del-email" class="form-control" placeholder="E.g., rajesh@gmail.com" required>
+          <input type="email" id="del-email" name="email" class="form-control" placeholder="E.g., rajesh@gmail.com" required>
         </div>
         <div class="form-group">
           <label for="del-phone">Registered Mobile Number *</label>
-          <input type="tel" id="del-phone" class="form-control" placeholder="E.g., +91 98765 43210" required>
+          <input type="tel" id="del-phone" name="phone" class="form-control" placeholder="E.g., +91 98765 43210" required>
         </div>
         <div class="form-group">
           <label for="del-reason">Reason for Deletion (Optional)</label>
-          <select id="del-reason" class="form-control" style="background-color: var(--bg); border: 1px solid var(--surface-border);">
+          <select id="del-reason" name="reason" class="form-control" style="background-color: var(--bg); border: 1px solid var(--surface-border);">
             <option value="not-needed">No longer needed</option>
             <option value="closing-shop">Closing business</option>
             <option value="switching-erp">Switching to another ERP</option>
@@ -153,7 +160,7 @@
           </select>
         </div>
         <div class="form-group" style="display: flex; gap: 12px; align-items: flex-start; margin-top: 24px;">
-          <input type="checkbox" id="del-confirm" required style="margin-top: 4px; width: 18px; height: 18px; cursor: pointer;">
+          <input type="checkbox" id="del-confirm" name="confirmation_agreed" required style="margin-top: 4px; width: 18px; height: 18px; cursor: pointer;">
           <label for="del-confirm" style="font-size: 0.8125rem; color: var(--text-secondary); line-height: 1.4; cursor: pointer;">
             I confirm that I want SM Technologies to permanently delete my cloud login credentials and sync tokens for VERISTOCK PRO, and I understand this action cannot be undone. *
           </label>

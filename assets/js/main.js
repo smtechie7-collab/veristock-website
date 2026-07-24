@@ -16,7 +16,36 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollReveal();
   initCategorySelector();
   initRepairSimulator();
+  initCookieBanner();
 });
+
+/* ── COOKIE CONSENT BANNER CONTROLLER ───────────────────────────────── */
+function initCookieBanner() {
+  const banner = document.getElementById('cookie-banner');
+  const acceptBtn = document.getElementById('cookie-accept');
+  const declineBtn = document.getElementById('cookie-decline');
+
+  if (!banner) return;
+
+  const consent = localStorage.getItem('cookie_consent');
+  if (!consent) {
+    banner.style.display = 'block';
+  }
+
+  if (acceptBtn) {
+    acceptBtn.addEventListener('click', () => {
+      localStorage.setItem('cookie_consent', 'accepted');
+      banner.style.display = 'none';
+    });
+  }
+
+  if (declineBtn) {
+    declineBtn.addEventListener('click', () => {
+      localStorage.setItem('cookie_consent', 'declined');
+      banner.style.display = 'none';
+    });
+  }
+}
 
 /* ── 1. LIGHT & DARK THEME CONTROLLER ───────────────────────────────── */
 function initTheme() {
