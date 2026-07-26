@@ -354,12 +354,11 @@
       <h2 id="permissions" class="legal-h2">15. Permissions Used</h2>
       <p class="legal-p">Every Android permission declared in `AndroidManifest.xml` serves a specific operational purpose:</p>
       <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.875rem; line-height: 1.6;">
-        <li>`POST_NOTIFICATIONS`: Dispatches low-stock alerts, repair deadlines, and due payment reminders.</li>
-        <li>`CAMERA`: Scans product barcodes and takes photos for repair intake & used phone KYC reports.</li>
-        <li>`READ_MEDIA_IMAGES`: Selects shop logo, signature, and product photos from device gallery.</li>
-        <li>`BLUETOOTH_CONNECT` / `BLUETOOTH_SCAN`: Connects to local 2-inch and 3-inch ESC/POS thermal printers.</li>
-        <li>`ACCESS_FINE_LOCATION`: Geotags local invoice creation logs and KYC buyback receipts for tax compliance audit trails.</li>
-        <li>`NEARBY_WIFI_DEVICES`: Powers P2P Smart Clone data migration between two devices.</li>
+        <li><code>android.permission.CAMERA</code>: Barcode scanning for billing &amp; device photo intake for repair claims.</li>
+        <li><code>android.permission.ACCESS_FINE_LOCATION</code>: Geotagging KYC records for regulatory compliance.</li>
+        <li><code>android.permission.READ_MEDIA_IMAGES</code>: Importing product images, logos, and signatures.</li>
+        <li><code>android.permission.POST_NOTIFICATIONS</code>: Dispatching low-stock alerts, repair deadlines, and due date reminders.</li>
+        <li><code>android.permission.BLUETOOTH</code>: Connecting ESC/POS thermal printers and triggering local Smart Clone migration.</li>
       </ul>
 
       <!-- Section 16 -->
