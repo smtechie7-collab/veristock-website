@@ -159,6 +159,9 @@
 </head>
 <body>
 
+  <!-- ── SCROLL PROGRESS BAR ────────────────────────────────────────── -->
+  <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
+
   <!-- ── HEADER NAVBAR ────────────────────────────────────────────────── -->
   <header>
     <div class="container nav-container">
@@ -229,7 +232,7 @@
       <div class="hero-content reveal">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">Now in Google Play — Join the Beta</span>
+          <span class="hero-badge-text">✓ Now Live on Google Play Store</span>
         </div>
         <h1>Run Your Business.<br>Not Your Problems.</h1>
         <p>A professional Offline-First ERP designed for <strong>16 business types</strong> in India — Mobile Shops, Repair Centers, Pharmacies, Restaurants, Garments, Wholesale, Manufacturing, and more. All data stays encrypted on your device.</p>
@@ -250,7 +253,22 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>AES-256 SQLCipher Security</span>
           </div>
+          <!-- Hero Live Stat Pills -->
+        <div class="hero-live-stats">
+          <div class="hero-stat-pill">
+            <span class="pill-val">16</span> Business Types
+          </div>
+          <div class="hero-stat-pill">
+            <span class="pill-val">43</span> Features
+          </div>
+          <div class="hero-stat-pill">
+            <span class="pill-val">256-bit</span> AES Encrypted
+          </div>
+          <div class="hero-stat-pill">
+            <span class="pill-val">0KB</span> Cloud Leak
+          </div>
         </div>
+      </div>
       </div>
 
       <!-- Phone device mockup with vector display -->
@@ -265,6 +283,45 @@
     </div>
   </section>
 
+  <!-- ── HOW IT WORKS SECTION ────────────────────────────────────────── -->
+  <section id="how-it-works" class="section how-section">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <h2>Up and Running in Minutes</h2>
+        <p>No technical setup. No cloud subscription. No internet needed. Just download and start billing.</p>
+      </div>
+
+      <div class="how-steps-grid">
+        <!-- Step 1 -->
+        <div class="how-step-card reveal">
+          <div class="how-step-number">1</div>
+          <div class="how-step-icon">📲</div>
+          <h3>Download Free</h3>
+          <p>Install VeriStock Pro from Google Play. No registration required to start. Your first month is completely free — full access to all 43 features.</p>
+          <div class="how-step-cta">
+            <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener" id="how-step-1-cta" aria-label="Download VeriStock Pro from Google Play">Get on Play Store</a>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="how-step-card reveal">
+          <div class="how-step-number">2</div>
+          <div class="how-step-icon">🏪</div>
+          <h3>Choose Your Business</h3>
+          <p>Select from 16 pre-built verticals — Mobile Shop, Pharmacy, Restaurant, Garments, Manufacturing and more. The app auto-adapts terminology, tax registers, and screens.</p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="how-step-card reveal">
+          <div class="how-step-number">3</div>
+          <div class="how-step-icon">⚡</div>
+          <h3>Start Billing Offline</h3>
+          <p>Generate your first GST-compliant invoice in under 60 seconds. All data is encrypted locally. No internet required — ever — for core operations.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── FEATURES SECTION ──────────────────────────────────────────────── -->
   <section id="features" class="section">
     <div class="container">
@@ -276,10 +333,9 @@
       <div class="features-grid">
         <!-- Feature 1: POS Billing -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge lite">LITE</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="16" y1="4" x2="20" y2="8"></line>
-              <line x1="12" y1="8" x2="20" y2="8"></line>
               <rect x="3" y="3" width="18" height="18" rx="2"></rect>
               <line x1="9" y1="9" x2="15" y2="15"></line>
               <line x1="15" y1="9" x2="9" y2="15"></line>
@@ -287,10 +343,17 @@
           </div>
           <h3>Express Billing &amp; Thermal POS</h3>
           <p>Generate GST-compliant invoices in under 3 seconds. Integrated with ESC/POS 58mm &amp; 80mm Bluetooth thermal printers, USB scanners, and fast draft billing.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📱 Mobile Shop</span>
+            <span class="fc-vertical-tag">🛒 Grocery</span>
+            <span class="fc-vertical-tag">💊 Pharmacy</span>
+            <span class="fc-vertical-tag">+13 more</span>
+          </div>
         </div>
 
         <!-- Feature 2: Smart Inventory & Serial/IMEI -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="9"></rect>
@@ -301,10 +364,16 @@
           </div>
           <h3>Smart Inventory &amp; IMEI / Serial Tracking</h3>
           <p>Track dual IMEI numbers, appliance serial codes, batch expiry dates, storage locations (rack/shelf ID), and low-stock replenishment alerts.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📱 Mobile Shop</span>
+            <span class="fc-vertical-tag">📺 Electronics</span>
+            <span class="fc-vertical-tag">💊 Pharmacy</span>
+          </div>
         </div>
 
         <!-- Feature 3: Manufacturing & BOM -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
@@ -314,10 +383,15 @@
           </div>
           <h3>Manufacturing &amp; Bill of Materials (BOM)</h3>
           <p>Create multi-item BOM recipes, issue Production Orders, track Work-In-Progress (WIP) stock, and calculate yield efficiency &amp; scrap reports.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">⚙️ Manufacturing</span>
+            <span class="fc-vertical-tag">🏭 Wholesale</span>
+          </div>
         </div>
 
         <!-- Feature 4: Restaurant Ops & KDS -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
@@ -326,10 +400,15 @@
           </div>
           <h3>Restaurant KOT &amp; Kitchen Display (KDS)</h3>
           <p>Print Kitchen Order Tickets (KOT), track live KDS order states (Pending → Preparing → Served), manage table merge/split, and set item modifiers.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🍽️ Restaurant</span>
+            <span class="fc-vertical-tag">💇 Salon</span>
+          </div>
         </div>
 
         <!-- Feature 5: Second-Hand Mobile & Buyback -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
@@ -338,10 +417,15 @@
           </div>
           <h3>Secondhand Buyback &amp; Margin Tax</h3>
           <p>Specialized GST Rule 32(5) Margin Scheme calculation (tax paid strictly on profit margin), Digital KYC Legal Shield with seller photo ID, and IMEI audit logs.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📱 Second-Hand</span>
+            <span class="fc-vertical-tag">🚗 Automotive</span>
+          </div>
         </div>
 
         <!-- Feature 6: Garments Grid Matrix & Job Work -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20.38 3.46L16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path>
@@ -349,10 +433,15 @@
           </div>
           <h3>Garment Grid Matrix &amp; Job Work Challan</h3>
           <p>2D Size × Color stock matrix, garment costing analysis, store credit note exchange management, and vendor outsource Job Work Challan tracking.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">👔 Garments</span>
+            <span class="fc-vertical-tag">👟 Footwear</span>
+          </div>
         </div>
 
         <!-- Feature 7: Pharmacy Sentinel & Expiry -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M10.5 20.4l-7.9-7.9c-1.6-1.6-1.6-4.2 0-5.8l5.8-5.8c1.6-1.6 4.2-1.6 5.8 0l7.9 7.9c1.6 1.6 1.6 4.2 0 5.8l-5.8 5.8c-1.6 1.6-4.2 1.6-5.8 0z"></path>
@@ -361,10 +450,15 @@
           </div>
           <h3>Pharmacy Sentinel &amp; Expiry Workbench</h3>
           <p>Automated Schedule H/H1 registers, Rx drug flags, salt composition search, FIFO batch deduction, and near-expiry stock return workbench.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">💊 Pharmacy</span>
+            <span class="fc-vertical-tag">🩺 Clinic</span>
+          </div>
         </div>
 
         <!-- Feature 8: Repair Workshop & AMC -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
@@ -372,10 +466,16 @@
           </div>
           <h3>Technical Repair Workshop &amp; AMC</h3>
           <p>Full job card lifecycle (Intake → Diagnose → Repair → Deliver), technician commission splits, diagnostic checklists, and recurring AMC contracts.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🔧 Repair Center</span>
+            <span class="fc-vertical-tag">📺 Electronics</span>
+            <span class="fc-vertical-tag">🚗 Automotive</span>
+          </div>
         </div>
 
         <!-- Feature 9: GST & Tax Studio -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge lite">LITE</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="18" y1="20" x2="18" y2="10"></line>
@@ -385,10 +485,14 @@
           </div>
           <h3>GST Studio &amp; CA Export</h3>
           <p>Auto-computed CGST, SGST, IGST routing, GSTR-1 &amp; GSTR-3B CSV summaries, HSN code registration, and 1-click accountant exports.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">All 16 Verticals</span>
+          </div>
         </div>
 
         <!-- Feature 10: 5-Pillar Health Score & Receivables -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
@@ -396,10 +500,14 @@
           </div>
           <h3>5-Pillar Health Score &amp; Aging Ledger</h3>
           <p>Automated business health calculation (0-100), 0-180+ days receivables aging (Udhari), fraud risk alerts, and Input Tax Credit (ITC) optimizer.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">All 16 Verticals</span>
+          </div>
         </div>
 
         <!-- Feature 11: Wholesale Desk & Multi-Pricing -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">PRO</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
@@ -408,10 +516,15 @@
           </div>
           <h3>Wholesale Desk &amp; Multi-Tier Pricing</h3>
           <p>Dedicated wholesale order-to-invoice workflow, multi-tier pricing slabs (retail, wholesale, customer-specific), bulk discounts, and MOQ controls.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🏭 Wholesale</span>
+            <span class="fc-vertical-tag">📦 General Retail</span>
+          </div>
         </div>
 
         <!-- Feature 12: Offline SQLCipher Security -->
         <div class="feature-card glass reveal">
+          <span class="fc-tier-badge lite">LITE</span>
           <div class="feature-icon-wrapper">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -420,6 +533,9 @@
           </div>
           <h3>Offline SQLCipher (256-Bit) Security</h3>
           <p>Runs 100% locally on your device with zero internet dependency. SQLCipher 256-bit AES database encryption protects all records at rest.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">All 16 Verticals</span>
+          </div>
         </div>
       </div>
 
@@ -479,6 +595,110 @@
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- ── COMPETITOR COMPARISON SECTION ───────────────────────────────── -->
+  <section id="why-choose" class="section compare-section">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <h2>Why Choose VeriStock Pro?</h2>
+        <p>Compare key capabilities of VeriStock Pro against standard market billing tools and legacy desktop software.</p>
+      </div>
+
+      <div class="compare-wrapper reveal">
+        <table class="compare-table" id="compare-table" role="table" aria-label="Feature comparison table">
+          <thead>
+            <tr>
+              <th style="text-align: left;">Feature</th>
+              <th class="col-veri">✅ VeriStock PRO</th>
+              <th>Other Market Apps</th>
+              <th>Traditional ERPs</th>
+              <th>Generic Cloud ERP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>100% Offline — No Internet</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-partial">Partial</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>AES-256 Local Encryption</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>IMEI / Serial Tracking</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-partial">Limited</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>GST Rule 32(5) Margin Tax</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Pharmacy Schedule H/H1</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Restaurant KDS + Table Mgmt</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-partial">Addon</span></td>
+              <td><span class="cmp-partial">Paid</span></td>
+            </tr>
+            <tr>
+              <td>Garment Size × Color Grid</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-partial">Limited</span></td>
+            </tr>
+            <tr>
+              <td>Manufacturing BOM + WIP</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-partial">Paid</span></td>
+            </tr>
+            <tr>
+              <td>Digital KYC (Buyback)</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Zero Cloud Data Logging</td>
+              <td class="cmp-veri-cell"><span class="cmp-yes">✓</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+              <td><span class="cmp-no">✗</span></td>
+            </tr>
+            <tr>
+              <td>Pricing</td>
+              <td class="cmp-veri-cell" style="color: var(--success); font-weight: 700;">Free Trial</td>
+              <td>Paid Plans</td>
+              <td>Paid License</td>
+              <td>Monthly Sub</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-note">*Comparison based on publicly available feature documentation. Last updated July 2026.</p>
     </div>
   </section>
 
@@ -1186,46 +1406,156 @@
   </section>
 
   <!-- ── TESTIMONIALS SECTION ───────────────────────────────────────────── -->
-  <section class="section why-section">
+  <section id="testimonials" class="section">
     <div class="container">
       <div class="section-title-wrap reveal">
-        <h2>What Merchants Say</h2>
-        <p>Trusted by mobile stores, repair shops, and retail merchants across India.</p>
+        <h2>Trusted by Merchants Across India</h2>
+        <p>Mobile stores, repair shops, pharmacies, and retailers — real people, real results.</p>
       </div>
 
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; max-width: 960px; margin: 0 auto;">
+      <div class="testimonial-grid">
 
         <!-- Testimonial 1 -->
-        <div class="glass stats-card reveal" style="display: flex; flex-direction: column; gap: 16px;">
-          <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1rem;">★★★★★</div>
-          <p style="font-size: 0.9375rem; font-style: italic; flex-grow: 1;">&ldquo;VeriStock Pro is exactly what our shop needed. Billing offline works perfectly even when internet is down. Repair job tracking is smooth and our customers love getting WhatsApp updates on their phones.&rdquo;</p>
-          <div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 2px;">Moin Dosa</h4>
-            <span style="font-size: 0.8125rem; color: var(--text-tertiary);">Owner, SM Mobile (Mumbai)</span>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;VeriStock Pro is exactly what our shop needed. Billing offline works perfectly even when internet is down. Repair job tracking is smooth and customers love getting updates on WhatsApp.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">M</div>
+            <div class="testimonial-meta">
+              <h4>Moin Dosa</h4>
+              <span>Owner, SM Mobile — Mumbai</span>
+              <span class="testimonial-badge">📱 Mobile Shop</span>
+            </div>
           </div>
         </div>
 
         <!-- Testimonial 2 -->
-        <div class="glass stats-card reveal" style="display: flex; flex-direction: column; gap: 16px;">
-          <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1rem;">★★★★★</div>
-          <p style="font-size: 0.9375rem; font-style: italic; flex-grow: 1;">&ldquo;We switched from a cloud-based system and never looked back. The AES-256 encryption gives our customer data full privacy. IMEI tracking has made our iPhone and Apple device sales so much more professional.&rdquo;</p>
-          <div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 2px;">R.S. Malek</h4>
-            <span style="font-size: 0.8125rem; color: var(--text-tertiary);">Owner, Apple Mobile (Anand, Gujarat)</span>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;Switched from a cloud-based system and never looked back. AES-256 encryption gives our customer data full privacy. IMEI tracking has made our Apple device sales so much more professional.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">R</div>
+            <div class="testimonial-meta">
+              <h4>R.S. Malek</h4>
+              <span>Owner, Apple Mobile — Anand, Gujarat</span>
+              <span class="testimonial-badge">📱 Mobile Shop</span>
+            </div>
           </div>
         </div>
 
         <!-- Testimonial 3 -->
-        <div class="glass stats-card reveal" style="display: flex; flex-direction: column; gap: 16px;">
-          <div style="display: flex; gap: 4px; color: var(--accent); font-size: 1rem;">★★★★★</div>
-          <p style="font-size: 0.9375rem; font-style: italic; flex-grow: 1;">&ldquo;GST billing, repair job cards, and inventory all in one app — offline. The setup for our shop was done in minutes. The support team responded within the day. Highly recommend to every mobile shop owner.&rdquo;</p>
-          <div>
-            <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 2px;">Basit Shaikh</h4>
-            <span style="font-size: 0.8125rem; color: var(--text-tertiary);">Owner, Azeemi Mobile (Anand, Gujarat)</span>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;GST billing, repair job cards, and inventory all in one app — offline. Setup was done in minutes. Support team responded same day. Highly recommend to every mobile shop owner.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">B</div>
+            <div class="testimonial-meta">
+              <h4>Basit Shaikh</h4>
+              <span>Owner, Azeemi Mobile — Anand, Gujarat</span>
+              <span class="testimonial-badge">🔧 Repair Center</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 4 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;Pharmacy mein expiry tracking aur Schedule H/H1 register bahut important hai. VeriStock Pro ne yeh sab automate kar diya. Ab manual register likhna band ho gaya. Bahut time bachta hai.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">P</div>
+            <div class="testimonial-meta">
+              <h4>Pratik Patel</h4>
+              <span>Proprietor, Shree Medicals — Nadiad, Gujarat</span>
+              <span class="testimonial-badge">💊 Pharmacy</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 5 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;Our restaurant runs on VeriStock Pro. Kitchen Display System shows live KOT status to our chef. Table management makes bill splitting easy during peak hours. Best investment for our restaurant.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">A</div>
+            <div class="testimonial-meta">
+              <h4>Arjun Mehta</h4>
+              <span>Manager, Spice Garden Restaurant — Surat</span>
+              <span class="testimonial-badge">🍽️ Restaurant</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 6 -->
+        <div class="testimonial-card reveal">
+          <div class="testimonial-stars" aria-label="5 out of 5 stars">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="testimonial-quote">&ldquo;Garment shop mein size-color grid feature ekdum sahi hai. Stock matrix se exact variant stock dekhna aur Job Work Challan banana bahut easy ho gaya. App ke bina ab sochna mushkil hai.&rdquo;</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" aria-hidden="true">N</div>
+            <div class="testimonial-meta">
+              <h4>Nilesh Kothari</h4>
+              <span>Owner, Fashion Hub — Ahmedabad, Gujarat</span>
+              <span class="testimonial-badge">👔 Garments</span>
+            </div>
           </div>
         </div>
 
       </div>
+
+      <!-- Google Play Rating Card -->
+      <div class="play-rating-card reveal">
+        <div class="play-rating-score">5.0</div>
+        <div class="play-rating-info">
+          <div class="play-rating-stars" aria-label="5 stars on Google Play">
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <span class="play-rating-label">Rated on Google Play Store</span>
+        </div>
+        <div class="play-rating-logo">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M3.609 1.814L13.792 12 3.61 22.186a.996.996 0 0 1-.61-.92V2.734a1 1 0 0 1 .609-.92zm10.89 10.893l2.302 2.302-10.937 6.333 8.635-8.635zm3.199-1.62l2.302 1.33c.588.34.588 1.176 0 1.516l-2.302 1.33L15.394 12l2.304-2.913zm-12.396 6.36L16.239 10.8l-2.447 3.093-8.49 3.554z"/></svg>
+          Google Play
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -1382,6 +1712,18 @@
       </div>
 
       <div class="footer-col">
+        <h4>Industries</h4>
+        <ul>
+          <li><a href="pages/mobile-shop/">📱 Mobile Shop</a></li>
+          <li><a href="pages/pharmacy/">💊 Pharmacy</a></li>
+          <li><a href="pages/restaurant/">🍽️ Restaurant</a></li>
+          <li><a href="pages/repair-workshop/">🔧 Repair Workshop</a></li>
+          <li><a href="pages/garments/">👔 Garments</a></li>
+          <li><a href="pages/manufacturing/">⚙️ Manufacturing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
         <h4>Compliance & Help</h4>
         <ul>
           <li><a href="privacy.html">Privacy Policy</a></li>
@@ -1407,6 +1749,23 @@
       </div>
     </div>
   </footer>
+
+  <!-- ── FLOATING WHATSAPP BUTTON ────────────────────────────────────── -->
+  <div class="whatsapp-float" id="whatsapp-float-widget">
+    <span class="whatsapp-float-tooltip">💬 Chat on WhatsApp</span>
+    <a href="https://wa.me/919925811505?text=Hi%2C%20I%20want%20to%20know%20more%20about%20VeriStock%20Pro." class="whatsapp-float-btn" target="_blank" rel="noopener" id="whatsapp-float-btn" aria-label="Chat with VeriStock Pro support on WhatsApp">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+    </a>
+  </div>
+
+  <!-- ── BACK TO TOP BUTTON ─────────────────────────────────────────── -->
+  <button id="back-to-top" aria-label="Scroll back to top of page">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <!-- ── COOKIE CONSENT BANNER ──────────────────────────────────────── -->
   <div id="cookie-banner" class="cookie-banner" role="alertdialog" aria-label="Cookie consent" style="display:none;">

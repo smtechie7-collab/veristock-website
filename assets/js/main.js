@@ -860,5 +860,126 @@ function initRepairSimulator() {
   });
 }
 
+/* ══════════════════════════════════════════════════════════════════════
+   PHASE 1 UPGRADES — VeriStock Pro JS Controller v2.0
+   ══════════════════════════════════════════════════════════════════════ */
 
+/* ── SCROLL PROGRESS BAR ─────────────────────────────────────────────── */
+(function initScrollProgressBar() {
+  const bar = document.getElementById('scroll-progress-bar');
+  if (!bar) return;
 
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = Math.min(100, progress) + '%';
+  }, { passive: true });
+})();
+
+/* ── BACK TO TOP BUTTON ──────────────────────────────────────────────── */
+(function initBackToTop() {
+  const btn = document.getElementById('back-to-top');
+  if (!btn) return;
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
+
+/* ── HERO STAT PILL COUNTER ANIMATION ────────────────────────────────── */
+(function initStatCounters() {
+  function animateCount(el, from, to, duration, suffix) {
+    const startTime = performance.now();
+    function update(currentTime) {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(from + (to - from) * eased);
+      el.textContent = current + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Observe the hero live stats section
+  const heroStats = document.querySelector('.hero-live-stats');
+  if (!heroStats) return;
+
+  let animated = false;
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !animated) {
+      animated = true;
+      const pills = heroStats.querySelectorAll('.pill-val');
+      pills.forEach(pill => {
+        const text = pill.textContent.trim();
+        // Only animate pure numeric values
+        if (text === '16') animateCount(pill, 0, 16, 800, '');
+        if (text === '43') animateCount(pill, 0, 43, 1000, '');
+      });
+    }
+  }, { threshold: 0.5 });
+
+  observer.observe(heroStats);
+})();
+
+/* ── "HOW IT WORKS" STEP CARD STAGGER ANIMATION ─────────────────────── */
+(function initHowStepsAnimation() {
+  const steps = document.querySelectorAll('.how-step-card');
+  if (!steps.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger each card reveal by 120ms
+        const index = Array.from(steps).indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, index * 120);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  steps.forEach(step => {
+    step.style.opacity = '0';
+    step.style.transform = 'translateY(24px)';
+    step.style.transition = 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
+    observer.observe(step);
+  });
+})();
+
+/* ── UPDATE DOMContentLoaded INITIALIZER ─────────────────────────────── */
+// Add "How It Works" nav link if not already present
+document.addEventListener('DOMContentLoaded', () => {
+  // Update the nav links to include "How It Works"
+  const navMenu = document.querySelector('.nav-menu');
+  if (navMenu) {
+    const existingLinks = Array.from(navMenu.querySelectorAll('a')).map(a => a.getAttribute('href'));
+    if (!existingLinks.includes('#how-it-works')) {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.href = '#how-it-works';
+      a.className = 'nav-link';
+      a.textContent = 'How It Works';
+      li.appendChild(a);
+      // Insert after first "Features" link
+      const featuresLi = navMenu.querySelector('li:first-child');
+      if (featuresLi && featuresLi.nextSibling) {
+        navMenu.insertBefore(li, featuresLi.nextSibling);
+      }
+    }
+  }
+});

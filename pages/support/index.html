@@ -3,32 +3,219 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Official Support and Help Center for VERISTOCK PRO. Find troubleshooting guides for printing, scanning, and backups.">
+  <meta name="description" content="VeriStock Pro Support Center — Troubleshooting guides, thermal printer setup, database backup/restore, GST export, and interactive diagnostic wizard.">
+  <meta name="keywords" content="VeriStock Pro support, Bluetooth printer troubleshooting, SQLCipher backup restore, thermal printer 58mm 80mm setup, GST billing help India">
+  <meta name="author" content="SM Technologies">
   <meta name="robots" content="index, follow">
-  <title>Customer Support - VERISTOCK PRO</title>
-  
-  <!-- CSS Styles -->
+  <meta name="theme-color" content="#1A56DB">
+  <link rel="canonical" href="https://veristockpro.com/pages/support/">
+
+  <meta property="og:title" content="Support Center &amp; Help Desk — VERISTOCK PRO">
+  <meta property="og:description" content="Get instant help with printer pairing, offline backup restore, GST invoice configuration, and app setup. 24/7 self-service knowledge base.">
+  <meta property="og:url" content="https://veristockpro.com/pages/support/">
+  <meta property="og:type" content="website">
+
+  <title>Customer Support &amp; Knowledge Base | VERISTOCK PRO India</title>
+
   <link rel="stylesheet" href="../../assets/css/style.css">
-  
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="../../assets/images/logo.svg">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I pair a Bluetooth Thermal Printer with VeriStock Pro?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "1. Turn on your thermal printer. 2. Open Android Settings > Bluetooth and pair the device (passcode is usually 0000 or 1234). 3. Open VeriStock Pro > Settings > Printer Setup. 4. Select Bluetooth printer type (58mm or 80mm) and tap 'Scan Devices'. 5. Select your paired printer and tap 'Test Print'."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I back up or restore my local database?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "VeriStock Pro stores all data locally in a 256-bit AES encrypted SQLCipher database. Go to Settings > Data Management > Export Encrypted Backup. To transfer to a new device, use the Smart Clone feature via Bluetooth or copy the backup file."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I export GST data for my accountant (CA)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Go to Reports > GST Studio > Export GSTR-1 CSV. Select the date range (Monthly or Quarterly). The app generates a formatted CSV file compatible with Govt GST Portal and Tally."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    .support-hero {
+      padding: 120px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .support-search-box {
+      max-width: 580px;
+      margin: 28px auto 0;
+      position: relative;
+    }
+    .support-search-input {
+      width: 100%;
+      padding: 18px 20px 18px 52px;
+      border-radius: 16px;
+      border: 1px solid var(--surface-border);
+      background: var(--surface-light);
+      color: var(--text-primary);
+      font-size: 1.0625rem;
+      font-family: inherit;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s;
+    }
+    body.dark .support-search-input {
+      background: var(--surface-dark);
+      color: #fff;
+    }
+    .support-search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(26, 86, 219, 0.2);
+    }
+    .support-search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-tertiary);
+      pointer-events: none;
+    }
+
+    .kb-categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 40px;
+    }
+    .kb-cat-card {
+      background: var(--surface-light);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 28px;
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+    }
+    body.dark .kb-cat-card {
+      background: var(--surface-dark);
+    }
+    .kb-cat-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    }
+    .kb-icon {
+      font-size: 2.25rem;
+      margin-bottom: 14px;
+    }
+    .kb-cat-card h3 {
+      font-size: 1.125rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+    .kb-cat-card p {
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* Troubleshooting Wizard */
+    .wizard-section {
+      background: var(--surface-light);
+      border: 1px solid var(--surface-border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      margin-top: 60px;
+    }
+    body.dark .wizard-section {
+      background: var(--surface-dark);
+    }
+    .wizard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 24px;
+    }
+    @media (max-width: 768px) {
+      .wizard-grid { grid-template-columns: 1fr; }
+    }
+    .wizard-step-box {
+      background: rgba(var(--primary-rgb), 0.03);
+      border: 1px solid var(--surface-border);
+      border-radius: 14px;
+      padding: 20px;
+    }
+    .wizard-select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--surface-border);
+      background: var(--bg-light);
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      margin-top: 8px;
+      cursor: pointer;
+    }
+    body.dark .wizard-select {
+      background: var(--bg-dark);
+      color: #fff;
+    }
+    .wizard-solution {
+      background: rgba(22, 163, 74, 0.08);
+      border: 1px solid rgba(22, 163, 74, 0.2);
+      border-radius: 14px;
+      padding: 24px;
+      display: none;
+    }
+    .wizard-solution.active {
+      display: block;
+    }
+
+    .contact-channels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 32px;
+    }
+    .contact-channel-card {
+      background: var(--surface-light);
+      border: 1px solid var(--surface-border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    body.dark .contact-channel-card {
+      background: var(--surface-dark);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- ── HEADER NAVBAR ────────────────────────────────────────────────── -->
-  <header class="scrolled">
+  <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
+
+  <!-- HEADER -->
+  <header>
     <div class="container nav-container">
       <a href="../../index.html" class="logo-link" aria-label="VeriStock Pro Home">
-        <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="supLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#1A3FDB" />
-              <stop offset="100%" stop-color="#4F46E5" />
-            </linearGradient>
-          </defs>
-          <path fill="url(#supLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
-          <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
-          <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
+        <svg viewBox="0 0 108 108" fill="none">
+          <defs><linearGradient id="supLogoG" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1A3FDB"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient></defs>
+          <path fill="url(#supLogoG)" d="M 54,20 C 54,20 33,25 27,32 L 27,58 C 27,73 40,83 54,90 C 68,83 81,73 81,58 L 81,32 C 75,25 54,20 54,20 Z"/>
+          <path fill="#FFFFFF" d="M 34,35 L 42,35 L 54,62 L 66,35 L 74,35 L 57,70 C 57,70 55.5,73 54,73 C 52.5,73 51,70 51,70 Z"/>
+          <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64,40 L 68,45 L 76,36"/>
         </svg>
         <span>VERISTOCK PRO</span>
       </a>
@@ -37,26 +224,15 @@
         <ul class="nav-menu">
           <li><a href="../../index.html" class="nav-link">Home</a></li>
           <li><a href="../../index.html#features" class="nav-link">Features</a></li>
-          <li><a href="../../index.html#faq" class="nav-link">FAQ</a></li>
+          <li><a href="../../index.html#pricing" class="nav-link">Pricing</a></li>
+          <li><a href="../resellers/index.html" class="nav-link">Resellers</a></li>
         </ul>
       </nav>
 
       <div class="header-actions">
         <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
-          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-          </svg>
-          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle></svg>
         </button>
         <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get Android App</a>
       </div>
@@ -71,151 +247,296 @@
     </div>
   </header>
 
-  <!-- ── LEGAL PAGE HEADER ──────────────────────────────────────────────── -->
-  <div class="legal-page-header">
+  <!-- HERO & SEARCH -->
+  <section class="section support-hero">
+    <div class="animated-mesh-bg"></div>
     <div class="container">
-      <h1>Support Center</h1>
-      <p>Troubleshooting indices, device compatibility, and licensing help.</p>
-    </div>
-  </div>
+      <nav class="breadcrumb" aria-label="Breadcrumb" style="justify-content: center;">
+        <a href="../../index.html">Home</a><span class="breadcrumb-sep">›</span><span>Support Center</span>
+      </nav>
+      <h1 style="max-width: 700px; margin: 16px auto;">How Can We Help You Today?</h1>
+      <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 540px; margin: 0 auto;">
+        Search our technical documentation, printer setup guides, and database backup walkthroughs.
+      </p>
 
-  <!-- ── POLICY CONTENT ─────────────────────────────────────────────────── -->
-  <main class="container legal-content-container" style="max-width: 900px; display: grid; grid-template-columns: 0.9fr 1.1fr; gap: var(--space-8); align-items: start;">
-    
-    <!-- Contacts and Details -->
-    <div class="legal-card glass">
-      <h3>Quick Contacts</h3>
-      <p style="margin-bottom: 20px; font-size: 0.9375rem;">If you encounter issues not covered in the troubleshooting index, write to our engineers directly.</p>
-      
-      <div class="legal-section-block">
-        <h4 style="font-size: 0.8125rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Primary Email Support</h4>
-        <p style="font-size: 1.125rem; font-weight: 700; color: var(--primary);"><a href="mailto:smtechie7@gmail.com">smtechie7@gmail.com</a></p>
-      </div>
-
-      <div class="legal-section-block">
-        <h4 style="font-size: 0.8125rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">Response Time</h4>
-        <p style="font-size: 0.9375rem; font-weight: 500;">Guaranteed responses within <strong>24 business hours</strong>.</p>
-      </div>
-
-      <div class="legal-section-block" style="border-top: 1px solid var(--surface-border); padding-top: 16px; margin-top: 16px;">
-        <h4 style="font-size: 0.8125rem; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px;">WhatsApp Live Support</h4>
-        <p style="font-size: 1.125rem; font-weight: 700; color: #25D366; display: flex; align-items: center; gap: 6px;">
-          <a href="https://wa.me/919925811505?text=Hi%2C%20I%20am%20using%20VeriStock%20Pro%20and%20need%20assistance." target="_blank" rel="noopener" style="color: #25D366; display: flex; align-items: center; gap: 6px; text-decoration: none;">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
-            +91 99258 11505
-          </a>
-        </p>
-      </div>
-
-      <div class="legal-section-block" style="border-top: 1px solid var(--surface-border); padding-top: 16px; margin-top: 16px;">
-        <h4 style="font-size: 0.875rem; color: var(--text-primary); margin-bottom: 6px;">App Version Compatibility</h4>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary);">
-          <li>Minimum Android OS: <strong>Android 8.0 (Oreo)</strong></li>
-          <li>Hardware requirements: 2GB RAM minimum, autofocus camera</li>
-          <li>Check the Google Play Store listing for current app version</li>
-        </ul>
+      <div class="support-search-box">
+        <svg class="support-search-icon" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="kb-search-input" class="support-search-input" placeholder="Search guides (e.g. printer Bluetooth, backup, GST export, IMEI)...">
       </div>
     </div>
+  </section>
 
-    <!-- Troubleshooting Checklist -->
-    <div class="legal-card glass">
-      <h3>Troubleshooting Index</h3>
-      <p style="margin-bottom: 24px; font-size: 0.9375rem;">Solve common application configuration challenges quickly:</p>
-
-      <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">1. Bluetooth Thermal Printer Discovery Fails</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">The app queries active Bluetooth channels. If your 58mm/80mm ESC/POS printer does not show up:</p>
-        <ol style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 12px;">
-          <li>Pair the printer device directly in your Android phone's system Bluetooth Settings first (usually using PIN 0000 or 1234).</li>
-          <li>Check that the printer is turned on and has a full paper roll.</li>
-          <li>Re-open VeriStock Pro and retry printer search in Settings.</li>
-        </ol>
+  <!-- KNOWLEDGE BASE CATEGORIES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <h2>Knowledge Base Categories</h2>
+        <p>Explore detailed operational guides for your business vertical.</p>
       </div>
 
-      <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">2. Google Drive Cloud Sync Fails</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">The app backs up encrypted SQLCipher databases to a secure space. If the sync errors:</p>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 12px;">
-          <li>Verify your device has an active internet connection (Wi-Fi or cellular).</li>
-          <li>Check that your Google Account storage quota is not exceeded.</li>
-          <li>Re-authenticate the Google Drive permission inside the backup panel.</li>
-        </ul>
+      <div class="kb-categories-grid" id="kb-grid">
+
+        <div class="kb-cat-card reveal" data-keywords="printer bluetooth thermal esc pos 58mm 80mm paper roll bill scan USB barcode">
+          <div class="kb-icon">🖨️</div>
+          <h3>Printers &amp; Hardware</h3>
+          <p>Pairing ESC/POS Bluetooth thermal printers (58mm/80mm), USB barcode scanners, and drawer kickers.</p>
+        </div>
+
+        <div class="kb-cat-card reveal" data-keywords="backup restore sqlcipher database export migrate smart clone transfer phone lock">
+          <div class="kb-icon">💾</div>
+          <h3>Backup &amp; Migration</h3>
+          <p>Exporting 256-bit encrypted database backups, Smart Clone migration to new Android phones, and data safety.</p>
+        </div>
+
+        <div class="kb-cat-card reveal" data-keywords="gst invoice gstr1 csv tax hsn margin rule 32 5 ca audit pharma">
+          <div class="kb-icon">📊</div>
+          <h3>GST &amp; Invoicing</h3>
+          <p>Configuring CGST/SGST/IGST, GST Rule 32(5) Margin Tax, GSTR-1 CSV exports for CA, and HSN codes.</p>
+        </div>
+
+        <div class="kb-cat-card reveal" data-keywords="imei buyback kyc Aadhaar serial lock fmi second hand mobile used">
+          <div class="kb-icon">📱</div>
+          <h3>IMEI &amp; Digital KYC</h3>
+          <p>Dual IMEI tracking, camera photo intake for Aadhaar ID, FMI lock checks, and buyback receipt printing.</p>
+        </div>
+
+        <div class="kb-cat-card reveal" data-keywords="schedule h h1 expiry fifo salt prescription rx medicine batch strip">
+          <div class="kb-icon">💊</div>
+          <h3>Pharmacy Sentinel</h3>
+          <p>Schedule H/H1 registers, FIFO batch deduction, near-expiry workbench, and active salt ingredient search.</p>
+        </div>
+
+        <div class="kb-cat-card reveal" data-keywords="kot kds kitchen table split merge modifier bill order food takeaway">
+          <div class="kb-icon">🍽️</div>
+          <h3>Restaurant &amp; KDS</h3>
+          <p>Setting up Kitchen Order Tickets (KOT), live Kitchen Display System (KDS), table management, and modifiers.</p>
+        </div>
+
       </div>
 
-      <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">3. Barcode Scanner Camera Permissions</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">If the barcode scanning viewfinder shows a black screen:</p>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary);">
-          <li>Head to Android Settings -> Apps -> VeriStock Pro -> Permissions.</li>
-          <li>Ensure the <strong>Camera</strong> permission is set to "Allow only while using the app".</li>
-        </ul>
-      </div>
+      <!-- INTERACTIVE TROUBLESHOOTING WIZARD -->
+      <div class="wizard-section reveal">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 20px;">
+          <span style="font-size: 0.8125rem; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 0.05em;">Interactive Self-Service</span>
+          <h2 style="font-size: 1.75rem; margin-top: 4px;">Troubleshooting Wizard</h2>
+          <p style="font-size: 0.9375rem; color: var(--text-secondary);">Select your issue below to instantly get step-by-step diagnostic instructions.</p>
+        </div>
 
-      <div class="legal-section-block" style="margin-top: 16px;">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">4. License Activation Issues</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">Licenses are managed out-of-band by SM Technologies distribution agents. If you receive an "Invalid Code" warning, verify characters or request a replacement token from your local distributor. Write to <a href="mailto:smtechie7@gmail.com">smtechie7@gmail.com</a> for direct support.</p>
-      </div>
+        <div class="wizard-grid">
+          <div class="wizard-step-box">
+            <label style="font-size: 0.875rem; font-weight: 700; color: var(--text-primary); display: block; margin-bottom: 6px;">1. Choose Category</label>
+            <select id="wiz-cat-select" class="wizard-select">
+              <option value="">-- Select Category --</option>
+              <option value="printer">Bluetooth Printer Connection</option>
+              <option value="backup">Database Backup &amp; Transfer</option>
+              <option value="gst">GST CSV Export Issue</option>
+            </select>
 
-      <div class="legal-section-block" style="margin-top: 16px;">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">5. Restoring Backup from Google Drive</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">If you changed phones or reinstalled the app and need to restore your data:</p>
-        <ol style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary); margin-bottom: 12px;">
-          <li>Open VeriStock Pro and complete the initial setup (you can change details later).</li>
-          <li>Go to <strong>Settings &rarr; Backup &amp; Restore &rarr; Restore from Google Drive</strong>.</li>
-          <li>Sign in with the same Google account used for backup.</li>
-          <li>Select the most recent backup snapshot and tap Restore.</li>
-          <li>The app will restart with your previous data fully loaded.</li>
-        </ol>
-      </div>
+            <label style="font-size: 0.875rem; font-weight: 700; color: var(--text-primary); display: block; margin-top: 16px; margin-bottom: 6px;">2. Choose Symptom</label>
+            <select id="wiz-symptom-select" class="wizard-select" disabled>
+              <option value="">-- Select Symptom --</option>
+            </select>
+          </div>
 
-      <div class="legal-section-block" style="margin-top: 16px;">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">6. WhatsApp Invoice Sharing Fails</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">If the "Share via WhatsApp" button does nothing or shows an error:</p>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary);">
-          <li>Ensure WhatsApp (or WhatsApp Business) is installed on your device.</li>
-          <li>The app requires the customer's phone number to be saved with the country code (e.g., +91 for India).</li>
-          <li>For PDF sharing, ensure storage permission is granted in Android Settings &rarr; Apps &rarr; VeriStock Pro.</li>
-        </ul>
-      </div>
-
-      <div class="legal-section-block" style="margin-top: 16px;">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">7. Login / Firebase Auth Issues</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">Account login requires a one-time internet connection. If you cannot log in:</p>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary);">
-           <li>Check your internet connection — Wi-Fi or mobile data must be active for initial login.</li>
-           <li>Verify you are using the same email used during registration.</li>
-           <li>If you see "Account disabled", your account may have been deleted. Use our <a href="../../account-deletion/index.html">Account Deletion Page</a> to check status or write to us.</li>
-        </ul>
-      </div>
-
-      <div class="legal-section-block" style="margin-top: 16px;">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 6px;">8. Invoice GST Amounts Look Wrong</h4>
-        <p style="font-size: 0.875rem; color: var(--text-secondary);">If CGST/SGST calculations appear incorrect on printed invoices:</p>
-        <ul style="padding-left: 20px; font-size: 0.8125rem; color: var(--text-secondary);">
-          <li>Verify the GST rate is set correctly on each product under <strong>Products &rarr; Edit Product &rarr; GST Rate</strong>.</li>
-          <li>Check whether your business is registered as "Intra-State" or "Inter-State" in <strong>Settings &rarr; Business Profile</strong>. Inter-state sales use IGST instead of CGST+SGST.</li>
-          <li>Ensure your shop GSTIN is entered correctly in business setup.</li>
-        </ul>
+          <div>
+            <div id="wiz-solution-box" class="wizard-solution">
+              <h4 id="wiz-sol-title" style="color: var(--success); font-size: 1.0625rem; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                Step-by-Step Solution
+              </h4>
+              <div id="wiz-sol-body" style="font-size: 0.875rem; color: var(--text-secondary); line-height: 1.6;"></div>
+            </div>
+            <div id="wiz-placeholder" style="padding: 30px; text-align: center; color: var(--text-tertiary); border: 2px dashed var(--surface-border); border-radius: 14px;">
+              Select category and symptom on the left to display the solution steps here.
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
+  </section>
 
-  </main>
+  <!-- DIRECT CONTACT CHANNELS -->
+  <section class="section" style="background: rgba(var(--primary-rgb), 0.03); border-top: 1px solid var(--surface-border);">
+    <div class="container">
+      <div class="section-title-wrap reveal">
+        <h2>Still Need Direct Help?</h2>
+        <p>Our technical team and regional channel partners are ready to assist you.</p>
+      </div>
 
-  <!-- ── FOOTER ─────────────────────────────────────────────────────────── -->
+      <div class="contact-channels-grid">
+        <div class="contact-channel-card reveal">
+          <div style="font-size: 2rem; margin-bottom: 10px;">💬</div>
+          <h3 style="font-size: 1.125rem; margin-bottom: 6px;">WhatsApp Desk</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">Instant response for setup &amp; activation queries.</p>
+          <a href="https://wa.me/919925811505?text=Hi%20VeriStock%20Support%2C%20I%20need%20technical%20assistance." class="btn btn-primary btn-sm" target="_blank" rel="noopener">Chat on WhatsApp</a>
+        </div>
+
+        <div class="contact-channel-card reveal">
+          <div style="font-size: 2rem; margin-bottom: 10px;">📞</div>
+          <h3 style="font-size: 1.125rem; margin-bottom: 6px;">Helpline Call</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">Available Mon–Sat: 10 AM to 7 PM IST.</p>
+          <a href="tel:+919925811505" class="btn btn-secondary btn-sm">+91 99258 11505</a>
+        </div>
+
+        <div class="contact-channel-card reveal">
+          <div style="font-size: 2rem; margin-bottom: 10px;">🏬</div>
+          <h3 style="font-size: 1.125rem; margin-bottom: 6px;">Channel Partner</h3>
+          <p style="font-size: 0.875rem; color: var(--text-secondary); margin-bottom: 16px;">In-person walk-in support in your city.</p>
+          <a href="../resellers/index.html" class="btn btn-secondary btn-sm">Find Reseller</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <div class="container footer-bottom" style="border-top: none; padding-top: 0;">
-      <p class="footer-copy">&copy; 2026 SM Technologies. All Rights Reserved. VERISTOCK PRO.</p>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <svg viewBox="0 0 108 108" fill="none"><defs><linearGradient id="fLGsup" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#1A3FDB"/><stop offset="100%" stop-color="#4F46E5"/></linearGradient></defs><path fill="url(#fLGsup)" d="M 54,20 C 54,20 33,25 27,32 L 27,58 C 27,73 40,83 54,90 C 68,83 81,73 81,58 L 81,32 C 75,25 54,20 54,20 Z"/><path fill="#FFFFFF" d="M 34,35 L 42,35 L 54,62 L 66,35 L 74,35 L 57,70 C 57,70 55.5,73 54,73 C 52.5,73 51,70 51,70 Z"/><path stroke="#F59E0B" stroke-width="4.5" fill="none" d="M 64,40 L 68,45 L 76,36"/></svg>
+          <span>VERISTOCK PRO</span>
+        </div>
+        <p class="footer-description">Official Technical Documentation &amp; Customer Support Desk.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Verticals</h4>
+        <ul>
+          <li><a href="../mobile-shop/">📱 Mobile Shop</a></li>
+          <li><a href="../pharmacy/">💊 Pharmacy</a></li>
+          <li><a href="../restaurant/">🍽️ Restaurant</a></li>
+          <li><a href="../repair-workshop/">🔧 Repair Workshop</a></li>
+          <li><a href="../garments/">👔 Garments</a></li>
+          <li><a href="../manufacturing/">⚙️ Manufacturing</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Compliance &amp; Legal</h4>
+        <ul>
+          <li><a href="../../privacy.html">Privacy Policy</a></li>
+          <li><a href="../../terms.html">Terms &amp; Conditions</a></li>
+          <li><a href="../../account-deletion/index.html">Account Deletion</a></li>
+          <li><a href="../resellers/index.html">Reseller Network</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Direct Contact</h4>
+        <p style="font-size: 0.875rem; color: var(--text-secondary);">smtechie7@gmail.com</p>
+        <p style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 4px;">+91 99258 11505</p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <p class="footer-copy">&copy; 2024&ndash;2026 SM Technologies. All Rights Reserved.</p>
       <div class="footer-compliance">
-        <a href="../../index.html" style="color: var(--text-secondary); margin-right: 16px;">Home</a>
-        <a href="../../privacy.html" style="color: var(--text-secondary); margin-right: 16px;">Privacy</a>
-        <a href="../../terms.html" style="color: var(--text-secondary); margin-right: 16px;">Terms</a>
-        <a href="../../account-deletion/index.html" style="color: var(--text-secondary);">Account Deletion</a>
+        <span>🔒 AES-256 SQLCipher Encrypted</span>
+        <span>🇮🇳 Built in India</span>
       </div>
     </div>
   </footer>
 
-  <!-- JS Logic -->
+  <!-- Floating WhatsApp -->
+  <div class="whatsapp-float">
+    <span class="whatsapp-float-tooltip">💬 Support Desk</span>
+    <a href="https://wa.me/919925811505?text=Hi%2C%20I%20need%20help%20with%20VeriStock%20Pro." class="whatsapp-float-btn" target="_blank" rel="noopener" aria-label="Chat with VeriStock Pro Support on WhatsApp">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+    </a>
+  </div>
+  <button id="back-to-top" aria-label="Scroll back to top of page">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
+  </button>
+
   <script src="../../assets/js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // KB Search Filter
+      const searchInput = document.getElementById('kb-search-input');
+      const cards = document.querySelectorAll('.kb-cat-card');
+
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          const q = searchInput.value.toLowerCase().trim();
+          cards.forEach(card => {
+            const kw = card.getAttribute('data-keywords') || '';
+            const text = card.textContent.toLowerCase();
+            if (q === '' || kw.toLowerCase().includes(q) || text.includes(q)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      }
+
+      // Troubleshooting Wizard Logic
+      const catSelect = document.getElementById('wiz-cat-select');
+      const symSelect = document.getElementById('wiz-symptom-select');
+      const solBox = document.getElementById('wiz-solution-box');
+      const solBody = document.getElementById('wiz-sol-body');
+      const placeholder = document.getElementById('wiz-placeholder');
+
+      const symptomsData = {
+        printer: [
+          { val: 'p1', text: 'Printer not showing in app scan list' },
+          { val: 'p2', text: 'Print out is blank or garbage text' }
+        ],
+        backup: [
+          { val: 'b1', text: 'How to transfer database to a new phone' },
+          { val: 'b2', text: 'Lost database / reinstall recovery' }
+        ],
+        gst: [
+          { val: 'g1', text: 'GSTR-1 CSV file not opening in Excel' },
+          { val: 'g2', text: 'How to set 0% vs 5% vs 18% HSN GST slabs' }
+        ]
+      };
+
+      const solutionsData = {
+        p1: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">Open Android Device Settings &gt; Bluetooth.</li><li style="margin-bottom:6px;">Pair your thermal printer manually (PIN is typically <b>0000</b> or <b>1234</b>).</li><li style="margin-bottom:6px;">Ensure Location permission is granted to VeriStock Pro (required by Android for Bluetooth LE scanning).</li><li style="margin-bottom:6px;">Re-open VeriStock Pro &gt; Settings &gt; Printer Setup and tap "Scan Devices".</li></ol>',
+        p2: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">Check paper roll orientation — thermal paper only prints on one side.</li><li style="margin-bottom:6px;">In App Settings &gt; Printer Setup, switch code page to <b>CP437 (Standard ASCII)</b>.</li><li style="margin-bottom:6px;">Ensure baud rate is set to default (9600 bps for ESC/POS).</li></ol>',
+        b1: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">On old device: Open VeriStock Pro &gt; Settings &gt; Data &gt; Export Encrypted Backup.</li><li style="margin-bottom:6px;">Share backup file to new device via Bluetooth or Smart Clone.</li><li style="margin-bottom:6px;">On new device: Install VeriStock Pro &gt; Select "Restore from Backup" during initial launch.</li></ol>',
+        b2: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">All database data is encrypted locally using SQLCipher 256-bit AES.</li><li style="margin-bottom:6px;">Check your Downloads / Documents folder for <code>veristock_backup_*.db</code> file.</li><li style="margin-bottom:6px;">Tap "Import Database" in app settings to restore.</li></ol>',
+        g1: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">GSTR-1 CSV exports are UTF-8 encoded.</li><li style="margin-bottom:6px;">In Excel: Go to Data &gt; Get Data &gt; From Text/CSV &gt; File Origin: 65001 : Unicode (UTF-8).</li><li style="margin-bottom:6px;">Or directly upload the CSV file into Govt GST offline utility tool.</li></ol>',
+        g2: '<ol style="padding-left:18px; margin:0;"><li style="margin-bottom:6px;">Go to Inventory &gt; Edit Item or Master Tax Slabs.</li><li style="margin-bottom:6px;">Assign correct HSN Code (e.g., 8517 for Mobiles, 3004 for Pharma).</li><li style="margin-bottom:6px;">Set CGST + SGST percentages; billing screen will automatically apply tax based on item HSN.</li></ol>'
+      };
+
+      if (catSelect) {
+        catSelect.addEventListener('change', () => {
+          const cat = catSelect.value;
+          symSelect.innerHTML = '<option value="">-- Select Symptom --</option>';
+          solBox.classList.remove('active');
+          placeholder.style.display = 'block';
+
+          if (cat && symptomsData[cat]) {
+            symSelect.disabled = false;
+            symptomsData[cat].forEach(s => {
+              const opt = document.createElement('option');
+              opt.value = s.val;
+              opt.textContent = s.text;
+              symSelect.appendChild(opt);
+            });
+          } else {
+            symSelect.disabled = true;
+          }
+        });
+      }
+
+      if (symSelect) {
+        symSelect.addEventListener('change', () => {
+          const val = symSelect.value;
+          if (val && solutionsData[val]) {
+            solBody.innerHTML = solutionsData[val];
+            solBox.classList.add('active');
+            placeholder.style.display = 'none';
+          } else {
+            solBox.classList.remove('active');
+            placeholder.style.display = 'block';
+          }
+        });
+      }
+    });
+  </script>
 </body>
 </html>
