@@ -118,6 +118,21 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 - `MARGIN_SCHEME_TAX`: GST Rule 32(5) secondhand margin taxation.
 - `KYC_COMPLIANCE`: Digital Legal Shield with seller photo ID & signature.
 - `DEVICE_BUYBACK`: Trade-in valuation connector.
+- `CEIR_STOLEN_CHECK`: Central Equipment Identity Register (CEIR) stolen device check.
+- `DEVICE_DIAGNOSTICS`: 10-Point Device Condition & Diagnostic Report PDF.
+- `DATA_WIPE_CERTIFICATE`: Customer Data Sanitization Certificate PDF.
+- `GUIDED_BUYBACK_CALCULATOR`: Fair market buyback pricing valuation engine.
+- `DUPLICATE_IMEI_GUARD`: Real-time duplicate IMEI stolen risk guard.
+- `DOA_RETURN_TRACKER`: 7-Day Dead-On-Arrival short return window tracker.
+- `EXCHANGE_COMBO_BILLING`: Single-invoice trade-in buyback + sale POS.
+- `OP_TOKEN_QUEUE`: Daily OPD patient live token queue manager.
+- `CLINIC_PRESCRIPTION_PDF`: Doctor Rx Prescription builder & printable slip PDF.
+- `PATIENT_VITALS`: Clinical vitals entry & auto-computed BMI calculator.
+- `DRUG_INTERACTION_GUARD`: Real-time Rx drug interaction & duplicate salt guard.
+- `COMPATIBILITY_FINDER`: Cover & Tempered Glass model compatibility matrix finder.
+- `SIM_CAF_TRACKER`: Telecom SIM CAF registration & live operator activation tracker.
+- `E_RECHARGE_LEDGER`: E-recharge float balance ledger & commission tracker.
+- `SERIALIZED_ACCESSORY_BARCODE`: 38x25mm thermal barcode sticker label generator.
 - `AMC_MANAGEMENT`: Annual Maintenance Contracts.
 - `PHARMACY_COMPLIANCE_REPORT`: Schedule H/H1 registers, Rx tags, Salt composition search.
 - `PRODUCT_VARIANTS` & `EXCHANGE_MANAGEMENT`: Garment Size-Color Grid & Credit Notes.
