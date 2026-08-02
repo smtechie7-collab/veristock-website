@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="VeriStock Pro CA Portal — Chartered Accountant dashboard to view financial reports, P&L, GST data, and ledger for your assigned businesses.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>CA Portal — VERISTOCK PRO</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="../assets/images/logo.svg">
+
+  <!-- Firebase SDKs (v10 modular CDN) -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
+    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js';
+    import { getFirestore, collection, getDocs, doc, getDoc, query, orderBy, limit, where }
+      from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
+
+    // ── Firebase Config ───────────────────────────────────────────────────
+    // TODO: Replace with your actual Firebase project config from Firebase Console
+    const firebaseConfig = {
+      apiKey: "REPLACE_WITH_ACTUAL_API_KEY",
+      authDomain: "REPLACE_WITH_PROJECT.firebaseapp.com",
+      projectId: "REPLACE_WITH_PROJECT_ID",
+      storageBucket: "REPLACE_WITH_PROJECT.appspot.com",
+      messagingSenderId: "REPLACE_WITH_SENDER_ID",
+      appId: "REPLACE_WITH_APP_ID"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // ── State ─────────────────────────────────────────────────────────────
+    let currentUser = null;
+    let activeBizId = null;
+    let activeShopId = null;
+
+    // ── Auth State ────────────────────────────────────────────────────────
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        currentUser = user;
+        await loadUserSession(user);
+      } else {
+        showLoginView();
+      }
+    });
+
+    async function loadUserSession(user) {
+      try {
+        showLoading(true);
+        const profileRef = doc(db, 'users', user.uid, 'profile', 'data');
+        const profileSnap = await getDoc(profileRef);
+
+        if (!profileSnap.exists()) {
+          showError('Your CA account is not configured yet. Please contact your client to set up access.');
+          showLoginView();
+          return;
+        }
+
+        const profile = profileSnap.data();
+        const bizId = profile.primaryBusinessId;
+        if (!bizId) { showError('No business assigned to your account.'); return; }
+
+        // Verify CA role
+        const memberRef = doc(db, 'businesses', bizId, 'members', user.uid);
+        const memberSnap = await getDoc(memberRef);
+        if (!memberSnap.exists()) { showError('Access denied. You are not a member of this business.'); return; }
+
+        const member = memberSnap.data();
+        if (member.inviteStatus === 'SUSPENDED') {
+          showError('Your account has been suspended. Contact the business owner.');
+          await signOut(auth);
+          return;
+        }
+        if (member.role !== 'CA') {
+          showError('This portal is for Chartered Accountants only. Staff login via the Android app.');
+          await signOut(auth);
+          return;
+        }
+
+        activeBizId = bizId;
+
+        // Load business name
+        const bizMeta = await getDoc(doc(db, 'businesses', bizId, 'metadata', 'data'));
+        const bizName = bizMeta.exists() ? bizMeta.data().name : 'Business';
+
+        // Update UI
+        document.getElementById('user-email').textContent = user.email;
+        document.getElementById('biz-name').textContent = bizName;
+        document.getElementById('user-initials').textContent = user.email.charAt(0).toUpperCase();
+
+        // Load shops the CA can access
+        const shopIds = member.shopIds || [];
+        await populateShopSelector(shopIds, bizId);
+
+        showDashboardView();
+        await loadDashboardData();
+      } catch (e) {
+        console.error(e);
+        showError('Failed to load your session: ' + e.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    async function populateShopSelector(shopIds, bizId) {
+      const select = document.getElementById('shop-select');
+      select.innerHTML = '<option value="">All Shops</option>';
+      for (const shopId of shopIds) {
+        const shopMeta = await getDoc(doc(db, 'businesses', bizId, 'shops', shopId, 'metadata', 'data'));
+        const shopName = shopMeta.exists() ? shopMeta.data().name : shopId;
+        const opt = document.createElement('option');
+        opt.value = shopId;
+        opt.textContent = shopName;
+        select.appendChild(opt);
+      }
+    }
+
+    async function loadDashboardData() {
+      try {
+        showLoading(true);
+        const dateRange = getDateRange();
+        await Promise.all([
+          loadSalesSummary(dateRange),
+          loadExpenseSummary(dateRange),
+          loadLedgerSummary()
+        ]);
+      } catch (e) {
+        showError('Error loading data: ' + e.message);
+      } finally {
+        showLoading(false);
+      }
+    }
+
+    async function loadSalesSummary(dateRange) {
+      // Reads from Firestore aggregated reports collection
+      const reportsPath = activeShopId
+        ? `businesses/${activeBizId}/shops/${activeShopId}/reports`
+        : `businesses/${activeBizId}/shops`;
+
+      // TODO: Implement actual Firestore queries based on date range
+      // For now, show placeholder data structure
+      updateMetricCard('total-revenue', '₹0', '—');
+      updateMetricCard('total-gst', '₹0', '—');
+      updateMetricCard('total-expenses', '₹0', '—');
+      updateMetricCard('net-profit', '₹0', '—');
+    }
+
+    async function loadExpenseSummary(dateRange) {
+      // TODO: Query expenses from Firestore
+    }
+
+    async function loadLedgerSummary() {
+      // TODO: Query ledger from Firestore
+    }
+
+    function getDateRange() {
+      const preset = document.getElementById('date-preset').value;
+      const now = new Date();
+      switch (preset) {
+        case 'this-month':
+          return { from: new Date(now.getFullYear(), now.getMonth(), 1), to: now };
+        case 'last-month':
+          return { from: new Date(now.getFullYear(), now.getMonth() - 1, 1),
+                   to: new Date(now.getFullYear(), now.getMonth(), 0) };
+        case 'this-fy':
+          const fyStart = now.getMonth() >= 3 ? now.getFullYear() : now.getFullYear() - 1;
+          return { from: new Date(fyStart, 3, 1), to: now };
+        default:
+          return { from: new Date(now.getFullYear(), now.getMonth(), 1), to: now };
+      }
+    }
+
+    function updateMetricCard(id, value, change) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.querySelector('.metric-value').textContent = value;
+        el.querySelector('.metric-change').textContent = change;
+      }
+    }
+
+    // ── Login ─────────────────────────────────────────────────────────────
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('ca-email').value;
+      const password = document.getElementById('ca-password').value;
+      const btn = document.getElementById('login-btn');
+
+      btn.disabled = true;
+      btn.textContent = 'Signing in...';
+      hideError();
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+        let msg = 'Login failed. Please check your credentials.';
+        if (err.code === 'auth/user-not-found') msg = 'No account found with this email.';
+        if (err.code === 'auth/wrong-password') msg = 'Incorrect password.';
+        if (err.code === 'auth/too-many-requests') msg = 'Too many attempts. Try again later.';
+        showError(msg);
+      }
+    });
+
+    // ── Logout ────────────────────────────────────────────────────────────
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      await signOut(auth);
+      currentUser = null;
+      activeBizId = null;
+      activeShopId = null;
+    });
+
+    // ── Shop selector ─────────────────────────────────────────────────────
+    document.getElementById('shop-select').addEventListener('change', (e) => {
+      activeShopId = e.target.value || null;
+      loadDashboardData();
+    });
+
+    // ── Date preset ───────────────────────────────────────────────────────
+    document.getElementById('date-preset').addEventListener('change', () => {
+      loadDashboardData();
+    });
+
+    // ── UI Helpers ────────────────────────────────────────────────────────
+    function showLoginView() {
+      document.getElementById('login-view').classList.remove('hidden');
+      document.getElementById('dashboard-view').classList.add('hidden');
+    }
+
+    function showDashboardView() {
+      document.getElementById('login-view').classList.add('hidden');
+      document.getElementById('dashboard-view').classList.remove('hidden');
+    }
+
+    function showLoading(show) {
+      document.getElementById('loading-overlay').classList.toggle('hidden', !show);
+    }
+
+    function showError(msg) {
+      const el = document.getElementById('error-banner');
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    function hideError() {
+      document.getElementById('error-banner').classList.add('hidden');
+    }
+  </script>
+
+  <style>
+    :root {
+      --primary: #1A56DB;
+      --primary-light: #ADC6FF;
+      --secondary: #2D3A4A;
+      --accent: #F59E0B;
+      --success: #16A34A;
+      --error: #EF4444;
+      --bg-dark: #0A0A0F;
+      --surface-dark: #111118;
+      --surface-border-dark: rgba(255, 255, 255, 0.08);
+      --text-primary: #FFFFFF;
+      --text-secondary: rgba(255, 255, 255, 0.6);
+      --radius: 16px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+    }
+
+    .hidden { display: none !important; }
+
+    /* ── Loading Overlay ── */
+    #loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 10, 15, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      backdrop-filter: blur(4px);
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(26, 86, 219, 0.3);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── Login View ── */
+    #login-view {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at top, #1A56DB22 0%, transparent 60%),
+                  var(--bg-dark);
+      padding: 24px;
+    }
+
+    .login-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--surface-border-dark);
+      border-radius: var(--radius);
+      padding: 40px;
+      width: 100%;
+      max-width: 420px;
+      backdrop-filter: blur(12px);
+    }
+
+    .brand-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .brand-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), #0E3A8C);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .brand-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-subtitle {
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .login-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .login-desc {
+      color: var(--text-secondary);
+      font-size: 14px;
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+    }
+
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--surface-border-dark);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      color: var(--text-primary);
+      font-family: inherit;
+      transition: border-color 0.2s ease;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: var(--primary);
+      background: rgba(26, 86, 219, 0.08);
+    }
+
+    .btn-primary {
+      width: 100%;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.15s ease, background 0.2s ease;
+      margin-top: 8px;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      background: #1848c8;
+      transform: translateY(-1px);
+    }
+
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .error-banner {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--error);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      margin-top: 12px;
+    }
+
+    .login-footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    .login-footer a {
+      color: var(--primary-light);
+      text-decoration: none;
+    }
+
+    /* ── Dashboard View ── */
+    #dashboard-view { min-height: 100vh; }
+
+    /* Nav */
+    .top-nav {
+      background: rgba(17, 17, 24, 0.9);
+      border-bottom: 1px solid var(--surface-border-dark);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .nav-brand .badge {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent);
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .user-avatar {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--primary), #0E3A8C);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .user-info small {
+      font-size: 11px;
+      color: var(--text-secondary);
+      display: block;
+    }
+
+    .btn-logout {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.2);
+      color: var(--error);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background 0.2s ease;
+    }
+
+    .btn-logout:hover { background: rgba(239, 68, 68, 0.2); }
+
+    /* Content */
+    .dashboard-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+
+    /* Filters bar */
+    .filters-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .filters-bar h1 {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      flex: 1;
+    }
+
+    select {
+      background: var(--surface-dark);
+      border: 1px solid var(--surface-border-dark);
+      color: var(--text-primary);
+      border-radius: 10px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-family: inherit;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    select:focus { border-color: var(--primary); }
+
+    /* Metric cards */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .metric-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--surface-border-dark);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(26, 86, 219, 0.1);
+    }
+
+    .metric-label {
+      font-size: 12px;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 4px;
+    }
+
+    .metric-change {
+      font-size: 12px;
+      color: var(--success);
+    }
+
+    .metric-icon {
+      font-size: 20px;
+      margin-bottom: 12px;
+    }
+
+    /* Section card */
+    .section-card {
+      background: var(--surface-dark);
+      border: 1px solid var(--surface-border-dark);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Notice */
+    .coming-soon {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-secondary);
+    }
+
+    .coming-soon .icon { font-size: 40px; margin-bottom: 12px; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .top-nav { padding: 0 16px; }
+      .dashboard-content { padding: 16px; }
+      .user-info { display: none; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .login-card { padding: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading Overlay -->
+  <div id="loading-overlay">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- ── Login View ──────────────────────────────────────────────────── -->
+  <div id="login-view">
+    <div class="login-card">
+      <div class="brand-badge">
+        <div class="brand-icon">📊</div>
+        <div>
+          <div class="brand-name">VERISTOCK PRO</div>
+          <div class="brand-subtitle">CA Portal</div>
+        </div>
+      </div>
+
+      <h1 class="login-title">Welcome, CA</h1>
+      <p class="login-desc">
+        Sign in with your Chartered Accountant credentials to access your client's financial dashboard.
+      </p>
+
+      <form id="login-form" novalidate>
+        <div class="form-group">
+          <label for="ca-email">Email Address</label>
+          <input
+            id="ca-email"
+            type="email"
+            placeholder="ca@yourfirm.com"
+            autocomplete="email"
+            required
+            aria-label="CA email address"
+          >
+        </div>
+        <div class="form-group">
+          <label for="ca-password">Password</label>
+          <input
+            id="ca-password"
+            type="password"
+            placeholder="Your password"
+            autocomplete="current-password"
+            required
+            aria-label="CA account password"
+          >
+        </div>
+
+        <div id="error-banner" class="error-banner hidden" role="alert"></div>
+
+        <button id="login-btn" type="submit" class="btn-primary" aria-label="Sign in to CA portal">
+          Sign In
+        </button>
+      </form>
+
+      <div class="login-footer">
+        <p>CA accounts are set up by your client via VeriStock Pro app.</p>
+        <p style="margin-top:6px;">
+          Not a CA? <a href="https://veristockpro.com" aria-label="Go to VeriStock Pro homepage">Go to main site →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Dashboard View ─────────────────────────────────────────────── -->
+  <div id="dashboard-view" class="hidden">
+
+    <!-- Nav -->
+    <nav class="top-nav" role="navigation" aria-label="CA Portal navigation">
+      <div class="nav-brand">
+        <span>VERISTOCK PRO</span>
+        <span class="badge">CA Portal</span>
+      </div>
+      <div class="nav-right">
+        <div class="user-info">
+          <small>Logged in as</small>
+          <span id="user-email" style="font-size:13px;font-weight:600;">—</span>
+        </div>
+        <div class="user-avatar" id="user-initials" aria-label="User avatar">?</div>
+        <button id="logout-btn" class="btn-logout" aria-label="Sign out of CA portal">Sign Out</button>
+      </div>
+    </nav>
+
+    <!-- Content -->
+    <main class="dashboard-content">
+
+      <!-- Filters bar -->
+      <div class="filters-bar">
+        <h1 id="biz-name">Dashboard</h1>
+
+        <label for="shop-select" class="sr-only">Select shop</label>
+        <select id="shop-select" aria-label="Select shop to filter data">
+          <option value="">All Shops</option>
+        </select>
+
+        <label for="date-preset" class="sr-only">Select date period</label>
+        <select id="date-preset" aria-label="Select date period">
+          <option value="this-month">This Month</option>
+          <option value="last-month">Last Month</option>
+          <option value="this-fy">This Financial Year</option>
+          <option value="last-fy">Last FY</option>
+        </select>
+      </div>
+
+      <!-- Metric Cards -->
+      <div class="metrics-grid">
+        <div class="metric-card" id="total-revenue">
+          <div class="metric-icon">💰</div>
+          <div class="metric-label">Total Revenue</div>
+          <div class="metric-value">₹—</div>
+          <div class="metric-change">Loading...</div>
+        </div>
+
+        <div class="metric-card" id="total-gst">
+          <div class="metric-icon">🧾</div>
+          <div class="metric-label">Total GST Collected</div>
+          <div class="metric-value">₹—</div>
+          <div class="metric-change">Loading...</div>
+        </div>
+
+        <div class="metric-card" id="total-expenses">
+          <div class="metric-icon">📤</div>
+          <div class="metric-label">Total Expenses</div>
+          <div class="metric-value">₹—</div>
+          <div class="metric-change">Loading...</div>
+        </div>
+
+        <div class="metric-card" id="net-profit">
+          <div class="metric-icon">📈</div>
+          <div class="metric-label">Net Profit</div>
+          <div class="metric-value">₹—</div>
+          <div class="metric-change">Loading...</div>
+        </div>
+      </div>
+
+      <!-- P&L Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <span class="section-title">📊 Profit & Loss Statement</span>
+          <button
+            id="export-pl-btn"
+            class="btn-logout"
+            style="border-color: rgba(26,86,219,0.3); color: var(--primary-light);"
+            aria-label="Export P&L to CSV"
+          >
+            Export CSV
+          </button>
+        </div>
+        <div class="coming-soon">
+          <div class="icon">🔄</div>
+          <p>P&L data loads once inventory sync is complete.</p>
+          <p style="font-size:12px;margin-top:4px;">
+            Sync is processed nightly from the Android app.
+          </p>
+        </div>
+      </div>
+
+      <!-- GST Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <span class="section-title">🧾 GST Summary</span>
+          <button
+            id="export-gst-btn"
+            class="btn-logout"
+            style="border-color: rgba(26,86,219,0.3); color: var(--primary-light);"
+            aria-label="Export GST data to CSV"
+          >
+            Export CSV
+          </button>
+        </div>
+        <div class="coming-soon">
+          <div class="icon">📋</div>
+          <p>GSTR-1 / GSTR-3B summary will appear here.</p>
+          <p style="font-size:12px;margin-top:4px;">
+            Data is available once the owner has synced their billing data.
+          </p>
+        </div>
+      </div>
+
+      <!-- Ledger Section -->
+      <div class="section-card">
+        <div class="section-header">
+          <span class="section-title">📒 Receivables & Payables</span>
+        </div>
+        <div class="coming-soon">
+          <div class="icon">💼</div>
+          <p>Customer and supplier outstanding ledger coming here.</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
