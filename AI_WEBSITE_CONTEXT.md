@@ -138,7 +138,9 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 - `PRODUCT_VARIANTS` & `EXCHANGE_MANAGEMENT`: Garment Size-Color Grid & Credit Notes.
 - `JOB_WORK_TRACKING`: Outsource vendor challan tracking.
 - `PROJECT_EXPENSES`: Construction site expense tracking.
-- `REPORTS_ADVANCED`: 5-Pillar Health Score (0-100), Receivables Aging (0-180+ days Udhari).
+- `MULTI_USER_CLOUD_SYNC`: Write-Ahead Outbox cloud sync engine to Firestore (`businesses/{bizId}/shops/{shopId}/*`) with TLS 1.3 encryption.
+- `ROLE_BASED_ACCESS_CONTROL`: Enterprise RBAC (Owner, Manager, Biller, Technician, Auditor) with staff invitation emails via Cloud Functions (`sendStaffInviteEmail`).
+- `CA_WEB_PORTAL`: Real-time web-based P&L, GST liability matrix (GSTR-1/3B), and Ledger Audit portal for Chartered Accountants (`https://veristock-ad58d.web.app`).
 
 ---
 

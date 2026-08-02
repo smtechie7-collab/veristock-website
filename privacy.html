@@ -242,15 +242,16 @@
 
       <!-- Section 1 -->
       <h2 id="intro" class="legal-h2">1. Introduction</h2>
-      <p class="legal-p">Welcome to <strong>VERISTOCK PRO</strong>, owned and operated by <strong>SM Technologies</strong> ("we", "us", or "our"). VeriStock Pro is an offline-first B2B Business Management and ERP system designed for mobile retailers, repair centers, pharmacy stores, garments merchants, and small businesses in India and worldwide.</p>
-      <p class="legal-p">We respect your data privacy and autonomy. Unlike standard cloud-only SaaS systems that store your business ledgers on central remote servers, VeriStock Pro operates on an <strong>Offline-First Architecture</strong>. Your core financial ledgers, inventory records, customer contacts, and repair tickets are processed and encrypted locally on your Android device.</p>
+      <p class="legal-p">Welcome to <strong>VERISTOCK PRO</strong>, owned and operated by <strong>SM Technologies</strong> ("we", "us", or "our"). VeriStock Pro is a Hybrid Offline-First Business Management and ERP system designed for mobile retailers, repair centers, pharmacy stores, garments merchants, and small businesses in India and worldwide.</p>
+      <p class="legal-p">We respect your data privacy and autonomy. VeriStock Pro operates on a <strong>Hybrid Offline-First Architecture</strong>. Your core financial ledgers, inventory records, customer contacts, and repair tickets are processed and encrypted locally on your Android device (`android-database-sqlcipher`). When enabled for multi-user store management or CA audit, transactional records are synchronized securely to private Firestore cloud databases over encrypted TLS 1.3 channels.</p>
 
       <!-- Section 2 -->
       <h2 id="data-collected" class="legal-h2">2. Information We Collect</h2>
-      <p class="legal-p">We strictly limit data collection to what is necessary for managing account authentication, app performance diagnostics, and subscription licensing:</p>
+      <p class="legal-p">We strictly limit data collection to what is necessary for managing account authentication, multi-user store synchronization, app performance diagnostics, and subscription licensing:</p>
       <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 16px; font-size: 0.9375rem; line-height: 1.6;">
-        <li><strong>Account Identifiers:</strong> Name, Email Address, Mobile Phone Number (provided during registration).</li>
-        <li><strong>Device Identifiers:</strong> Firebase Installation ID, Android OS Version, Device Model (used for notification dispatch and licensing).</li>
+        <li><strong>Account & Profile Identifiers:</strong> Name, Email Address, Mobile Phone Number, Business Name, and Staff Role (Owner, Manager, Biller, Technician, CA Auditor).</li>
+        <li><strong>Transactional Records for Cloud Sync:</strong> Encrypted transaction outbox payloads (Sales, Purchases, Repair Jobs, Expenses) synchronized to private multi-tenant Firestore security rules (`businesses/{bizId}/shops/{shopId}/*`).</li>
+        <li><strong>Device Identifiers:</strong> Firebase Installation ID, Android OS Version, Device Model (used for sync conflict resolution and security logging).</li>
         <li><strong>Diagnostic & Performance Logs:</strong> Anonymized app crash logs, stack traces, and feature performance metrics via Firebase Crashlytics.</li>
       </ul>
 

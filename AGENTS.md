@@ -13,12 +13,13 @@
 - **Forbidden Technologies:** Do **NOT** introduce React, Next.js, Vue, Angular, Svelte, TailwindCSS, Bootstrap, jQuery, or third-party JS bundles unless explicitly requested by the user.
 - **Rationale:** Ensures < 100ms load times, 100/100 Lighthouse performance, zero build tool overhead, and lifetime maintainability.
 
-### 1.2 Offline-First Data Autonomy Philosophy
-- The website **MUST** clearly represent VeriStock Pro's core architectural identity: **100% Offline-First ERP**.
+### 1.2 Hybrid Offline-First & Cloud Synchronization Philosophy
+- The website **MUST** clearly represent VeriStock Pro's core architectural identity: **Hybrid Offline-First Enterprise ERP with Write-Ahead Cloud Sync**.
 - All marketing, technical docs, and FAQs must emphasize:
-  1. Zero cloud server dependency for core operations.
+  1. Full operational autonomy — billing, POS, and inventory work 100% offline without internet dependency.
   2. Local **SQLCipher 256-Bit AES** database encryption.
-  3. Absolute data privacy — zero telemetry or cloud logging of financial ledgers.
+  3. Automatic background Cloud Sync to Firestore (`businesses/{bizId}/shops/{shopId}/*`) for multi-user staff management, multi-branch tracking, and CA Web Portal audit tools.
+  4. Absolute data privacy — zero commercial telemetry; cloud sync is strictly isolated under multi-tenant security rules.
 
 ---
 
