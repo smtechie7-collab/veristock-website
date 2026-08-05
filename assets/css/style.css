@@ -3670,8 +3670,78 @@ body.dark .hero-stat-pill {
   color: var(--text-tertiary);
 }
 
-/* ── RESPONSIVE ADJUSTMENTS ─────────────────────────────────────────── */
-@media (max-width: 768px) {
+/* ── RESPONSIVE ADJUSTMENTS & MOBILE NAVIGATION ─────────────────────────────────── */
+@media (max-width: 992px) {
+  .menu-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid var(--surface-border);
+    border-radius: var(--radius-sm);
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-primary);
+  }
+
+  header nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-bottom: 1px solid var(--surface-border);
+    box-shadow: var(--shadow-lg);
+    padding: 20px 24px;
+    z-index: 999;
+  }
+
+  body.nav-open header nav {
+    display: block !important;
+  }
+
+  .nav-menu {
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .nav-link {
+    display: block;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 1.05rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    font-size: 2.25rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero-ctas, .hero-meta, .hero-live-stats {
+    justify-content: center !important;
+  }
+
+  .grid, .features-grid, .pricing-grid, .how-steps, .stats-grid, .category-grid, .testimonial-grid {
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .compare-table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .whatsapp-float {
     bottom: 20px;
     right: 16px;
@@ -3692,9 +3762,6 @@ body.dark .hero-stat-pill {
     padding: 10px 12px;
     font-size: 0.875rem;
   }
-  .testimonial-grid {
-    grid-template-columns: 1fr;
-  }
   .play-rating-card {
     flex-direction: column;
     text-align: center;
@@ -3705,5 +3772,26 @@ body.dark .hero-stat-pill {
     padding-left: 0;
     border-top: 1px solid var(--surface-border);
     padding-top: 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .header-actions {
+    gap: 8px;
+  }
+
+  .btn-sm {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+
+  .hero-live-stats {
+    flex-direction: column;
+    align-items: center;
   }
 }
