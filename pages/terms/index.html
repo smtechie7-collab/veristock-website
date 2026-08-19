@@ -74,8 +74,8 @@
   <!-- ── LEGAL PAGE HEADER ──────────────────────────────────────────────── -->
   <div class="legal-page-header">
     <div class="container">
-      <h1>Terms & Conditions</h1>
-      <p>Last Updated: July 20, 2026</p>
+      <h1>Terms &amp; Conditions</h1>
+      <p>Last Updated: August 19, 2026</p>
     </div>
   </div>
 
@@ -101,11 +101,12 @@
       </div>
 
       <div class="legal-section-block">
-        <h3>3. Data Ownership & Local Responsibility</h3>
-        <p>VeriStock Pro is designed around an offline-first data model. The customer inventory logs, billing invoices, accounting entries, and customer contacts remain localized inside your device's SQLCipher database. Consequently:</p>
+        <h3>3. Data Ownership, Cloud Sync &amp; Security</h3>
+        <p>VeriStock Pro is built on a Hybrid Offline-First data architecture. All operational inventory logs, billing invoices, accounting entries, and customer contacts are processed and encrypted locally on your Android device (SQLCipher 256-bit AES), and automatically synchronized to private Google Cloud / Firebase Firestore collections for multi-user store management. Consequently:</p>
         <ul>
-          <li><strong>Database Loss:</strong> You hold sole responsibility for executing periodic data backups to your personal Google Drive account. We are not liable for data loss caused by factory device resets, uninstalling the app, device theft, hardware damage, or software failures.</li>
-          <li><strong>Device Security:</strong> You are responsible for configuring locking credentials on your Android device to prevent unauthorized access to local encrypted databases.</li>
+          <li><strong>Cloud Synchronization:</strong> When connected to the internet, write-ahead outbox mutations sync in real-time to your private multi-tenant Firestore security domain (<code style="color:var(--primary);">businesses/{bizId}/*</code>).</li>
+          <li><strong>Device Security:</strong> You are responsible for configuring locking credentials and biometric security on your Android handsets to prevent unauthorized access to local encrypted databases.</li>
+          <li><strong>Staff &amp; Role Governance:</strong> Business owners are responsible for inviting, managing, and revoking staff role accounts (Owner, Manager, Salesman, Technician, Accountant, CA) within the app or web portal.</li>
         </ul>
       </div>
 

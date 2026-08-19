@@ -11,7 +11,7 @@ This document serves as the primary source of truth for human developers and AI 
 - **Official Support Email:** `smtechie7@gmail.com`
 - **Official Contact Phone:** `+91-99258-11505`
 - **Core Tagline:** *Run Your Business. Not Your Problems.*
-- **App Classification:** Offline-First Business ERP (B2B SaaS / Android App)
+- **App Classification:** Hybrid Offline-First Business ERP with Real-Time Cloud Sync (B2B SaaS / Android App)
 - **Target Market:** India (expanding worldwide)
 - **Supported Business Verticals (16 Categories):**
   1. Mobile Shop (IMEI, SIM KYC, Accessories, Repairs)
@@ -71,11 +71,12 @@ The website's Privacy Policy (`privacy.html` & `/pages/privacy-policy/`) MUST ma
 
 | Data Type | Web / App Collection Status | Cloud Storage Sync | Security Mechanism |
 | :--- | :--- | :--- | :--- |
-| **Account Info (Name, Mobile)** | User-entered on login | Authenticated Firebase Cloud Session | In-transit TLS 1.3 |
-| **Financial Ledger Entries** | Collected in local DB | None (100% Local only by default) | AES-256 local SQLCipher |
-| **Photos & Document Attachments**| Local device storage | Google Drive Backup (Opt-in only) | User-owned Cloud Storage |
-| **Location Geotags** | Automatic on intake | Encrypted locally | AES-256 local SQLCipher |
-| **Crash & Diagnostics Logs** | Firebase SDK | Transmitted to Firebase console | Anonymized & Encrypted |
+| **Account Info (Name, Email, Role)** | User-entered on login / invite | Authenticated Firebase Auth & Firestore `users/{uid}` | In-transit TLS 1.3 |
+| **Financial Ledger & Invoices** | Created on device (Paise math) | Real-Time Sync to Firestore `businesses/{bizId}/shops/{shopId}/sales` | AES-256 SQLCipher + TLS 1.3 |
+| **Inventory Master & Stock** | Managed locally in Room Cache | Bi-directional Sync to Firestore `.../products` | AES-256 SQLCipher + Multi-Tenant RBAC |
+| **Photos & Document Media** | Device CameraX intake | Firebase Storage HTTPS URLs (`gs://veristockpro/...`) | Private Storage Bucket + Auth URL |
+| **Hardware & Printer Settings** | Local terminal binding | **NEVER SYNCED** (Device-Specific C3) | EncryptedSharedPreferences (Local Only) |
+| **Crash & Diagnostics Logs** | Firebase SDK | Transmitted to Firebase Crashlytics console | Anonymized & Encrypted |
 
 ---
 

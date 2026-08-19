@@ -1,7 +1,7 @@
 {
   "name": "VERISTOCK PRO Official Website",
   "short_name": "VeriStock Pro",
-  "description": "Offline-First retail ERP and invoicing system for 16 business types including Mobile Shops, Repair Centers, Pharmacy, and Garments.",
+  "description": "Hybrid Offline-First retail ERP with real-time cloud sync for 16 business types including Mobile Shops, Repair Centers, Pharmacy, and Garments.",
   "start_url": "/",
   "id": "/",
   "display": "standalone",

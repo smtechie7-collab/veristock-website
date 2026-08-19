@@ -100,20 +100,21 @@
       </div>
 
       <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What gets deleted?</h4>
-        <p style="font-size: 0.875rem; margin-bottom: 8px;">When you request account deletion, the following data is permanently purged from our servers:</p>
+        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What gets deleted from the Cloud?</h4>
+        <p style="font-size: 0.875rem; margin-bottom: 8px;">When you request account deletion, the following cloud data is permanently purged from our Google Cloud &amp; Firebase infrastructure:</p>
         <ul style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
-          <li><strong>Firebase Authentication Profile:</strong> Your registered account details (name, email address, mobile number, and unique user ID) are permanently deleted.</li>
-          <li><strong>Cloud Session Sync Tokens:</strong> Active authentication tokens and cloud-linked sync metadata are voided immediately, preventing any future remote access.</li>
+          <li><strong>Firebase Authentication Profile:</strong> Your registered account credentials (name, email address, mobile number, and unique user UID) are permanently deleted.</li>
+          <li><strong>Firestore Multi-Tenant Data &amp; Memberships:</strong> Your user profile document, business tenant memberships, staff role assignments, and device session tokens are permanently erased from Firestore (<code style="color:var(--primary);">users/{uid}</code> and <code style="color:var(--primary);">businesses/{bizId}/members/{uid}</code>).</li>
+          <li><strong>Cloud Session Sync Tokens:</strong> Active synchronization tokens, push notification keys, and cloud endpoints are revoked immediately.</li>
         </ul>
       </div>
 
       <div class="legal-section-block">
-        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What data is kept (Not stored on our servers)?</h4>
-        <p style="font-size: 0.875rem; margin-bottom: 8px;">Because <strong>VERISTOCK PRO</strong> operates on an offline-first architecture, your main business data does not reside on our servers:</p>
+        <h4 style="color: var(--primary); font-size: 1rem; margin-bottom: 8px;">What about local device data?</h4>
+        <p style="font-size: 0.875rem; margin-bottom: 8px;">Because <strong>VERISTOCK PRO</strong> operates on a hybrid offline-first architecture with local SQLCipher 256-bit AES database encryption:</p>
         <ul style="padding-left: 20px; margin-bottom: 12px; font-size: 0.875rem;">
-          <li><strong>Local Database:</strong> Your core business ledgers, customer lists, inventory stocks, and invoices are stored 100% offline on your device using 256-bit AES SQLCipher encryption. This data is never uploaded to our servers, and is kept only on your local device. To delete this data, simply uninstall the <strong>VERISTOCK PRO</strong> app from your device.</li>
-          <li><strong>Google Drive Backups:</strong> If you enabled optional cloud backup, the backup database is stored directly in your personal Google Drive account. We do not have access to this data. You can delete these backups at any time directly from your Google Drive.</li>
+          <li><strong>Local Database on Your Handset:</strong> Your private on-device database files reside only in the app's protected sandbox storage. To completely remove local data from your physical handset, simply uninstall the <strong>VERISTOCK PRO</strong> app from your Android device.</li>
+          <li><strong>Manual Snapshot Exports:</strong> Any exported CSV spreadsheets or manual database backups saved to external storage or Google Drive remain under your direct personal control.</li>
         </ul>
       </div>
 
