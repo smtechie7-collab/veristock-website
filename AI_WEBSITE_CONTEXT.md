@@ -141,7 +141,7 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 - `PROJECT_EXPENSES`: Construction site expense tracking.
 - `MULTI_USER_CLOUD_SYNC`: Write-Ahead Outbox cloud sync engine to Firestore (`businesses/{bizId}/shops/{shopId}/*`) with TLS 1.3 encryption.
 - `ROLE_BASED_ACCESS_CONTROL`: Enterprise RBAC (Owner, Manager, Biller, Technician, Auditor) with staff invitation emails via Cloud Functions (`sendStaffInviteEmail`).
-- `WORKFORCE_ERP_FLEET_RADAR`: Live Google Maps staff location radar with shop geofence circles, in-store/on-field status, mock GPS alarms, and 30-day attendance heatmaps.
+- `WORKFORCE_ERP_FLEET_RADAR`: Live interactive OpenStreetMap & Leaflet staff location radar with shop geofence circles, in-store/on-field status, mock GPS alarms, and 30-day attendance heatmaps.
 - `STAFF_ADVANCE_WALLET`: Salary advance wallet with atomic double-entry ledger posting (Article 4) and auto-recovery from monthly payroll.
 - `OVERTIME_AND_COMMISSION_ENGINE`: Multi-tier overtime engine (Weekday 1.0x, Sunday 1.5x, Holiday 2.0x) + real-time sales & repair labor commission aggregation.
 - `SHIFT_POLICY_AND_BREAK_ENGINE`: Shift grace thresholds, 4-way break state machines (Lunch/Tea/Prayer/Personal), and 1-tap owner regularization approvals.
