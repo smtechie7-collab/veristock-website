@@ -1111,51 +1111,121 @@ function initVerticalsArchitectureHub() {
 
     AUTOMOTIVE: {
       id: 'AUTOMOTIVE',
-      name: 'Automotive & Garage',
+      name: 'Automotive: Sales, Spares & Garage',
       icon: '🚗',
       dna: 'TECHNICAL_SERVICE',
-      mode: 'SERVICE',
-      strategy: 'STANDARD',
-      badge: 'CHASSIS & KM',
-      desc: 'Vehicle intake with Chassis and Engine numbers, Odometer (km) driven logs, spare part HSN search, job card labor billing, and service reminder intervals.',
-      features: ['Vehicle Registration & Chassis/Engine Number Intake', 'Odometer (km) & Fuel Gauge Level Checklists', 'Spare Parts Catalogue with OEM Cross-Reference', 'Mechanic Labor + Spare Parts Integrated Tax Invoice'],
-      schema: ['vehicle_reg_no', 'chassis_number', 'engine_number', 'odometer_km', 'fuel_level_fraction'],
+      mode: 'RETAIL / HYBRID',
+      strategy: 'AUTOMOTIVE_GARAGE / RETAIL_POS',
+      badge: 'GST RULE 32(5) & 28%',
+      desc: 'Complete ERP for Pre-Owned Car/Bike Dealerships, Auto Spare Parts Traders, and Multi-Brand Garages. GST Rule 32(5) Margin Scheme on vehicle resale, Digital KYC Legal Shield with Chassis/VIN verification, 28% HSN 8708 auto parts catalog, and 10,000 km PMS Garage Job Cards.',
+      features: [
+        'Used Vehicle Sales & Buyback with GST Rule 32(5) Margin Tax (Tax on Margin Only)',
+        'Legal Shield KYC for Vehicle Buyback (Previous Owner Aadhaar, Photo & Chassis/VIN)',
+        'Auto Spare Parts Catalog with OEM Part Numbers & 28% GST Auto-Taxation',
+        'Bulk Lubricant Barrels (HSN 2710 @ 18%) with Fractional Litre Dispensing',
+        'Multi-Bay Garage Job Cards with Mechanic Allocation & 10,000 km Service Intervals'
+      ],
+      schema: ['chassis_number_vin', 'engine_number', 'vehicle_reg_no', 'odometer_km', 'oe_part_number', 'fuel_type'],
       terminology: [
-        { standard: 'Customer', localized: 'Vehicle Owner', purpose: 'Stores car make, model and phone' },
-        { standard: 'Product', localized: 'Spare Part / Lubricant', purpose: 'Filters, engine oil, brake pads' },
-        { standard: 'Repair Job', localized: 'Garage Job Card', purpose: 'Multi-point service & oil swap order' },
-        { standard: 'Stock Unit', localized: 'Piece / Litre', purpose: 'Parts or bulk engine oil' }
+        { standard: 'Customer', localized: 'Vehicle Owner / Buyer', purpose: 'Stores vehicle history, KYC & contact' },
+        { standard: 'Product', localized: 'Auto Spare / Vehicle', purpose: 'OEM part or serial/chassis-tracked vehicle' },
+        { standard: 'Stock Unit', localized: 'Piece / Litre / Unit', purpose: 'Parts, lubricants or vehicle inventory' },
+        { standard: 'Repair Job', localized: 'Garage Job Card', purpose: 'PMS inspection, running repair & bay work' },
+        { standard: 'Invoice', localized: 'Tax Invoice / Margin Bill', purpose: 'Supports GST Rule 32(5) or 28% parts' },
+        { standard: 'Buyback', localized: 'Vehicle Buyback (KYC)', purpose: 'Used car/bike purchase with legal contract' }
       ],
       widgets: [
-        { id: 'GARAGE_BAY_STATUS', priority: 2, feature: 'SERVICE_REPAIR', desc: 'Vehicles currently on service ramps' },
-        { id: 'SERVICE_REMINDERS', priority: 6, feature: 'SERVICE_REPAIR', desc: 'Automated 6-month engine oil alerts' }
+        { id: 'SALES_SUMMARY', priority: 1, feature: 'POS_BILLING', desc: 'Vehicle & spare parts turnover' },
+        { id: 'QUICK_ACTIONS', priority: 2, feature: 'POS_BILLING', desc: 'New Sale, Job Card, Vehicle Buyback' },
+        { id: 'RECENT_TRANSACTIONS', priority: 4, feature: 'SALES', desc: 'Real-time outbox sync mutations' },
+        { id: 'VEHICLE_HISTORY', priority: 13, feature: 'KYC_COMPLIANCE', desc: 'Chassis & previous owner audit logs' },
+        { id: 'GARAGE_BAY_STATUS', priority: 11, feature: 'REPAIRS', desc: 'Vehicles currently on service ramps' },
+        { id: 'AMC_SUMMARY', priority: 12, feature: 'AMC_MANAGEMENT', desc: 'Annual vehicle maintenance contracts' }
       ],
       hsnCodes: [
-        { code: '87082990', desc: 'Automotive Spare Parts & Accessories', rate: '28% GST', rule: 'CGST 14% + SGST 14%' },
-        { code: '27101981', desc: 'Engine Oils & Lubricants', rate: '18% GST', rule: 'CGST 9% + SGST 9%' }
+        { code: '8708', desc: 'Automotive Spare Parts & Accessories', rate: '28% GST', rule: 'CGST 14% + SGST 14%' },
+        { code: '8703 / 8711', desc: 'Used Motor Cars / Two-Wheelers', rate: 'Rule 32(5) Margin', rule: 'Tax on (Sale - Purchase) Margin' },
+        { code: '2710', desc: 'Engine Oils, Greases & Lubricants', rate: '18% GST', rule: 'CGST 9% + SGST 9%' },
+        { code: '8507', desc: 'Automotive Batteries (Lead-Acid)', rate: '28% GST', rule: 'CGST 14% + SGST 14%' },
+        { code: '9987', desc: 'Garage Labor & Periodic Maintenance', rate: '18% GST', rule: 'CGST 9% + SGST 9%' }
       ],
       kotlinCode: `BusinessCategory.AUTOMOTIVE to CategoryDefinition(
     category = BusinessCategory.AUTOMOTIVE,
-    features = baseRetailFeatures + setOf(Feature.SERVICE_REPAIR, Feature.JOB_WORK_TRACKING),
-    associatedMode = BusinessMode.SERVICE,
-    billingStrategy = BillingStrategyType.STANDARD
+    features = baseRetailFeatures + setOf(
+        Feature.WARRANTY_TRACKING,
+        Feature.KYC_COMPLIANCE,
+        Feature.SERIAL_NUMBER_TRACKING,
+        Feature.REPAIRS,
+        Feature.JOB_CARDS,
+        Feature.AMC_MANAGEMENT
+    ),
+    terminology = mapOf(
+        TermKey.PRODUCT to R.string.term_spares_parts,
+        TermKey.SERIAL_NUMBER to R.string.term_vehicle_no,
+        TermKey.KYC_BUY_USED to R.string.term_vehicle_buyback,
+        TermKey.KYC_SELL_USED to R.string.term_vehicle_resale,
+        TermKey.DEVICE_INFO to R.string.term_vehicle_info,
+        TermKey.IMEI_NUMBER to R.string.term_engine_chassis_no
+    ),
+    associatedMode = BusinessMode.RETAIL,
+    billingStrategy = BillingStrategyType.SERVICE // Dynamically adapts to RETAIL for Sales-Only Focus
 )`,
       renderTool: () => `
         <div class="v-tool-box">
           <div class="v-tool-header">
-            <span class="v-tool-title">Vehicle Service Intake &amp; Km Intervals</span>
-            <span class="v-tool-badge warning">RAMP 2 ACTIVE</span>
+            <span class="v-tool-title">Automobile Sales, Buyback &amp; Margin Tax</span>
+            <span class="v-tool-badge success">RULE 32(5) &amp; CHASSIS KYC</span>
           </div>
           <div class="v-tool-form">
-            <div style="font-size:0.625rem;color:#CBD5E1;display:flex;flex-direction:column;gap:4px;">
-              <div>Vehicle: <strong style="color:#fff;">MH-12-JP-4022 (Maruti Swift VXi)</strong></div>
-              <div>Chassis / Engine: <span style="font-family:monospace;color:#ADC6FF;">MA3F... / K12M...</span></div>
-              <div style="display:flex;justify-content:space-between;"><span>Odometer:</span><strong>48,920 km (Major Service Due)</strong></div>
-              <div style="display:flex;justify-content:space-between;"><span>Service Checklist:</span><span style="color:#22C55E;">Engine Oil + Brake Pads + Filter ✓</span></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <div>
+                <label class="v-tool-label">Vehicle Inward / Buyback (₹):</label>
+                <input type="number" id="v-auto-buy" class="v-tool-input" value="300000">
+              </div>
+              <div>
+                <label class="v-tool-label">Vehicle Resale Price (₹):</label>
+                <input type="number" id="v-auto-sell" class="v-tool-input" value="350000">
+              </div>
+            </div>
+            <div class="v-tool-result" style="margin-top:10px;">
+              <div style="display:flex;justify-content:space-between;"><span>Chassis / VIN:</span><span style="color:#ADC6FF;font-family:monospace;">MA3EYD21S0091823</span></div>
+              <div style="display:flex;justify-content:space-between;"><span>Profit Margin:</span><strong style="color:#22C55E;font-family:monospace;" id="v-auto-margin">₹50,000.00</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span>Rule 32(5) GST (18% on Margin):</span><strong style="color:#F59E0B;font-family:monospace;" id="v-auto-tax">₹7,627.12</strong></div>
+              <div style="display:flex;justify-content:space-between;"><span>Standard GST (28% on ₹3.5L):</span><span style="color:#EF4444;text-decoration:line-through;" id="v-auto-std">₹76,562.50</span></div>
+              <div style="margin-top:4px;padding:6px;background:rgba(34,197,94,0.12);border-radius:6px;border:1px solid rgba(34,197,94,0.3);text-align:center;">
+                <strong style="color:#22C55E;font-size:0.75rem;" id="v-auto-saved">✓ Legally Saved ₹68,935.38 in Vehicle Resale Tax!</strong>
+              </div>
             </div>
           </div>
         </div>`,
-      bindEvents: () => {}
+      bindEvents: () => {
+        const buyInput = document.getElementById('v-auto-buy');
+        const sellInput = document.getElementById('v-auto-sell');
+        const marginEl = document.getElementById('v-auto-margin');
+        const taxEl = document.getElementById('v-auto-tax');
+        const stdEl = document.getElementById('v-auto-std');
+        const savedEl = document.getElementById('v-auto-saved');
+
+        const update = () => {
+          if (!buyInput || !sellInput) return;
+          const buy = parseFloat(buyInput.value) || 0;
+          const sell = parseFloat(sellInput.value) || 0;
+          const margin = Math.max(0, sell - buy);
+          const tax = (margin * 18) / 118;
+          const stdTax = (sell * 28) / 128;
+          const saved = Math.max(0, stdTax - tax);
+
+          marginEl.textContent = `₹${margin.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          taxEl.textContent = `₹${tax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          stdEl.textContent = `₹${stdTax.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          savedEl.textContent = `✓ Legally Saved ₹${saved.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} in Vehicle Resale Tax!`;
+        };
+
+        if (buyInput && sellInput) {
+          buyInput.addEventListener('input', update);
+          sellInput.addEventListener('input', update);
+        }
+      }
     },
 
     CLINIC: {
