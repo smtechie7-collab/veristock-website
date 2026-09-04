@@ -689,10 +689,12 @@ function initVerticalsArchitectureHub() {
       badge: '2D MATRIX',
       desc: '2D Grid Matrix stock management across Size × Color × Fabric variants, barcode sticker printing, exchange credit notes, and seasonal collection velocity tracking.',
       features: [
-        '2D Grid Matrix Stock Entry (Sizes 28-44 × Colors × Cuts)',
-        'Thermal Barcode Tag Generator with Brand Logo',
-        'Exchange Credit Notes & Store Wallet creation',
-        'Job-Work Outsource Challans for dyeing and stitching'
+        '2D Grid Matrix Stock Entry (Sizes 28-44 | Colors | Cuts)',
+        'Customer Tailoring Naap Vault (Measurements, Fit & Alteration History)',
+        'Garment Costing Engine (Fabric, Buttons, Majuri & Production Costing)',
+        'Wholesale Ratio Packs (Pre-bundled Size/Color B2B Distributions)',
+        'Job-Work Outsource Challans for dyeing and stitching',
+        'Thermal Barcode Tag Generator & Store Exchange Credit Notes'
       ],
       schema: ['size_code', 'color_shade', 'fabric_composition', 'season_collection', 'fit_style'],
       terminology: [
