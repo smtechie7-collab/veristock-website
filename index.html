@@ -279,8 +279,25 @@
       </div>
       </div>
 
-      <!-- Phone device mockup with vector display -->
+      <!-- Phone device mockup with vector display & interactive industry switcher -->
       <div class="hero-mockup-wrapper reveal">
+        <!-- Interactive Industry Vertical Switcher -->
+        <div class="simulator-vertical-bar" id="sim-vertical-bar" aria-label="Live Industry Vertical Switcher">
+          <div class="sim-vt-title">
+            <span class="sim-live-badge">LIVE SIMULATOR</span>
+            <span>Experience Real-Time Industry Adaptation:</span>
+          </div>
+          <div class="sim-vt-pills">
+            <button class="sim-vt-pill sim-vt-pill-active" data-vertical="MOBILE_SHOP" id="pill-vert-mobile" aria-label="Switch simulator to Mobile and Electronics"><span>📱</span> Mobile Shop</button>
+            <button class="sim-vt-pill" data-vertical="PHARMACY" id="pill-vert-pharmacy" aria-label="Switch simulator to Pharmacy and Healthcare"><span>💊</span> Pharmacy</button>
+            <button class="sim-vt-pill" data-vertical="RESTAURANT" id="pill-vert-restaurant" aria-label="Switch simulator to Restaurant and Cafe"><span>🍽️</span> Restaurant</button>
+            <button class="sim-vt-pill" data-vertical="GARMENTS" id="pill-vert-garments" aria-label="Switch simulator to Garments and Apparel"><span>👔</span> Garments</button>
+            <button class="sim-vt-pill" data-vertical="MANUFACTURING" id="pill-vert-mfg" aria-label="Switch simulator to Manufacturing and Industrial"><span>🏭</span> Manufacturing</button>
+            <button class="sim-vt-pill" data-vertical="CRYSTAL_AGATE" id="pill-vert-crystal" aria-label="Switch simulator to Lapidary and Gemstones"><span>💎</span> Crystals &amp; Gems</button>
+            <button class="sim-vt-pill" data-vertical="TRUST_INSTITUTE" id="pill-vert-trust" aria-label="Switch simulator to Charitable Trust and Education"><span>🏛️</span> Trust &amp; 80G</button>
+          </div>
+        </div>
+
         <div class="phone-mockup">
           <div class="phone-screen" id="app-simulator-root">
             <!-- Rendered dynamically by app-simulator.js -->
@@ -316,7 +333,7 @@
           <div class="how-step-number">2</div>
           <div class="how-step-icon">🏪</div>
           <h3>Choose Your Business</h3>
-          <p>Select from 16 pre-built verticals — Mobile Shop, Pharmacy, Restaurant, Garments, Manufacturing and more. The app auto-adapts terminology, tax registers, and screens.</p>
+          <p>Select from 18 pre-built verticals — Mobile Shop, Pharmacy, Restaurant, Garments, Manufacturing, Lapidary &amp; Gemstones, Charitable Trusts, and more. The app auto-adapts terminology, tax registers, and screens.</p>
         </div>
 
         <!-- Step 3 -->
@@ -703,61 +720,173 @@
         </div>
       </div>
 
-      <!-- ── 18 BUSINESS CATEGORIES SHOWCASE ────────────────────────────────── -->
-      <div class="categories-container reveal" style="margin-top: 64px;">
-        <div class="section-title-wrap" style="text-align: center; margin-bottom: 24px;">
-          <h2>18 Specialized Business Categories</h2>
-          <p>VeriStock Pro automatically adapts terminology, tax registers, and workflow screens to your specific operational archetype.</p>
+      <!-- ── 18 SPECIALIZED OPERATIONAL ARCHETYPES HUB (CategoryRegistry.kt) ── -->
+      <div id="verticals-hub" class="verticals-hub reveal" style="margin-top: 72px;">
+        <div class="section-title-wrap" style="text-align: center; margin-bottom: 28px;">
+          <div class="v-hub-badge">
+            <span class="v-hub-badge-dot"></span>
+            <span>CategoryRegistry.kt Architecture • 18 Verticals</span>
+          </div>
+          <h2>18 Specialized Operational Archetypes</h2>
+          <p>VeriStock Pro rejects generic "one-size-fits-all" ERP forms. Our master Kotlin engine dynamically adapts local Room database schemas, domain terminology, statutory HSN registers, and dashboard widgets to match your exact business.</p>
         </div>
 
-        <div class="categories-chips-scroll">
-          <button id="cat-btn-mobile" class="category-chip-btn active" data-cat="mobile" aria-label="Filter features for Mobile Shop">📱 Mobile Shop</button>
-          <button id="cat-btn-service" class="category-chip-btn" data-cat="service" aria-label="Filter features for Repair Center">🔧 Repair Center</button>
-          <button id="cat-btn-garments" class="category-chip-btn" data-cat="garments" aria-label="Filter features for Garments">👔 Garments</button>
-          <button id="cat-btn-pharmacy" class="category-chip-btn" data-cat="pharmacy" aria-label="Filter features for Pharmacy">💊 Pharmacy</button>
-          <button id="cat-btn-grocery" class="category-chip-btn" data-cat="grocery" aria-label="Filter features for Grocery">🛒 Grocery</button>
-          <button id="cat-btn-electronics" class="category-chip-btn" data-cat="electronics" aria-label="Filter features for Electronics">📺 Electronics</button>
-          <button id="cat-btn-automotive" class="category-chip-btn" data-cat="automotive" aria-label="Filter features for Automotive">🚗 Automotive</button>
-          <button id="cat-btn-hardware" class="category-chip-btn" data-cat="hardware" aria-label="Filter features for Hardware">🔨 Hardware</button>
-          <button id="cat-btn-clinic" class="category-chip-btn" data-cat="clinic" aria-label="Filter features for Clinic">🩺 Clinic</button>
-          <button id="cat-btn-salon" class="category-chip-btn" data-cat="salon" aria-label="Filter features for Salon">💇 Salon</button>
-          <button id="cat-btn-wholesale" class="category-chip-btn" data-cat="wholesale" aria-label="Filter features for Wholesale">🏭 Wholesale</button>
-          <button id="cat-btn-manufacturing" class="category-chip-btn" data-cat="manufacturing" aria-label="Filter features for Manufacturing">⚙️ Manufacturing</button>
-          <button id="cat-btn-restaurant" class="category-chip-btn" data-cat="restaurant" aria-label="Filter features for Restaurant">🍽️ Restaurant</button>
-          <button id="cat-btn-construction" class="category-chip-btn" data-cat="construction" aria-label="Filter features for Construction">🏗️ Construction</button>
-          <button id="cat-btn-secondhand" class="category-chip-btn" data-cat="secondhand" aria-label="Filter features for Second-Hand">📱 Second-Hand</button>
-          <button id="cat-btn-general" class="category-chip-btn" data-cat="general" aria-label="Filter features for General Retail">📦 General Retail</button>
-          <button id="cat-btn-trust" class="category-chip-btn" data-cat="trust" aria-label="Filter features for Charitable Trust & Institute">🏛️ Trust &amp; Institute</button>
-          <button id="cat-btn-crystal" class="category-chip-btn" data-cat="crystal" aria-label="Filter features for Crystals & Handicrafts">💎 Crystal &amp; Agate</button>
+        <!-- Operational DNA Cluster Filter Pills (val BusinessCategory.dnaGroup) -->
+        <div class="v-dna-filters" role="tablist" aria-label="Filter verticals by Operational DNA">
+          <button class="v-dna-pill active" data-dna="ALL">All 18 Verticals <span class="v-dna-count">18</span></button>
+          <button class="v-dna-pill" data-dna="PURE_RETAIL">🛍️ Pure Retail <span class="v-dna-count">4</span></button>
+          <button class="v-dna-pill" data-dna="TECHNICAL_SERVICE">⚡ Technical &amp; Service <span class="v-dna-count">6</span></button>
+          <button class="v-dna-pill" data-dna="INDUSTRIAL_TRADE">🏭 Industrial &amp; Wholesale <span class="v-dna-count">4</span></button>
+          <button class="v-dna-pill" data-dna="HEALTH_WELLNESS">🩺 Health &amp; Wellness <span class="v-dna-count">3</span></button>
+          <button class="v-dna-pill" data-dna="GENERAL_TRADE">📦 General Trade <span class="v-dna-count">1</span></button>
         </div>
 
-        <div class="category-detail-card glass">
-          <div>
-            <h3 id="cat-detail-title" class="category-detail-title">📱 Mobile Shop & Accessories</h3>
-            <p id="cat-detail-desc" class="category-detail-desc">Complete IMEI tracking, battery serials, tempered glass stock, Bluetooth accessories, and device buyback KYC registers.</p>
-            <ul id="cat-feature-list" class="category-feature-list">
-              <li class="category-feature-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Dual IMEI & Serial Tracking</span>
-              </li>
-              <li class="category-feature-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Pre-loaded HSN Code Dictionary (8517, 8544)</span>
-              </li>
-              <li class="category-feature-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Accessories & Spare Parts Bundling</span>
-              </li>
-              <li class="category-feature-item">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                <span>Used Mobile Buyback & KYC Record</span>
-              </li>
-            </ul>
+        <!-- 18 Vertical Selector Chips -->
+        <div class="v-chips-container" id="v-chips-container" role="tablist" aria-label="Select industry vertical">
+          <!-- Populated and managed dynamically by main.js with all 18 verticals -->
+        </div>
+
+        <!-- Deep-Dive Vertical Explorer Deck (5-Tab Architecture Stage) -->
+        <div class="v-explorer-deck glass" id="v-explorer-deck">
+          <!-- Header Bar: Metadata, DNA, BusinessMode & Launch Simulator CTA -->
+          <div class="v-deck-header">
+            <div class="v-deck-title-wrap">
+              <div class="v-deck-icon-badge" id="v-deck-icon">📱</div>
+              <div class="v-deck-titles">
+                <div class="v-deck-headline-row">
+                  <h3 id="v-deck-name" class="v-deck-name">Mobile Shop &amp; Accessories</h3>
+                  <span id="v-deck-dna" class="v-meta-tag v-tag-dna">TECHNICAL_SERVICE</span>
+                  <span id="v-deck-mode" class="v-meta-tag v-tag-mode">MODE: RETAIL</span>
+                  <span id="v-deck-strategy" class="v-meta-tag v-tag-strategy">STRATEGY: MOBILE</span>
+                </div>
+                <p id="v-deck-desc" class="v-deck-desc">Complete dual IMEI tracking, battery serials, tempered glass stock, Bluetooth accessories bundling, and device buyback KYC legal shield registers.</p>
+              </div>
+            </div>
+            <div class="v-deck-actions">
+              <button id="v-launch-mockup-btn" class="btn btn-secondary v-launch-sim-btn" title="Launch this vertical in the live phone simulator above">
+                <span>📱</span> Test in Phone Mockup ↑
+              </button>
+            </div>
           </div>
 
-          <!-- Dynamic Category Simulator Widget (adapted to active vertical) -->
-          <div id="cat-simulator-container" class="simulator-card" style="min-height: 250px; display: flex; flex-direction: column; justify-content: center;">
-            <!-- Rendered dynamically by main.js -->
+          <!-- 5-Tab Navigation Bar -->
+          <div class="v-tab-nav" role="tablist">
+            <button class="v-tab-btn active" data-vtab="simulator">
+              <span class="v-tab-icon">⚡</span>
+              <span>Live Workflow Simulator</span>
+            </button>
+            <button class="v-tab-btn" data-vtab="terminology">
+              <span class="v-tab-icon">🔄</span>
+              <span>Terminology Morphing (TermKey)</span>
+            </button>
+            <button class="v-tab-btn" data-vtab="widgets">
+              <span class="v-tab-icon">📊</span>
+              <span>Dashboard Widget Registry</span>
+            </button>
+            <button class="v-tab-btn" data-vtab="hsn">
+              <span class="v-tab-icon">🏛️</span>
+              <span>Statutory HSN &amp; GST Rates</span>
+            </button>
+            <button class="v-tab-btn" data-vtab="code">
+              <span class="v-tab-icon">💻</span>
+              <span>Kotlin Architecture Peek</span>
+            </button>
+          </div>
+
+          <!-- 5 Tab Content Panes -->
+          <div class="v-tab-content-wrapper">
+            <!-- Pane 1: Live Workflow Simulator -->
+            <div class="v-tab-pane active" id="v-pane-simulator">
+              <div class="v-sim-grid">
+                <div class="v-sim-left">
+                  <div class="v-sim-section-header">
+                    <h4>Industry Workflow Specs</h4>
+                    <span class="v-status-live-pulse">● Interactive Live Engine</span>
+                  </div>
+                  <ul class="v-feature-checklist" id="v-deck-features">
+                    <!-- Dynamic feature list -->
+                  </ul>
+                  <div class="v-schema-box" id="v-deck-schema">
+                    <!-- Dynamic industry schema fields -->
+                  </div>
+                </div>
+                <div class="v-sim-right">
+                  <div class="v-live-tool-frame" id="v-deck-tool">
+                    <!-- Dynamic interactive tool (e.g. IMEI validator, Margin calculator, Expiry Sentinel, KDS, etc.) -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pane 2: Terminology Morphing Engine -->
+            <div class="v-tab-pane" id="v-pane-terminology">
+              <div class="v-tab-inner-header">
+                <h4>Dynamic Terminology Engine (TermKey.kt)</h4>
+                <p>VeriStock Pro automatically substitutes standard ERP labels with industry-native nomenclature so your staff never gets confused.</p>
+              </div>
+              <div class="v-table-responsive">
+                <table class="v-term-table">
+                  <thead>
+                    <tr>
+                      <th>Standard ERP Term</th>
+                      <th></th>
+                      <th>Substituted Industry Label</th>
+                      <th>Operational Purpose in Android App</th>
+                    </tr>
+                  </thead>
+                  <tbody id="v-deck-term-body">
+                    <!-- Dynamic terminology table rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Pane 3: Android Dashboard Widget Registry -->
+            <div class="v-tab-pane" id="v-pane-widgets">
+              <div class="v-tab-inner-header">
+                <h4>Dynamic Dashboard Layout (DASHBOARD_WIDGET_REGISTRY.md)</h4>
+                <p>Widgets are rendered in priority order on the Android HomeScreen, gated dynamically by active feature flags.</p>
+              </div>
+              <div class="v-widgets-grid" id="v-deck-widgets">
+                <!-- Dynamic widget cards -->
+              </div>
+            </div>
+
+            <!-- Pane 4: Statutory HSN & GST Rates -->
+            <div class="v-tab-pane" id="v-pane-hsn">
+              <div class="v-tab-inner-header">
+                <h4>Pre-Loaded Indian Statutory Tax Register</h4>
+                <p>Verified HSN and SAC codes mapped with standard Indian GST tax rates, CGST/SGST routing, and compliance schedules.</p>
+              </div>
+              <div class="v-table-responsive">
+                <table class="v-hsn-table">
+                  <thead>
+                    <tr>
+                      <th>HSN / SAC Code</th>
+                      <th>Item / Service Classification</th>
+                      <th>Standard GST Rate</th>
+                      <th>Tax Routing Rule</th>
+                    </tr>
+                  </thead>
+                  <tbody id="v-deck-hsn-body">
+                    <!-- Dynamic HSN rows -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Pane 5: Kotlin Architecture Peek -->
+            <div class="v-tab-pane" id="v-pane-code">
+              <div class="v-tab-inner-header">
+                <h4>Real Android Kotlin Definition (CategoryRegistry.kt)</h4>
+                <p>Exact production code defining this operational archetype in <code>com.veristock.pro.core.terminology</code>.</p>
+              </div>
+              <div class="v-code-container">
+                <pre class="v-code-block"><code id="v-deck-code">
+// Loading Kotlin architecture definition...
+                </code></pre>
+              </div>
+            </div>
           </div>
         </div>
       </div>
