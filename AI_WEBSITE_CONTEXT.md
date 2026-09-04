@@ -13,7 +13,7 @@ This document serves as the primary source of truth for human developers and AI 
 - **Core Tagline:** *Run Your Business. Not Your Problems.*
 - **App Classification:** Hybrid Offline-First Business ERP with Real-Time Cloud Sync (B2B SaaS / Android App)
 - **Target Market:** India (expanding worldwide)
-- **Supported Business Verticals (16 Categories):**
+- **Supported Business Verticals (18 Categories):**
   1. Mobile Shop (IMEI, SIM KYC, Accessories, Repairs)
   2. Second Hand Mobile (Used Device Trade-In, Margin Tax Rule 32(5), IMEI Audit)
   3. Electronics & Home Appliances (Serial tracking, Screen Size, Energy Rating, Fridge/AC/WM specs)
@@ -30,6 +30,8 @@ This document serves as the primary source of truth for human developers and AI 
   14. Hardware & Building Tools (Contractor billing, Heavy equipment serial tracking, Quality grades)
   15. Construction & Site Projects (Site expense tracking, Project clients, Procurement tracking)
   16. General Retail / Departmental
+  17. Charitable Trust & Educational Institute (Section 80G Tax Receipts, Form 10BD/10BE, Student Fee Schedules, In-Kind Relief Dispatch, ₹2,000 Cash Ceiling Guard)
+  18. Crystals, Agate & Lapidary Handicrafts (Rough-to-Polish Batches, 20%-50% Ghisat Loss, Karigar Job-Work Challans, Dual-Unit Pricing, USD/EUR Export Invoicing with LUT 0% IGST)
 
 ---
 

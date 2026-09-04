@@ -310,7 +310,7 @@ function initScrollReveal() {
   }
 }
 
-/* ── 8. 16 BUSINESS CATEGORIES SELECTOR ─────────────────────────────── */
+/* ── 8. 18 BUSINESS CATEGORIES SELECTOR ─────────────────────────────── */
 function initCategorySelector() {
   const categoryData = {
     mobile: {
@@ -712,6 +712,76 @@ function initCategorySelector() {
             <div style="display:flex;justify-content:space-between;border-top:1px dashed rgba(255,255,255,0.1);padding-top:4px;"><strong style="color:#fff;">Net Invoice Total:</strong><strong style="color:#F59E0B;font-family:monospace;font-size:0.75rem;">₹1,947.00</strong></div>
           </div>
         </div>`
+    },
+    trust: {
+      title: '🏛️ Charitable Trusts & Educational Institutes',
+      desc: 'Section 80G tax receipts with strict ₹2,000 cash ceiling, Section 12AB URN, CBDT Form 10BD/10BE reports, student fee schedules, and relief dispatch ledger.',
+      features: ['Section 80G & 12AB URN Tax Receipts', 'CBDT Form 10BD & 10BE Integration', 'Multi-Term Student Fee Schedules', 'In-Kind Relief Material Dispatches'],
+      widgetHtml: `
+        <div class="app-screen-mock" style="width:100%;background:#0A0A0F;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+          <div class="mock-header" style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:0.875rem;">🏛️</span>
+              <span style="font-size:0.6875rem;font-weight:700;color:#fff;">Trust 80G Donation Receipt</span>
+            </div>
+            <span id="trust-badge" style="font-size:0.5625rem;font-weight:700;color:#22C55E;background:rgba(34,197,94,0.15);padding:2px 6px;border-radius:4px;">12AB URN: AABTS1234F21GP01</span>
+          </div>
+          <div style="font-size:0.625rem;color:#94A3B8;display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Donor Name:</span><strong style="color:#fff;">Dr. Arvind Mehta</strong></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;"><span style="color:#64748B;">Donor PAN:</span><span style="color:#ADC6FF;font-family:monospace;font-weight:700;">ABCDE1234F (Verified)</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:#64748B;">Payment Instrument:</span>
+              <select id="trust-pay-mode" style="background:#111118;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:4px;font-size:0.625rem;padding:2px 4px;">
+                <option value="upi">UPI / Bank Transfer</option>
+                <option value="cash">Cash (Strict Limit ₹2,000)</option>
+              </select>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:#64748B;">Donation Amount:</span>
+              <input type="number" id="trust-amount-input" value="5000" style="width:70px;background:#111118;color:#F59E0B;border:1px solid rgba(255,255,255,0.15);border-radius:4px;font-size:0.6875rem;font-family:monospace;font-weight:700;padding:2px 4px;text-align:right;">
+            </div>
+            <div id="trust-compliance-box" style="margin-top:4px;padding:6px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.25);border-radius:6px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <span id="trust-status-text" style="color:#22C55E;font-size:0.625rem;font-weight:700;">✓ 80G Tax Exemption Valid (50% Deduction)</span>
+                <span style="font-size:0.5625rem;color:#94A3B8;">Form 10BD Queued</span>
+              </div>
+            </div>
+          </div>
+        </div>`
+    },
+    crystal: {
+      title: '💎 Crystals, Agate & Handicraft Exports',
+      desc: 'Raw mineral lot procurement, 20%-50% Ghisat lapidary loss tracking, dual-unit pricing (Carats/Grams vs Pieces), artisan Karigar challans, and foreign currency export invoices with 0% LUT IGST.',
+      features: ['Rough Lot to Finished Batching', 'Artisan Karigar Job-Work Challans', 'Lapidary Ghisat (Loss %) Calculator', 'USD/EUR Export & 0% LUT IGST Billing'],
+      widgetHtml: `
+        <div class="app-screen-mock" style="width:100%;background:#0A0A0F;border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:12px;box-shadow:0 10px 25px rgba(0,0,0,0.5);">
+          <div class="mock-header" style="display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.06);padding-bottom:6px;margin-bottom:8px;">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:0.875rem;">💎</span>
+              <span style="font-size:0.6875rem;font-weight:700;color:#fff;">Cambay Agate Lot • #AKIK-2026-44</span>
+            </div>
+            <span style="font-size:0.5625rem;font-weight:700;color:#F59E0B;background:rgba(245,158,11,0.15);padding:2px 6px;border-radius:4px;">CARNELIAN AGATE</span>
+          </div>
+          <div style="font-size:0.625rem;color:#94A3B8;display:flex;flex-direction:column;gap:5px;">
+            <div style="display:flex;justify-content:space-between;"><span style="color:#64748B;">Artisan / Karigar:</span><strong style="color:#fff;">Ramesh Master (Ghanti Unit 4)</strong></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:#64748B;">Rough Issued (Kg):</span>
+              <input type="number" id="agate-rough-qty" value="50" style="width:50px;background:#111118;color:#fff;border:1px solid rgba(255,255,255,0.15);border-radius:4px;font-size:0.625rem;padding:2px 4px;text-align:right;">
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:#64748B;">Polished Received (Kg):</span>
+              <input type="number" id="agate-polished-qty" value="34" style="width:50px;background:#111118;color:#22C55E;border:1px solid rgba(255,255,255,0.15);border-radius:4px;font-size:0.625rem;font-weight:700;padding:2px 4px;text-align:right;">
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed rgba(255,255,255,0.1);padding-top:4px;">
+              <span style="color:#64748B;">Ghisat (Sawing Loss):</span>
+              <strong id="agate-loss-val" style="color:#F59E0B;font-family:monospace;">16 kg (32.0% - Normal)</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px dashed rgba(255,255,255,0.1);padding-top:4px;">
+              <span style="color:#64748B;">Export Market:</span>
+              <span class="mock-chip" style="background:rgba(59,130,246,0.15);color:#60A5FA;font-size:0.5625rem;padding:2px 6px;border-radius:4px;font-weight:700;">USD $18.50 / kg • LUT 0% IGST</span>
+            </div>
+          </div>
+        </div>`
     }
   };
 
@@ -819,6 +889,54 @@ function bindWidgetEvents(catKey) {
         totalEl.textContent = `₹${total.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       });
     }
+  } else if (catKey === 'trust') {
+    const payMode = document.getElementById('trust-pay-mode');
+    const amountInput = document.getElementById('trust-amount-input');
+    const statusText = document.getElementById('trust-status-text');
+    const complianceBox = document.getElementById('trust-compliance-box');
+
+    const updateTrustState = () => {
+      if (!payMode || !amountInput || !statusText || !complianceBox) return;
+      const mode = payMode.value;
+      const amt = parseFloat(amountInput.value) || 0;
+
+      if (mode === 'cash' && amt > 2000) {
+        complianceBox.style.background = 'rgba(239,68,68,0.15)';
+        complianceBox.style.borderColor = 'rgba(239,68,68,0.35)';
+        statusText.style.color = '#EF4444';
+        statusText.innerHTML = '⚠ Ineligible for 80G (Cash &gt; ₹2,000 Sec 80G(5D)). Use UPI/Bank.';
+      } else {
+        complianceBox.style.background = 'rgba(34,197,94,0.1)';
+        complianceBox.style.borderColor = 'rgba(34,197,94,0.25)';
+        statusText.style.color = '#22C55E';
+        statusText.innerHTML = '✓ 80G Tax Exemption Valid (50% Deduction)';
+      }
+    };
+
+    if (payMode && amountInput) {
+      payMode.addEventListener('change', updateTrustState);
+      amountInput.addEventListener('input', updateTrustState);
+    }
+  } else if (catKey === 'crystal') {
+    const roughInput = document.getElementById('agate-rough-qty');
+    const polishedInput = document.getElementById('agate-polished-qty');
+    const lossVal = document.getElementById('agate-loss-val');
+
+    const updateLoss = () => {
+      if (!roughInput || !polishedInput || !lossVal) return;
+      const rough = parseFloat(roughInput.value) || 0;
+      const polished = parseFloat(polishedInput.value) || 0;
+      const loss = Math.max(0, rough - polished);
+      const pct = rough > 0 ? ((loss / rough) * 100).toFixed(1) : '0.0';
+      const statusNote = pct > 50 ? 'Excess Wastage!' : 'Normal Tolerance';
+      lossVal.textContent = `${loss.toFixed(1)} kg (${pct}% - ${statusNote})`;
+      lossVal.style.color = pct > 50 ? '#EF4444' : '#F59E0B';
+    };
+
+    if (roughInput && polishedInput) {
+      roughInput.addEventListener('input', updateLoss);
+      polishedInput.addEventListener('input', updateLoss);
+    }
   }
 }
 
@@ -925,8 +1043,8 @@ function initRepairSimulator() {
       pills.forEach(pill => {
         const text = pill.textContent.trim();
         // Only animate pure numeric values
-        if (text === '16') animateCount(pill, 0, 16, 800, '');
-        if (text === '43') animateCount(pill, 0, 43, 1000, '');
+        if (text === '18') animateCount(pill, 0, 18, 800, '');
+        if (text === '78') animateCount(pill, 0, 78, 1000, '');
       });
     }
   }, { threshold: 0.5 });

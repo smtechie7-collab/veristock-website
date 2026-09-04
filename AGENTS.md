@@ -103,7 +103,7 @@ Under Google Play Policy (Deletability Section), users MUST have a functional pa
 
 ## 📦 4. FEATURE & TERMINOLOGY SYNCHRONIZATION RULES
 
-### 4.1 Feature Flag Gating (43 Features in `Feature.kt`)
+### 4.1 Feature Flag Gating (78 Features in `Feature.kt`)
 When editing feature lists, pricing tables, or documentation, maintain exact feature classification:
 
 - **LITE Tier (Free Starter Plan):**
@@ -141,6 +141,8 @@ Never substitute or confuse industry-specific terminology across verticals:
 - **Manufacturing:** Assembly, BOM Recipe, Production Batch, WIP Stock, Scrap Report.
 - **Automotive:** Spare Part, Chassis No., Engine No., Odometer (km), Fuel Level.
 - **Grocery:** Item, Measurement Unit, Loose/Packed, Weight-based Price (kg/g).
+- **Trust & Institute:** Donation Voucher, Donor PAN, Section 12AB/80G URN, Student Enrollment, Term Fee Schedule, Relief Dispatch.
+- **Crystal & Agate:** Rough Mineral Lot, Karigar / Ghanti Artisan, Ghisat Loss %, Polished Batch, Carat / Gram / Piece Price, LUT Export Invoice.
 
 ---
 
