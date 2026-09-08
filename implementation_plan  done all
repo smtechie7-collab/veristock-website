@@ -1,0 +1,1441 @@
+# 🚀 VeriStock Pro Web App — Full Production Implementation Plan
+**Audit Basis:** Deep audit dated 2026-09-08  
+**Architecture Authority:** `WEB_APP_MASTER_ARCHITECTURE.md` + Constitution v2.7.2  
+**Total Estimated Effort:** ~55–65 Developer Days  
+**Tech Stack Target:** Vanilla JS ES Modules (current stack retained) + Firebase Modular SDK v10  
+
+---
+
+## 📋 Phase Overview
+
+| Phase | Name | Days | Status |
+|---|---|---|---|
+| **Phase 0** | 🚨 Critical Bug Fixes (Blockers) | 4–5 days | Must-do first |
+| **Phase 1** | 🔐 Security & Architecture Hardening | 6–8 days | Before any real user |
+| **Phase 2** | 🏗️ Core Missing Modules | 15–18 days | Feature parity with Android |
+| **Phase 3** | 📊 CA Hub & Full Tax Engine | 8–10 days | Accountant-grade production |
+| **Phase 4** | ⚙️ Advanced Features & Hardware | 10–12 days | Premium POS desktop |
+| **Phase 5** | 🌐 PWA, Offline, Performance & Tests | 8–10 days | Production certification |
+
+---
+
+---
+
+# 🔴 PHASE 0 — Critical Bug Fixes (Blockers)
+**Duration:** 4–5 days | **Priority: MUST complete before any user testing**
+
+---
+
+## P0-TASK-01: Fix Auth Bypass in Login (CRIT-WEB-001)
+**File:** [`js/app.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/app.js) — Lines 131–148  
+**Effort:** 2 hours
+
+### Problem
+Firebase auth `catch` block silently grants session even on wrong credentials.
+
+### Fix — Replace catch block:
+```javascript
+// REMOVE this from catch block:
+localStorage.setItem("vrstk_session_active", "true");
+document.getElementById("loginOverlay").classList.remove("open");
+
+// REPLACE WITH:
+const friendlyMsg = {
+  "auth/user-not-found": "This email is not registered. Please check and try again.",
+  "auth/wrong-password": "Incorrect password. Please verify your credentials.",
+  "auth/too-many-requests": "Too many failed attempts. Please try again after some time.",
+  "auth/network-request-failed": "Network error. Check your internet connection.",
+};
+const msg = friendlyMsg[err.code] || `Login failed: ${err.message}`;
+if (errBox) {
+  errBox.textContent = msg;
+  errBox.style.display = "block";
+}
+btn.disabled = false;
+btn.textContent = "Sign In & Launch Terminal";
+```
+
+### Task Checklist:
+- [ ] Remove session grant from `catch` block
+- [ ] Add Firebase error code → user-friendly message map
+- [ ] Show error in existing `#loginErrorMsg` div
+- [ ] Test: wrong password → error shown, no session created
+- [ ] Test: correct password → session granted normally
+
+---
+
+## P0-TASK-02: Remove Hardcoded Credentials from HTML (CRIT-WEB-002)
+**File:** [`index.html`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/index.html) — Lines 137, 141  
+**Effort:** 30 minutes
+
+### Fix:
+```html
+<!-- Remove value="owner@veristockpro.com" and value="demoPass123" -->
+<input type="email" id="loginEmail" class="form-control" 
+       placeholder="store.owner@veristock.com" required />
+<input type="password" id="loginPassword" class="form-control" 
+       placeholder="••••••••" required />
+```
+
+### Task Checklist:
+- [ ] Clear `value` attributes from email + password fields
+- [ ] Verify git history will not retain these in public repo (consider git secret scan)
+
+---
+
+## P0-TASK-03: Verify & Fix Firebase App ID (CRIT-WEB-003)
+**File:** [`js/services/firebaseService.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/firebaseService.js) — Lines 28–35  
+**Effort:** 1 hour
+
+### Fix:
+- Open Firebase Console → Project Settings → General → "Your apps" section
+- Copy exact `appId` string (format: `"1:265248708987:web:ACTUAL_HASH"`)
+- Replace in `firebaseConfig`
+- Test: open browser console after page load — verify no Firebase initialization error
+
+### Task Checklist:
+- [ ] Get correct `appId` from Firebase Console
+- [ ] Update `firebaseService.js`
+- [ ] Test Firebase Auth and Firestore connection in browser DevTools Network tab
+- [ ] Verify no `firebase: Error` in console
+
+---
+
+## P0-TASK-04: Fix Money Law — Dashboard & Sales Revenue (CRIT-WEB-004)
+**Files:**
+- [`js/modules/dashboardModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/dashboardModule.js) — Lines 82, 88, 92
+- [`js/modules/salesModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/salesModule.js) — Lines 91, 96, 128–130  
+**Effort:** 2 hours
+
+### Fix Pattern (apply everywhere):
+```javascript
+// WRONG — reads rupee field that may not exist on Android-synced docs
+(s.grandTotal || 0)
+
+// CORRECT — Money Law compliant dual-field fallback
+(s.grandTotalPaise ? s.grandTotalPaise / 100 : (s.grandTotal || 0))
+
+// Also fix for expenses (stored as rupees in business_ledger):
+(e.amountPaise ? e.amountPaise / 100 : (e.amount || 0))
+```
+
+### All locations to fix in dashboardModule.js:
+- Line 82: `s.grandTotal` → paise-aware read
+- Line 88: `s.grandTotal` → paise-aware read
+- Line 92: `e.amount` → paise-aware read
+- Line 99, 104: `formatCurrency(todayRevenue, false)` → verify `isPaise=false` (rupees)
+
+### All locations to fix in salesModule.js:
+- Line 91: total accumulator
+- Line 128: taxableAmount
+- Line 129: totalTax
+- Line 130: grandTotal
+
+### Task Checklist:
+- [ ] Fix all `s.grandTotal` reads in dashboardModule.js (3 places)
+- [ ] Fix all financial reads in salesModule.js (4 places)
+- [ ] Add `paiseToRupees()` import from `config.js` where missing
+- [ ] Test with real Firestore data: dashboard shows correct ₹ amount
+
+---
+
+## P0-TASK-05: Fix Photo Storage — Firebase Storage Instead of Base64 (CRIT-WEB-005 / MED-WEB-004)
+**File:** [`js/modules/oldDeviceBuy.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/oldDeviceBuy.js)  
+**Effort:** 1 day
+
+### Problem
+Photos stored as Base64 DataURIs directly in Firestore documents — violates Constitution Article 45 and exceeds 1MB document limit.
+
+### Fix Architecture:
+```javascript
+// 1. Add Firebase Storage import to firebaseService.js
+import { getStorage, ref, uploadString, getDownloadURL } 
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+
+// 2. New upload helper in firebaseService.js
+export async function uploadKycPhoto(businessId, shopId, docId, photoType, base64DataUri) {
+  const storage = getStorage();
+  const path = `businesses/${businessId}/shops/${shopId}/kyc_photos/${docId}/${photoType}.jpg`;
+  const storageRef = ref(storage, path);
+  await uploadString(storageRef, base64DataUri, 'data_url');
+  return await getDownloadURL(storageRef);
+}
+
+// 3. In oldDeviceBuy.js form submit — upload first, then save URLs
+const [idFrontUrl, customerUrl, deviceUrl] = await Promise.all([
+  capturedPhotos.idFront ? uploadKycPhoto(bizId, shopId, docId, "id_front", capturedPhotos.idFront) : Promise.resolve(""),
+  capturedPhotos.customer ? uploadKycPhoto(bizId, shopId, docId, "customer", capturedPhotos.customer) : Promise.resolve(""),
+  capturedPhotos.device ? uploadKycPhoto(bizId, shopId, docId, "device", capturedPhotos.device) : Promise.resolve(""),
+]);
+// Then save URLs (not base64) in payload
+payload.idFrontImagePath = idFrontUrl;
+payload.customerPhotoPath = customerUrl;
+payload.deviceImagePath = deviceUrl;
+```
+
+### Task Checklist:
+- [ ] Add `getStorage`, `ref`, `uploadString`, `getDownloadURL` imports to `firebaseService.js`
+- [ ] Create `uploadKycPhoto(bizId, shopId, docId, type, base64)` helper
+- [ ] Update `oldDeviceBuy.js` form submit to upload photos first, then save URLs
+- [ ] Add upload progress indicator (show "Uploading photos... X%")
+- [ ] Test: KYC photo stored in Firebase Storage, URL stored in Firestore
+- [ ] Test: Android can read and display the Storage URL
+- [ ] Test: Detail modal renders Cloud Storage URLs correctly
+
+---
+
+## P0-TASK-06: Fix HTML Escaping (XSS Prevention) (HIGH-WEB-004)
+**Files:** All modules that use `innerHTML` with Firestore data  
+**Effort:** 3 hours
+
+### Fix — Create global escape helper in config.js:
+```javascript
+// Add to config.js
+export function escHtml(str) {
+  if (!str) return "";
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+```
+
+### Apply in all innerHTML template literals:
+```javascript
+// WRONG:
+`<td>${r.customerName}</td>`
+
+// CORRECT:
+`<td>${escHtml(r.customerName)}</td>`
+```
+
+### Files to update:
+- `dashboardModule.js` — sales table rows
+- `salesModule.js` — all table cells
+- `productsModule.js` — all table cells
+- `kycRegister.js` — all table cells
+- `caHub.js` — margin scheme table
+- `kycDetailModal.js` — customer name in header
+- `kycPrintEngine.js` — all print template fields
+
+### Task Checklist:
+- [ ] Add `escHtml()` to `config.js`
+- [ ] Import `escHtml` in all 7 module files
+- [ ] Wrap all Firestore string fields in `escHtml()`
+- [ ] Test: input `<script>alert(1)</script>` as customer name → should display as text
+
+---
+
+---
+
+# 🔐 PHASE 1 — Security & Architecture Hardening
+**Duration:** 6–8 days | **Priority: Before any real merchant data**
+
+---
+
+## P1-TASK-01: Implement Real Tab Visibility Listener Pause/Resume (CRIT-WEB-005)
+**File:** [`js/services/firebaseService.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/firebaseService.js)  
+**Effort:** 4 hours
+
+### Full Implementation:
+```javascript
+// Replace the stub setupTabVisibilityManager() with actual logic
+let _pausedListeners = [];
+let _activeListeners = [];
+
+export function registerManagedListener(unsub, isCritical = false) {
+  _activeListeners.push({ unsub, isCritical });
+  return unsub;
+}
+
+export function pauseNonCriticalListeners() {
+  _activeListeners.forEach(l => {
+    if (!l.isCritical) {
+      l.unsub(); // Detach from Firestore
+      _pausedListeners.push(l);
+    }
+  });
+  _activeListeners = _activeListeners.filter(l => l.isCritical);
+  console.log("[FinOps] Non-critical listeners paused. Active:", _activeListeners.length);
+}
+
+export function resumeAllListeners(reattachCallback) {
+  // reattachCallback is called by the active module to re-subscribe
+  if (reattachCallback) reattachCallback();
+  console.log("[FinOps] Listeners resumed.");
+}
+
+function setupTabVisibilityManager() {
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      pauseNonCriticalListeners();
+    } else {
+      // Signal app to re-mount the current module
+      window.dispatchEvent(new CustomEvent("vrstk:tab-restored"));
+    }
+  });
+}
+```
+
+### Task Checklist:
+- [ ] Implement `registerManagedListener()`, `pauseNonCriticalListeners()`, `resumeAllListeners()`
+- [ ] Replace stub `setupTabVisibilityManager()` with real implementation
+- [ ] In `app.js` — listen to `vrstk:tab-restored` and call `navigate(activeRoute)` to remount
+- [ ] Test: open tab, switch away 60s, come back → verify listeners re-attach
+
+---
+
+## P1-TASK-02: Move Role Validation to Firestore (MED-WEB-003)
+**File:** [`js/app.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/app.js) + `firebaseService.js`  
+**Effort:** 4 hours
+
+### Fix:
+- Remove trust of `localStorage.getItem("vrstk_role")` as source of truth
+- After `onAuthStateChanged` resolves, use the Firestore-resolved `tenantInfo.role` exclusively
+- `localStorage` only used as UI hint during page load (before Firestore resolves)
+- If `resolveUserTenant()` fails/returns null → force re-login (revoke session)
+
+### Task Checklist:
+- [ ] `resolveUserTenant()` now mandatory-enforced — null result = logout
+- [ ] `tenant.role` set only from Firestore `members/{uid}.role`
+- [ ] Add session invalidation: if Firestore role differs from `localStorage`, update localStorage and remount
+- [ ] Test: devtools `localStorage.setItem("vrstk_role", "OWNER")` → should NOT grant owner access if Firestore says STAFF
+
+---
+
+## P1-TASK-03: Add Content Security Policy Headers
+**Files:** [`firebase.json`](file:///C:/Users/sm/Desktop/veristockpro-android/firebase.json) + `index.html`  
+**Effort:** 2 hours
+
+### Add to firebase.json hosting config:
+```json
+{
+  "hosting": {
+    "headers": [{
+      "source": "**",
+      "headers": [{
+        "key": "Content-Security-Policy",
+        "value": "default-src 'self'; script-src 'self' https://www.gstatic.com https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://fonts.gstatic.com; img-src 'self' data: blob: https://firebasestorage.googleapis.com; connect-src 'self' https://*.firebaseio.com https://firestore.googleapis.com wss://*.firebaseio.com; font-src https://fonts.gstatic.com; frame-ancestors 'none';"
+      }, {
+        "key": "X-Content-Type-Options",
+        "value": "nosniff"
+      }, {
+        "key": "X-Frame-Options",
+        "value": "DENY"
+      }]
+    }]
+  }
+}
+```
+
+### Task Checklist:
+- [ ] Add CSP header to `firebase.json`
+- [ ] Test: Chrome DevTools Security panel → no CSP violations
+- [ ] Verify Firebase SDK scripts pass CSP (`gstatic.com` allowed)
+- [ ] Verify Google Fonts pass CSP
+
+---
+
+## P1-TASK-04: Fix Tenant Race Condition on First Load (MED-WEB-001)
+**File:** [`js/app.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/app.js) — Lines 31–40  
+**Effort:** 3 hours
+
+### Fix Init Sequence:
+```javascript
+async init() {
+  initFirebase();
+  this.auth = getAppAuth();
+  this.setupNavigation();
+  this.setupHardwareWedge();
+  // DON'T navigate yet — wait for auth state
+  this.setupAuthListener(); // navigate() called inside after tenant resolved
+}
+```
+
+Inside `setupAuthListener` after tenant resolution:
+```javascript
+// Only navigate ONCE after tenant is fully resolved
+if (!this._initialNavDone) {
+  this._initialNavDone = true;
+  this.applyRolePermissions();
+  this.updateTopbar();
+  this.navigate(this.tenant.role === "CA" ? "ca-hub" : "dashboard");
+  loginOverlay.classList.remove("open");
+}
+```
+
+### Task Checklist:
+- [ ] Remove `navigate()` call from `init()`
+- [ ] Add `_initialNavDone` flag to prevent double-mount
+- [ ] Navigate only once: after `resolveUserTenant()` completes
+- [ ] Demo mode: navigate immediately (no Firestore needed)
+- [ ] Test: Login → Dashboard mounts exactly once, no double Firestore subscribe
+
+---
+
+## P1-TASK-05: Fix activeListeners Memory Leak (MED-WEB-002)
+**File:** [`js/services/firebaseService.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/firebaseService.js)  
+**Effort:** 1 hour
+
+### Fix:
+```javascript
+// Replace push-only with managed registry
+export function addListener(unsub) {
+  _activeListeners.push(unsub);
+  return unsub;
+}
+export function removeListener(unsub) {
+  const idx = _activeListeners.indexOf(unsub);
+  if (idx > -1) _activeListeners.splice(idx, 1);
+}
+export function detachAllListeners() {
+  _activeListeners.forEach(fn => fn && fn());
+  _activeListeners = [];
+}
+```
+
+### Task Checklist:
+- [ ] Replace raw array push with managed `addListener()`
+- [ ] Call `removeListener()` in each module's `unmount()`
+- [ ] Call `detachAllListeners()` on signout
+
+---
+
+## P1-TASK-06: Fix SignaturePad Global Listener Leak (MED-WEB-007)
+**File:** [`js/services/hardware.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/hardware.js) — Line 70  
+**Effort:** 1 hour
+
+### Fix:
+```javascript
+this._mouseUpHandler = () => this.stopDrawing();
+window.addEventListener('mouseup', this._mouseUpHandler);
+
+// Add destroy() method:
+destroy() {
+  window.removeEventListener('mouseup', this._mouseUpHandler);
+}
+```
+
+### Task Checklist:
+- [ ] Store handler reference as instance property
+- [ ] Add `destroy()` method to `SignaturePad`
+- [ ] Call `sigPad.destroy()` on modal close in `oldDeviceBuy.js`
+
+---
+
+## P1-TASK-07: Fix KYC Print — Remove Fake Crypto Hash (MED-WEB-006)
+**File:** [`js/modules/kycPrintEngine.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/kycPrintEngine.js) — Line 152  
+**Effort:** 30 minutes
+
+### Fix Options (pick one):
+**Option A:** Compute real SHA-256 hash of key record fields using WebCrypto API  
+**Option B:** Remove the hash line entirely — replace with Docket No + timestamp  
+
+Recommended: Option A (real hash from WebCrypto — no dependency needed):
+```javascript
+async function computeRecordHash(record) {
+  const data = `${record.imei1}|${record.customerName}|${record.timestamp}|${record.idProofNumber}`;
+  const encoder = new TextEncoder();
+  const hashBuffer = await crypto.subtle.digest('SHA-256', encoder.encode(data));
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('').substring(0, 16).toUpperCase();
+}
+```
+
+### Task Checklist:
+- [ ] Make `printRecord()` async
+- [ ] Compute real SHA-256 hash from `imei1 + customerName + timestamp + idProofNumber`
+- [ ] Display first 16 chars as "Integrity Code"
+- [ ] Test: same record always produces same hash
+
+---
+
+## P1-TASK-08: Implement `_clientSessionId` Loopback Guard
+**File:** [`js/services/firebaseService.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/firebaseService.js)  
+**Effort:** 2 hours  
+**Spec:** `WEB_REALTIME_SYNC_AND_STATE_SPEC.md` Section 2.3
+
+### Implementation:
+```javascript
+// Generate once per browser session
+const SESSION_ID = `web_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+
+// Add to every write payload (already done partially)
+export function getWebMetadata() {
+  return {
+    _sourcePlatform: "WEB",
+    _clientSessionId: SESSION_ID,
+    _localTimestamp: Date.now()
+  };
+}
+
+// In onSnapshot callback — drop own echoes:
+onSnapshot(q, (snapshot) => {
+  const records = snapshot.docs
+    .map(d => ({ id: d.id, ...d.data() }))
+    .filter(r => r._clientSessionId !== SESSION_ID); // Drop own writes
+  onUpdateCallback(records);
+});
+```
+
+### Task Checklist:
+- [ ] Generate `SESSION_ID` once on page load
+- [ ] Create `getWebMetadata()` export
+- [ ] Add `getWebMetadata()` to all `setDoc()` calls
+- [ ] Add loopback filter in `onSnapshot` callbacks
+- [ ] Test: record own write → should NOT cause UI flash
+
+---
+
+---
+
+# 🏗️ PHASE 2 — Core Missing Modules
+**Duration:** 15–18 days | **Feature parity with Android**
+
+---
+
+## P2-TASK-01: Used Device Vault (Inventory Route)
+**New File:** [`js/modules/inventoryVault.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/inventoryVault.js)  
+**Effort:** 3 days
+
+### Features to Implement:
+1. **Live list** of all devices with `recordType === "DEVICE_BUY"` and `status !== "COMPLETED"`
+2. **Columns:** Date, Device (Brand + Model), IMEI, Condition, Inward Price, Handling Mode, Days in Stock
+3. **Filter tabs:** All | Available | Sent for Repair | Scrapped
+4. **Search:** By IMEI, Brand, Model, Customer name
+5. **Sort:** Newest first (default), Oldest first, Price High/Low
+6. **Actions:** View KYC details, Print record, Mark as Resold (link to sell modal)
+7. **KPIs:** Total devices, Total stock value, Avg days in stock, Devices > 30 days
+
+### Firestore Query:
+```javascript
+query(
+  collection(db, `businesses/${bId}/shops/${sId}/kyc_records`),
+  where("recordType", "==", "DEVICE_BUY"),
+  orderBy("timestamp", "desc"),
+  limit(200)
+)
+```
+
+### Task Checklist:
+- [ ] Create `InventoryVaultModule` class in `inventoryVault.js`
+- [ ] Firestore `onSnapshot` with `where("recordType", "==", "DEVICE_BUY")`
+- [ ] KPI stat grid (4 cards)
+- [ ] Filter tabs (All | Available | Repair | Scrap)
+- [ ] Data table with all columns
+- [ ] "Mark as Resold" button → opens `OldDeviceSellModal`
+- [ ] "View KYC" button → opens `KycDetailModal`
+- [ ] Register route in `app.js` navigate()
+- [ ] Update sidebar link to activate this module
+
+---
+
+## P2-TASK-02: Expenses Entry Module
+**New File:** [`js/modules/expensesModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/expensesModule.js)  
+**Effort:** 2 days
+
+### Features:
+1. **Live expense list** from `expenses` subcollection (real-time `onSnapshot`)
+2. **Add Expense modal** with fields: Category, Description, Amount (₹), Payment Mode, Date
+3. **Expense categories:** Rent, Salaries, Utilities, Transport, Purchases, Miscellaneous
+4. **KPIs:** Today's expenses, This month total, By category breakdown
+5. **Filter:** By category, by date range, by payment mode
+6. **Export:** XLSX per Export Format Standard
+
+### Firestore Write (Money Law compliant):
+```javascript
+const expenseData = {
+  id: docId,
+  category: category,
+  description: description,
+  amountPaise: Math.round(parseFloat(amountRupees) * 100), // Money Law
+  paymentMode: paymentMode, // "CASH" | "UPI" | "BANK_TRANSFER"
+  date: Date.now(), // Epoch millis
+  addedBy: tenant.userEmail,
+  ...getWebMetadata()
+};
+```
+
+### Add to firebaseService.js:
+```javascript
+export function subscribeToExpenses(businessId, shopId, callback) { ... }
+export async function saveExpense(businessId, shopId, payload) { ... }
+```
+
+### Task Checklist:
+- [ ] Create `ExpensesModule` class
+- [ ] `subscribeToExpenses()` in firebaseService
+- [ ] `saveExpense()` with paise conversion
+- [ ] Add Expense modal (form + validation)
+- [ ] KPI cards (today / month / category)
+- [ ] Date range filter
+- [ ] Add "Expenses" route to sidebar + app.js
+- [ ] STAFF role: can add expenses; CA role: read-only audit view
+
+---
+
+## P2-TASK-03: Purchases Register Module
+**New File:** [`js/modules/purchasesModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/purchasesModule.js)  
+**Effort:** 2 days
+
+### Features:
+1. **Live purchases list** from `purchases` subcollection
+2. **KPIs:** Total COGS this month, number of purchase bills, pending payments
+3. **Purchase detail view:** Per purchase items, tax, payment status
+4. **Columns:** Date, Supplier, Invoice No, Total Amount, Payment Mode, Status
+5. **Filter:** Paid / Pending / Partial
+
+### Task Checklist:
+- [ ] Create `PurchasesModule` class
+- [ ] `subscribeToPurchases()` in firebaseService
+- [ ] Data table with all columns
+- [ ] Filter by payment status
+- [ ] KPI grid
+- [ ] Add to sidebar + router
+
+---
+
+## P2-TASK-04: Day Book / Cash Register Module
+**New File:** [`js/modules/dayBookModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/dayBookModule.js)  
+**Effort:** 2 days  
+**Spec:** Export Format Standard — Day Book columns
+
+### Features:
+1. **Real-time combined ledger** — merge sales CREDIT + expense DEBIT + purchase DEBIT into single chronological view
+2. **Columns:** Time, Particulars, Voucher Type, Voucher No, Cash In (₹), Cash Out (₹), Running Balance
+3. **Date picker** — default today, allow any date navigation
+4. **Daily summary:** Opening balance, Total In, Total Out, Closing Balance
+5. **Export XLSX** — per EXPORT_FORMAT_STANDARD
+
+### Task Checklist:
+- [ ] Create `DayBookModule` class
+- [ ] Subscribe to all 3 collections (sales, expenses, business_ledger) for selected date
+- [ ] Merge + sort by timestamp into unified ledger rows
+- [ ] Running balance calculation
+- [ ] Date navigation (prev/next day buttons + date picker input)
+- [ ] "Export Day Book (XLSX)" button
+- [ ] Add to sidebar + router
+
+---
+
+## P2-TASK-05: Business Profile & Settings Module
+**New File:** [`js/modules/settingsModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/settingsModule.js)  
+**Effort:** 1.5 days
+
+### Features:
+1. Read business profile from `businesses/{businessId}` document
+2. **Display:** Business name, GSTIN, address, phone, logo, business category
+3. **Edit mode** (OWNER only): update business name, address, phone, GSTIN
+4. **Logo upload:** Upload to Firebase Storage, save URL in `businesses/{bId}`
+5. **Dual Cloud Key** read: `doc.name || doc.businessName`
+6. **Current shop details:** Shop name, location
+7. **Subscription tier display:** LITE / PRO badge
+
+### Task Checklist:
+- [ ] Create `SettingsModule` class
+- [ ] Read from `businesses/{bId}` and `businesses/{bId}/shops/{sId}`
+- [ ] Render profile with logo, name, GSTIN
+- [ ] OWNER role: editable fields + save button
+- [ ] Logo upload via Firebase Storage
+- [ ] Add to sidebar (gear icon) + router
+- [ ] STAFF/CA: read-only view
+
+---
+
+## P2-TASK-06: Supplier Ledger Module
+**New File:** [`js/modules/supplierLedgerModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/supplierLedgerModule.js)  
+**Effort:** 2 days
+
+### Features:
+1. List of suppliers from `supplier_ledger` collection
+2. Per-supplier: total purchased, total paid, outstanding balance
+3. **Payable entries:** Record payment to supplier
+4. **Payment modes:** Cash, UPI, Bank Transfer
+5. **Ledger trail:** Per-supplier transaction history
+
+### Money Law Note:
+`supplier_ledger` stores amounts in **Paise** (Long) — always divide by 100 for display.
+
+### Task Checklist:
+- [ ] Supplier list with outstanding balances
+- [ ] Per-supplier ledger detail modal
+- [ ] Add payment entry form
+- [ ] Money Law: all amounts read as paise, display as rupees
+- [ ] Add to sidebar + router
+
+---
+
+## P2-TASK-07: Customer Ledger / Khata Module
+**New File:** [`js/modules/customerLedgerModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/customerLedgerModule.js)  
+**Effort:** 2 days
+
+### Features:
+1. Customer list with outstanding receivables
+2. Per-customer purchase history
+3. Mark payment received
+4. KPIs: Total receivables, customers with dues > 30 days
+
+### Task Checklist:
+- [ ] Customer list from `customers` + `sales` collections
+- [ ] Outstanding balance calculation
+- [ ] Per-customer detail modal with sale history
+- [ ] "Record Collection" payment entry
+- [ ] Add to sidebar + router
+
+---
+
+## P2-TASK-08: Sidebar Navigation Restructuring
+**File:** [`index.html`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/index.html)  
+**Effort:** 4 hours
+
+### New Sidebar Structure:
+```
+Overview
+  📊 Dashboard                    [LIVE]
+Transactions
+  🧾 Sales & Billing History      [LIVE]
+  📦 Purchases Register           [NEW]
+  💸 Expenses                     [NEW]
+  📖 Day Book                     [NEW]
+Second-Hand & KYC
+  🛡️ KYC & Second-Hand Register  [LIVE]
+  📱 Used Device Vault            [NEW]
+Ledger & Finance
+  👥 Customer Ledger              [NEW]
+  🏭 Supplier Ledger              [NEW]
+Inventory
+  📦 Inventory Master             [LIVE]
+Auditor & Tax Desk
+  📊 CA Compliance Hub            [GSTR-1]
+Settings
+  ⚙️ Business Settings            [NEW]
+```
+
+### Task Checklist:
+- [ ] Add 6 new nav links to `index.html`
+- [ ] Add new `menu-category-label` groupings
+- [ ] Wire all routes in `app.js` navigate()
+- [ ] Apply role visibility rules to new links
+- [ ] Test mobile sidebar collapses correctly
+
+---
+
+---
+
+# 📊 PHASE 3 — CA Hub & Full Tax Engine
+**Duration:** 8–10 days | **Accountant-grade production quality**
+
+---
+
+## P3-TASK-01: Real-Time CA Hub Financial Data
+**File:** [`js/modules/caHub.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/caHub.js)  
+**Effort:** 2 days
+
+### Fix CA Hub data loading:
+1. Convert `getDocs()` (one-time) to `onSnapshot()` for real-time P&L
+2. Load **expenses** (currently missing entirely from CA Hub)
+3. Add `unmount()` to unsubscribe listeners (currently empty)
+4. Show loading state while data loads
+
+```javascript
+async mount() {
+  this.renderShell();
+  this.renderLoadingState();
+  // Subscribe to all 3 data sources
+  this._unsubSales = subscribeToSales(bId, sId, (data) => {
+    this.financialData.sales = data;
+    this.recalculateFinancials();
+  });
+  this._unsubPurchases = subscribeToPurchases(bId, sId, (data) => {
+    this.financialData.purchases = data;
+    this.recalculateFinancials();
+  });
+  this._unsubExpenses = subscribeToExpenses(bId, sId, (data) => {
+    this.financialData.expenses = data;
+    this.recalculateFinancials();
+  });
+}
+
+unmount() {
+  this._unsubSales?.();
+  this._unsubPurchases?.();
+  this._unsubExpenses?.();
+}
+```
+
+### Task Checklist:
+- [ ] Replace `getDocs()` with `onSnapshot` for sales, purchases, expenses
+- [ ] Add `unmount()` with proper unsubscription
+- [ ] Fix P&L operating expenses calculation (now actually shows expense data)
+- [ ] Verify all financial values are Money Law compliant (paise → rupees)
+- [ ] Show loading skeleton while data loads
+
+---
+
+## P3-TASK-02: Implement GST Tax Audit Tab (GSTR-1 / 3B)
+**File:** [`js/modules/caHub.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/caHub.js) — `switchTab("tabGst")`  
+**Effort:** 2.5 days
+
+### Full GST breakdown per tax slab:
+```javascript
+function buildGstMatrix(sales) {
+  const slabs = {};
+  sales.forEach(s => {
+    const items = Array.isArray(s.items) ? s.items : [];
+    items.forEach(item => {
+      const rate = item.gstRate || 18;
+      if (!slabs[rate]) slabs[rate] = { taxable: 0, cgst: 0, sgst: 0, igst: 0 };
+      const taxable = item.taxableAmountPaise ? item.taxableAmountPaise / 100 : (item.taxableAmount || 0);
+      const tax = taxable * (rate / 100);
+      slabs[rate].taxable += taxable;
+      slabs[rate].cgst += tax / 2;
+      slabs[rate].sgst += tax / 2;
+    });
+  });
+  return slabs;
+}
+```
+
+### GSTR-1 Tab Content:
+| Tax Rate | Taxable (₹) | CGST (₹) | SGST (₹) | IGST (₹) | Total Tax (₹) |
+| 5% | ... | ... | ... | ... | ... |
+| 12% | ... | ... | ... | ... | ... |
+| 18% | ... | ... | ... | ... | ... |
+| 28% | ... | ... | ... | ... | ... |
+
+### Task Checklist:
+- [ ] Implement `buildGstMatrix()` function
+- [ ] Render GSTR-1 rate-wise breakdown table
+- [ ] Compute outward taxable turnover, CGST, SGST separately
+- [ ] Populate `#gstTurnover`, `#gstCgst`, `#gstSgst`, `#gstTotal` elements
+- [ ] Add month/quarter date range selector
+- [ ] Test: GST amounts match manually calculated values
+
+---
+
+## P3-TASK-03: Fix GSTR-1 Export to Proper JSON Format
+**File:** [`js/modules/caHub.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/caHub.js) — `exportGstr1Json()`  
+**Effort:** 1.5 days
+
+### Proper GSTR-1 JSON structure (GSTN portal compatible):
+```javascript
+exportGstr1Json() {
+  const gstr1 = {
+    gstin: this.tenant.gstin || "",
+    fp: this._getFilingPeriod(), // "092026" for Sep 2026
+    gt: this._computeGrossTurnover(), // In Rupees
+    b2cs: this._buildB2CSSummary(), // B2C small supplies
+    hsn: this._buildHsnSummary(),   // HSN-wise summary
+    exp: [],  // Exports (empty for domestic)
+    nil: { inv: [] } // Nil-rated supplies
+  };
+  // Download as proper JSON
+  const blob = new Blob([JSON.stringify(gstr1, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  // ... download link
+}
+```
+
+### Task Checklist:
+- [ ] Implement GSTN-compatible GSTR-1 JSON structure
+- [ ] Add `_buildB2CSSummary()` for B2C intra-state supplies
+- [ ] Add `_buildHsnSummary()` for HSN-wise summary table
+- [ ] `_getFilingPeriod()` returns current month in MMYYYY format
+- [ ] Test: exported JSON matches GSTN portal expected schema
+
+---
+
+## P3-TASK-04: Real XLSX Export using SheetJS
+**Files:** `caHub.js`, new `js/services/excelExporter.js`  
+**Effort:** 1.5 days  
+**Spec:** `EXPORT_FORMAT_STANDARD.md` — XLSX mandatory
+
+### Implementation:
+```html
+<!-- Add to index.html -->
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+```
+
+```javascript
+// js/services/excelExporter.js
+export function exportToXlsx(rows, headers, sheetName, fileName) {
+  const ws = XLSX.utils.aoa_to_sheet([headers, ...rows]);
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, sheetName);
+  XLSX.writeFile(wb, `${fileName}_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
+```
+
+### Exports to implement:
+- [ ] CA Hub → P&L XLSX export
+- [ ] CA Hub → GST Summary XLSX (multi-sheet: summary + detail)
+- [ ] CA Hub → KYC Records XLSX
+- [ ] Sales Module → Sales report XLSX
+- [ ] Expenses Module → Expenses report XLSX
+- [ ] Day Book → Day Book XLSX
+
+### Task Checklist:
+- [ ] Add SheetJS CDN to index.html
+- [ ] Create `excelExporter.js` service
+- [ ] Replace current CSV export in `caHub.js` with proper XLSX
+- [ ] Add export buttons to Sales, Expenses, Day Book modules
+- [ ] File naming: `{Module}_Report_{YYYYMMDD}.xlsx`
+
+---
+
+## P3-TASK-05: Date Range Filters Across All Financial Modules
+**Files:** dashboardModule.js, salesModule.js, caHub.js, expensesModule.js  
+**Effort:** 1 day
+
+### Standard date filter component:
+```javascript
+// Reusable date filter bar HTML
+function renderDateFilterBar(containerId) {
+  return `
+    <div class="date-filter-bar" id="${containerId}">
+      <button class="btn btn-secondary btn-sm date-preset active" data-days="0">Today</button>
+      <button class="btn btn-secondary btn-sm date-preset" data-days="7">Last 7 Days</button>
+      <button class="btn btn-secondary btn-sm date-preset" data-days="30">This Month</button>
+      <button class="btn btn-secondary btn-sm date-preset" data-days="90">Last Quarter</button>
+      <input type="date" id="dateFrom" class="form-control" style="width:140px;" />
+      <span style="color:var(--text-muted)">to</span>
+      <input type="date" id="dateTo" class="form-control" style="width:140px;" />
+    </div>
+  `;
+}
+```
+
+### Task Checklist:
+- [ ] Create reusable date filter bar component
+- [ ] Integrate into Dashboard (KPIs filtered by date)
+- [ ] Integrate into Sales Module
+- [ ] Integrate into CA Hub (P&L, GST by period)
+- [ ] Integrate into Expenses Module
+- [ ] Integrate into Day Book (single date selector)
+
+---
+
+---
+
+# ⚙️ PHASE 4 — Advanced Features & Hardware
+**Duration:** 10–12 days | **Premium POS Desktop**
+
+---
+
+## P4-TASK-01: OldDeviceSell — Payment Mode Selector (HIGH-WEB-003)
+**File:** [`js/modules/oldDeviceSell.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/oldDeviceSell.js)  
+**Effort:** 2 hours
+
+### Fix:
+```html
+<div class="form-group">
+  <label class="form-label">Payment Mode *</label>
+  <select id="sellPaymentMode" class="form-control" required>
+    <option value="CASH">Cash in Hand</option>
+    <option value="UPI">UPI / GPay / PhonePe</option>
+    <option value="BANK_TRANSFER">Bank IMPS / NEFT</option>
+    <option value="EMI">EMI Financing</option>
+  </select>
+</div>
+```
+
+Update form submit to read `document.getElementById("sellPaymentMode").value`.
+
+---
+
+## P4-TASK-02: Quick POS Billing Counter (Desktop)
+**New File:** [`js/modules/quickPosModule.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/quickPosModule.js)  
+**Effort:** 3 days  
+**Spec:** Feature Matrix — `POS_BILLING` available for all industries
+
+### Features:
+1. **Product search bar** with barcode scanner wedge support
+2. **Cart:** Add items, adjust quantity, remove items
+3. **Tax calculation:** GST rate per product, subtotal, CGST/SGST, grand total
+4. **Payment:** Cash (change calculator), UPI, split payment
+5. **Invoice print:** Browser print dialog or thermal ESC/POS (if printer connected)
+6. **Save to Firestore:** `sales` collection with Money Law paise values
+
+### Firestore Write Schema (parity with Android):
+```javascript
+{
+  invoiceNumber: "INV-20260908-001",
+  invoiceDate: Date.now(),          // Epoch millis
+  customerName: "Walk-in",
+  grandTotal: grandTotalRupees,     // Rupees (for business_ledger)
+  grandTotalPaise: grandTotalPaise, // Paise (for P&L calculations)
+  taxableAmount: taxableRupees,
+  totalTax: totalTaxRupees,
+  items: [...],
+  paymentMode: "CASH",
+  paymentStatus: "PAID",
+  ...getWebMetadata()
+}
+```
+
+### Task Checklist:
+- [ ] Product search with real-time filter from `products` collection
+- [ ] Barcode scanner auto-adds product to cart
+- [ ] Cart with quantity stepper
+- [ ] GST auto-calculation per item rate
+- [ ] Payment section with change calculator
+- [ ] Invoice number auto-generation (server timestamp based)
+- [ ] Save invoice to `sales` collection (Money Law compliant)
+- [ ] Print invoice (window.print with styled template)
+- [ ] Add "Billing" route to sidebar
+
+---
+
+## P4-TASK-03: Custom Toast Notification System (Replace alert/confirm)
+**New File:** [`js/services/toast.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/toast.js)  
+**Effort:** 4 hours
+
+### Implementation:
+```javascript
+export class Toast {
+  static show(message, type = "info", durationMs = 3000) {
+    const id = `toast_${Date.now()}`;
+    const colors = { success: "var(--success)", error: "var(--danger)", 
+                     warning: "var(--warning)", info: "var(--primary)" };
+    const toast = document.createElement("div");
+    toast.id = id;
+    toast.style.cssText = `position:fixed; bottom:24px; right:24px; 
+      background:var(--bg-surface-elevated); border:1px solid ${colors[type]};
+      color:var(--text-primary); padding:14px 20px; border-radius:10px;
+      box-shadow:var(--shadow-lg); z-index:9999; font-size:14px;
+      animation: slideInRight 0.3s ease; max-width:360px;`;
+    toast.textContent = message;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), durationMs);
+  }
+  static success(msg) { this.show(msg, "success"); }
+  static error(msg) { this.show(msg, "error", 5000); }
+  static warning(msg) { this.show(msg, "warning"); }
+}
+```
+
+### Replace all `alert()` and `confirm()` usage:
+- `oldDeviceBuy.js` — success message + print confirm
+- `oldDeviceSell.js` — success message
+- `caHub.js` — export success
+- All error alerts → `Toast.error()`
+
+### Task Checklist:
+- [ ] Create `Toast` class in `js/services/toast.js`
+- [ ] Add CSS animation for slide-in effect to `app.css`
+- [ ] Replace ALL `alert()` calls (7 found in audit)
+- [ ] Replace `confirm()` with a custom confirmation modal
+- [ ] Add CSS to app.css for toast animations
+
+---
+
+## P4-TASK-04: Loading Skeletons / Shimmer States
+**Files:** All module files + `app.css`  
+**Effort:** 1 day
+
+### Replace "Connecting to live cloud stream..." text with shimmer cards:
+```css
+/* Add to app.css */
+.shimmer-row {
+  background: linear-gradient(90deg, 
+    rgba(255,255,255,0.04) 25%, 
+    rgba(255,255,255,0.08) 50%, 
+    rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  height: 44px; border-radius: 6px; margin-bottom: 6px;
+}
+@keyframes shimmer { 0% {background-position: 200% 0} 100% {background-position: -200% 0} }
+```
+
+### Task Checklist:
+- [ ] Add shimmer CSS to `app.css`
+- [ ] Create `renderShimmerRows(count)` helper function in `config.js`
+- [ ] Apply in all 5 module tables (Dashboard, Sales, Products, KYC, CA Hub)
+- [ ] Show shimmer during initial load, replace with data on first snapshot
+
+---
+
+## P4-TASK-05: Thermal Printer ESC/POS Integration
+**File:** [`js/services/hardware.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/hardware.js)  
+**Effort:** 2 days  
+**Spec:** `WEB_HARDWARE_PERIPHERALS_SPEC.md` Section 2
+
+### Implementation:
+```javascript
+export class ThermalPrinter {
+  constructor() { this.port = null; }
+  
+  async connect() {
+    this.port = await navigator.serial.requestPort();
+    await this.port.open({ baudRate: 9600 });
+  }
+
+  async printReceipt(escPosBytes) {
+    if (!this.port) throw new Error("Printer not connected.");
+    const writer = this.port.writable.getWriter();
+    await writer.write(new Uint8Array(escPosBytes));
+    writer.releaseLock();
+  }
+
+  static buildInvoiceBytes(sale) {
+    // ESC/POS command builder
+    const cmds = [];
+    cmds.push(0x1B, 0x40); // Initialize
+    cmds.push(0x1B, 0x61, 0x01); // Center align
+    // ... add business name, items, totals
+    cmds.push(0x1D, 0x56, 0x00); // Full cut
+    return cmds;
+  }
+}
+```
+
+### Task Checklist:
+- [ ] Add `ThermalPrinter` class to `hardware.js`
+- [ ] ESC/POS command builder for 58mm receipts
+- [ ] "Connect Printer" button in settings module
+- [ ] Thermal print button on POS billing module
+- [ ] Fallback to `window.print()` if no serial port connected
+- [ ] Test with actual ESC/POS printer (or emulator)
+
+---
+
+## P4-TASK-06: OldDeviceBuy — Add ID Back Photo + Fingerprint Snap
+**File:** [`js/modules/oldDeviceBuy.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/modules/oldDeviceBuy.js)  
+**Effort:** 4 hours
+
+### Missing snaps to add:
+Currently has: ID Front, Customer Photo, Device Photo  
+Spec requires: ID Front, **ID Back**, Customer Photo, Device Photo, **Fingerprint (optional)**
+
+### Task Checklist:
+- [ ] Add "Snap ID Back" button to webcam section
+- [ ] Add "Snap Fingerprint" button (optional — uses webcam)
+- [ ] Update `capturedPhotos` object to include `idBack` and `fingerprint`
+- [ ] Upload both to Firebase Storage
+- [ ] Save URLs in KYC record payload
+
+---
+
+---
+
+# 🌐 PHASE 5 — PWA, Offline, Performance & Tests
+**Duration:** 8–10 days | **Production certification**
+
+---
+
+## P5-TASK-01: Service Worker + PWA Offline Support
+**New File:** [`js/sw.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/sw.js) (placed in web root)  
+**Effort:** 2 days  
+**Spec:** `WEB_REALTIME_SYNC_AND_STATE_SPEC.md` Section 3
+
+### Service Worker Implementation:
+```javascript
+// sw.js
+const CACHE_NAME = 'vrstk-v1';
+const STATIC_ASSETS = ['/', '/index.html', '/css/app.css', '/css/print.css',
+  '/js/app.js', '/js/config.js', '/app_icon_official.png'];
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => cache.addAll(STATIC_ASSETS))
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request).then(cached => cached || fetch(event.request))
+  );
+});
+
+// Web Outbox Sync — flush queued writes when online
+self.addEventListener('sync', event => {
+  if (event.tag === 'web-outbox-flush') {
+    event.waitUntil(flushOutboxQueue());
+  }
+});
+```
+
+### Register in app.js:
+```javascript
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').then(reg => {
+    console.log('[PWA] Service Worker registered:', reg.scope);
+  });
+}
+```
+
+### Task Checklist:
+- [ ] Create `sw.js` with install, fetch, sync event handlers
+- [ ] Register SW in `app.js`
+- [ ] Cache: HTML, CSS, JS, app icon
+- [ ] Add `manifest.webmanifest` PWA icons (separate 192×192 and 512×512 PNGs)
+- [ ] Test: load app offline → static shell works, shows cached data
+
+---
+
+## P5-TASK-02: IndexedDB Offline Outbox (Dexie.js equivalent in Vanilla JS)
+**New File:** [`js/services/offlineStore.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/offlineStore.js)  
+**Effort:** 2 days  
+**Spec:** `WEB_REALTIME_SYNC_AND_STATE_SPEC.md` Section 3
+
+### IndexedDB setup (no library — native API):
+```javascript
+// offlineStore.js
+let db = null;
+
+export async function openOfflineStore() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open('vrstk_offline', 1);
+    req.onupgradeneeded = (e) => {
+      const db = e.target.result;
+      db.createObjectStore('products', { keyPath: 'id' });
+      db.createObjectStore('web_outbox', { keyPath: 'localId', autoIncrement: true });
+    };
+    req.onsuccess = (e) => { db = e.target.result; resolve(db); };
+    req.onerror = reject;
+  });
+}
+
+export async function cacheProducts(products) {
+  const tx = db.transaction('products', 'readwrite');
+  const store = tx.objectStore('products');
+  products.forEach(p => store.put(p));
+}
+
+export async function enqueueOutbox(payload) {
+  const tx = db.transaction('web_outbox', 'readwrite');
+  tx.objectStore('web_outbox').add({ ...payload, enqueuedAt: Date.now() });
+}
+
+export async function flushOutbox() {
+  // Attempt to push all queued records to Firestore
+}
+```
+
+### Trigger flush:
+```javascript
+window.addEventListener('online', () => {
+  flushOutbox().then(() => Toast.success("Offline records synced to cloud!"));
+});
+```
+
+### Task Checklist:
+- [ ] Create `offlineStore.js` with IndexedDB schema
+- [ ] Cache products + customers in IndexedDB on first load
+- [ ] `enqueueOutbox()` for offline POS sales
+- [ ] `flushOutbox()` on `window.online` event
+- [ ] Show offline indicator in topbar when no connection
+- [ ] Test: disconnect Wi-Fi → add expense → reconnect → verify synced
+
+---
+
+## P5-TASK-03: Performance Optimization
+**Files:** All modules  
+**Effort:** 1.5 days
+
+### Optimizations:
+1. **Virtual scrolling** for large KYC/Sales tables (> 100 rows)
+2. **Debounce search inputs** (currently fires on every keystroke)
+3. **Lazy-load modules** — don't import caHub.js until CA Hub route navigated to
+4. **Image lazy loading** in KYC detail modal photo grid
+5. **Snapshot query limits:** Review all `limit()` values — ensure appropriate
+
+```javascript
+// Debounce search (add to config.js):
+export function debounce(fn, delay = 300) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+```
+
+### Task Checklist:
+- [ ] Add `debounce()` to all search input event listeners
+- [ ] Virtual scroll for tables > 100 rows (KYC register especially)
+- [ ] Lazy module load via dynamic `import()` in navigate()
+- [ ] `loading="lazy"` on all `<img>` in photo gallery
+- [ ] Verify Lighthouse Performance score > 80
+
+---
+
+## P5-TASK-04: Multi-Device UI Testing & Responsive Polish
+**Files:** `css/app.css`  
+**Effort:** 1 day
+
+### Breakpoints to test and fix:
+- 1920px (Full HD Desktop) — primary target
+- 1366px (Laptop) — common in Indian retail
+- 1024px (iPad landscape) — counter tablets
+- 768px (iPad portrait) — mobile sidebar
+
+### Known responsive issues to fix:
+- Stat grid on small screens wraps incorrectly
+- Modal boxes overflow on 768px
+- Sidebar nav items clip text at 260px on some fonts
+
+### Task Checklist:
+- [ ] Test and fix 1366px layout
+- [ ] Mobile sidebar toggle works at 768px
+- [ ] Modal scroll on small screens
+- [ ] Tables responsive with `overflow-x: auto` wrapper (already mostly done)
+- [ ] Print CSS tweaks for A4 paper printing
+
+---
+
+## P5-TASK-05: Error Boundary & Fallback UI
+**New File:** [`js/services/errorBoundary.js`](file:///C:/Users/sm/Desktop/veristockpro-android/web-app/js/services/errorBoundary.js)  
+**Effort:** 4 hours
+
+### Global error handler:
+```javascript
+// errorBoundary.js
+export function setupGlobalErrorHandlers() {
+  window.addEventListener('error', (e) => {
+    console.error('[Global Error]', e.error);
+    Toast.error("Something went wrong. Please refresh the page.");
+  });
+  window.addEventListener('unhandledrejection', (e) => {
+    if (e.reason?.code === 'permission-denied') {
+      Toast.error("Access denied. Your session may have expired. Please sign in again.");
+      // Force re-login
+    } else {
+      console.error('[Unhandled Promise]', e.reason);
+      Toast.error("Cloud sync error: " + (e.reason?.message || "Unknown error"));
+    }
+  });
+}
+```
+
+### Task Checklist:
+- [ ] Create `errorBoundary.js`
+- [ ] Call `setupGlobalErrorHandlers()` in `app.js` init
+- [ ] Handle `permission-denied` → force re-login
+- [ ] Handle `unavailable` → show offline indicator
+- [ ] Handle generic JS errors → Toast.error
+
+---
+
+## P5-TASK-06: Firebase Firestore Security Rules Audit for Web
+**File:** [`firestore.rules`](file:///C:/Users/sm/Desktop/veristockpro-android/firestore.rules)  
+**Effort:** 1 day
+
+### Verify rules allow web reads/writes correctly:
+- `businesses/{bId}/shops/{sId}/kyc_records` → OWNER + STAFF write, CA read-only
+- `businesses/{bId}/shops/{sId}/sales` → All authenticated read, OWNER + STAFF write
+- `businesses/{bId}/shops/{sId}/expenses` → OWNER + STAFF write, CA read-only
+- `users/{uid}/profile/data` → Only `uid === request.auth.uid` can read
+
+### Task Checklist:
+- [ ] Review all collection rules in `firestore.rules`
+- [ ] Test CA role: cannot write sales/expenses
+- [ ] Test STAFF role: cannot access CA Hub data
+- [ ] Test unauthenticated: access denied to all business data
+- [ ] Run `firestore-rules-tests/` test suite (exists in project)
+
+---
+
+---
+
+# 📦 COMPLETE FILE MAP — New Files to Create
+
+| File | Phase | Description |
+|---|---|---|
+| `js/modules/inventoryVault.js` | P2 | Used Device Vault module |
+| `js/modules/expensesModule.js` | P2 | Expenses entry + list |
+| `js/modules/purchasesModule.js` | P2 | Purchases register |
+| `js/modules/dayBookModule.js` | P2 | Day Book / Cash register |
+| `js/modules/settingsModule.js` | P2 | Business profile settings |
+| `js/modules/supplierLedgerModule.js` | P2 | Supplier ledger |
+| `js/modules/customerLedgerModule.js` | P2 | Customer khata |
+| `js/modules/quickPosModule.js` | P4 | Desktop POS billing |
+| `js/services/toast.js` | P4 | Toast notification system |
+| `js/services/excelExporter.js` | P3 | XLSX export using SheetJS |
+| `js/services/offlineStore.js` | P5 | IndexedDB offline cache |
+| `js/services/errorBoundary.js` | P5 | Global error handling |
+| `js/sw.js` | P5 | Service Worker for PWA |
+
+---
+
+# ✅ MASTER TASK CHECKLIST
+
+## Phase 0 — Critical Fixes
+- [ ] P0-TASK-01: Auth bypass fix
+- [ ] P0-TASK-02: Remove hardcoded credentials
+- [ ] P0-TASK-03: Verify Firebase appId
+- [ ] P0-TASK-04: Money Law fix in Dashboard + Sales
+- [ ] P0-TASK-05: Firebase Storage for KYC photos
+- [ ] P0-TASK-06: HTML escaping (XSS prevention)
+
+## Phase 1 — Security Hardening
+- [ ] P1-TASK-01: Real tab visibility listener pause/resume
+- [ ] P1-TASK-02: Firestore role validation (not localStorage)
+- [ ] P1-TASK-03: CSP headers in firebase.json
+- [ ] P1-TASK-04: Tenant race condition fix
+- [ ] P1-TASK-05: activeListeners memory leak fix
+- [ ] P1-TASK-06: SignaturePad mouseup listener leak fix
+- [ ] P1-TASK-07: Real SHA-256 hash in KYC print
+- [ ] P1-TASK-08: _clientSessionId loopback guard
+
+## Phase 2 — Core Modules
+- [ ] P2-TASK-01: Used Device Vault module
+- [ ] P2-TASK-02: Expenses module
+- [ ] P2-TASK-03: Purchases register module
+- [ ] P2-TASK-04: Day Book module
+- [ ] P2-TASK-05: Business settings module
+- [ ] P2-TASK-06: Supplier ledger module
+- [ ] P2-TASK-07: Customer ledger module
+- [ ] P2-TASK-08: Sidebar navigation restructure
+
+## Phase 3 — CA Hub & Tax
+- [ ] P3-TASK-01: Real-time CA Hub financial data
+- [ ] P3-TASK-02: GST Tax Audit tab implementation
+- [ ] P3-TASK-03: Proper GSTR-1 JSON export
+- [ ] P3-TASK-04: XLSX exports via SheetJS
+- [ ] P3-TASK-05: Date range filters all modules
+
+## Phase 4 — Advanced Features
+- [ ] P4-TASK-01: OldDeviceSell payment mode
+- [ ] P4-TASK-02: Quick POS billing counter
+- [ ] P4-TASK-03: Toast notification system
+- [ ] P4-TASK-04: Loading skeletons / shimmer
+- [ ] P4-TASK-05: Thermal printer ESC/POS
+- [ ] P4-TASK-06: OldDeviceBuy ID Back + Fingerprint
+
+## Phase 5 — PWA & Production
+- [ ] P5-TASK-01: Service Worker + PWA
+- [ ] P5-TASK-02: IndexedDB offline outbox
+- [ ] P5-TASK-03: Performance optimization
+- [ ] P5-TASK-04: Responsive UI testing
+- [ ] P5-TASK-05: Error boundary + fallback UI
+- [ ] P5-TASK-06: Firestore rules audit for web
+
+---
+
+# 📊 Effort Summary
+
+| Phase | Tasks | Est. Days |
+|---|---|---|
+| Phase 0 — Critical Fixes | 6 | 4–5 |
+| Phase 1 — Security Hardening | 8 | 6–8 |
+| Phase 2 — Core Modules | 8 | 15–18 |
+| Phase 3 — CA Hub & Tax | 5 | 8–10 |
+| Phase 4 — Advanced Features | 6 | 10–12 |
+| Phase 5 — PWA & Production | 6 | 8–10 |
+| **TOTAL** | **39 tasks** | **51–63 days** |
+
+> [!NOTE]
+> Phase 0 aur Phase 1 ko parallel nahi karna chahiye — ek ke baad ek complete karo. Phase 2–4 mein parallel work possible hai (alag modules simultaneously). Phase 5 last mein aaye.
+
+---
+
+# 🎯 Minimum Viable Production (MVP) Path
+**Agar resources limited hain — yeh minimum karo production ke liye:**
+
+Phase 0 (all 6 tasks) + Phase 1 (tasks 1,2,3,4) + P2-TASK-01 (Vault) + P2-TASK-02 (Expenses) + P2-TASK-08 (Sidebar) + P3-TASK-01 (CA Hub real data) + P4-TASK-03 (Toast) + P5-TASK-06 (Rules audit)
+
+**MVP estimated:** ~25–30 days → Safe for first real merchant.
