@@ -492,6 +492,23 @@
       .header-left, .header-right {
         justify-content: space-between;
         width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+
+      .header-left .brand-logo {
+        font-size: 16px !important;
+      }
+
+      .header-left small {
+        display: block;
+        margin-left: 0 !important;
+      }
+
+      .badge-live {
+        font-size: 11px;
+        padding: 4px 10px;
+        white-space: nowrap;
       }
 
       .app-container {
@@ -833,17 +850,25 @@
     import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
     import { getFirestore, collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-    // Firebase Config for veristock-ad58d
+    // Firebase Config for veristock-ad58d (must match web-app/js/services/firebaseService.js)
     const firebaseConfig = {
-      projectId: "veristock-ad58d",
+      apiKey: "AIzaSyC7WE5kuJLcInIFcEHGLsB0kB3ctfdHylY",
       authDomain: "veristock-ad58d.firebaseapp.com",
-      storageBucket: "veristock-ad58d.appspot.com",
+      projectId: "veristock-ad58d",
+      storageBucket: "veristock-ad58d.firebasestorage.app",
+      messagingSenderId: "265248708987",
+      appId: "1:265248708987:web:veristockpro"
     };
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-    const db = getFirestore(app);
+    // Initialize Firebase (never let init failure block demo-mode/login handlers from registering)
+    let app = null, auth = null, db = null;
+    try {
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+    } catch (e) {
+      console.error("Firebase init failed:", e);
+    }
 
     let chartInstance = null;
     let currentBusinessData = {
@@ -861,7 +886,7 @@
       overlay.style.display = 'none';
 
       try {
-        await signInWithEmailAndPassword(auth, email, pass);
+        if (auth) await signInWithEmailAndPassword(auth, email, pass);
       } catch (err) {
         console.warn("Firebase Auth fallback:", err.message);
       }
@@ -874,7 +899,7 @@
     };
 
     window.handleSignOut = () => {
-      signOut(auth).catch(() => {});
+      if (auth) signOut(auth).catch(() => {});
       document.getElementById('loginOverlay').style.display = 'flex';
     };
 
@@ -891,6 +916,7 @@
 
       try {
         // Query Firestore collections synced from Android device
+        if (!db) throw new Error("Firestore not initialized");
         const salesSnap = await getDocs(collection(db, `businesses/${bizId}/shops/${shopId}/sales`));
         const purchasesSnap = await getDocs(collection(db, `businesses/${bizId}/shops/${shopId}/purchases`));
         const expensesSnap = await getDocs(collection(db, `businesses/${bizId}/shops/${shopId}/expenses`));
