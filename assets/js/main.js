@@ -815,34 +815,44 @@ function initVerticalsArchitectureHub() {
       dna: 'INDUSTRIAL_TRADE',
       mode: 'WHOLESALE',
       strategy: 'WHOLESALE',
-      badge: 'UDHARI AGING',
-      desc: 'Multi-pricing tier slabs (Retail vs Wholesale vs Super-Stockist), bulk packaging MOQ controls, credit limit safeguards, and 0-180+ days receivables aging.',
+      badge: 'UDHARI & RMA SHIELD',
+      desc: 'Multi-pricing tier slabs (Retail vs Wholesale vs Super-Stockist), pack-size MOQ billing, Quality Grade badging (Original, OLED, Tested A+), Rack-Shelf-Tray bin indexing, RMA defect intake, and 0-180+ days receivables aging.',
       features: [
         'Multi-Tier Wholesale Price Slabs with MOQ gating',
+        'Pack-Size Billing (Box of 10, Pack of 50, Master Carton)',
+        'Quality Grade Badging (Original, OLED, Tested A+) on invoices',
+        'RMA Defect Return Engine with 5-point checklist & quarantine bin',
+        'Rack-Shelf-Tray location indexing for 10,000+ tiny spare parts',
         '0-180+ Days Receivables Aging Ladder (Udhari risk radar)',
-        'Customer Credit Limit Locks (Blocks new invoices when exceeded)',
-        'One-Click GSTR-1 CSV B2B Sales Exports'
+        'Stock Transfer Notes (STN) for inter-department stock movement'
       ],
-      schema: ['price_slab_tier', 'credit_limit_amount', 'credit_days_allowed', 'gstin_verified', 'transport_transporter_id'],
+      schema: ['price_slab_tier', 'credit_limit_amount', 'credit_days_allowed', 'gstin_verified', 'pack_size_qty', 'quality_grade', 'storage_tray_bin'],
       terminology: [
         { standard: 'Customer', localized: 'B2B Retailer / Dealer', purpose: 'GSTIN-registered trade account' },
-        { standard: 'Product', localized: 'Trade Bulk SKU', purpose: 'Pack of cartons or master boxes' },
+        { standard: 'Product', localized: 'Trade Bulk SKU / Spares', purpose: 'Pack of cartons or spare parts' },
         { standard: 'Stock Unit', localized: 'Carton / Box / Case', purpose: 'Wholesale multi-pack measures' },
+        { standard: 'RMA Return', localized: 'Defect Return / 1:1 Exchange', purpose: '5-point intake checklist & quarantine' },
+        { standard: 'Storage Location', localized: 'Rack-Shelf-Tray (R-S-T)', purpose: 'Physical coordinate picking' },
         { standard: 'Ledger', localized: 'Dealer Credit Ledger (Aging)', purpose: 'Tracks outstanding bill maturities' }
       ],
       widgets: [
         { id: 'RECEIVABLES_AGING', priority: 2, feature: 'REPORTS_ADVANCED', desc: '0-30d, 31-90d, 91-180d overdue totals' },
         { id: 'WHOLESALE_DISPATCH', priority: 4, feature: 'WHOLESALE_BILLING', desc: 'Pending orders ready for transport' },
+        { id: 'RMA_QUARANTINE_LOCKED', priority: 5, feature: 'WHOLESALE_BILLING', desc: 'Locked capital in defective bins' },
         { id: 'CREDIT_BREACH_ALERTS', priority: 6, feature: 'WHOLESALE_BILLING', desc: 'Dealers exceeding credit limits' }
       ],
       hsnCodes: [
-        { code: '996111', desc: 'Wholesale Trade Services on Fee/Contract', rate: '18% GST', rule: 'CGST 9% + SGST 9%' }
+        { code: '996111', desc: 'Wholesale Trade Services on Fee/Contract', rate: '18% GST', rule: 'CGST 9% + SGST 9%' },
+        { code: '85177090', desc: 'Mobile Display Folders & Spare Parts', rate: '18% GST', rule: 'CGST 9% + SGST 9%' },
+        { code: '85044090', desc: 'Fast Chargers & Power Adapters', rate: '18% GST', rule: 'CGST 9% + SGST 9%' }
       ],
       kotlinCode: `BusinessCategory.WHOLESALE_DISTRIBUTION to CategoryDefinition(
     category = BusinessCategory.WHOLESALE_DISTRIBUTION,
     features = baseRetailFeatures + setOf(
         Feature.WHOLESALE_BILLING,
         Feature.MULTI_PRICING,
+        Feature.RMA_MANAGEMENT,
+        Feature.STOCK_TRANSFER_NOTE,
         Feature.REPORTS_ADVANCED
     ),
     associatedMode = BusinessMode.WHOLESALE,
