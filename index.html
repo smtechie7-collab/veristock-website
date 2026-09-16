@@ -167,92 +167,102 @@
 </head>
 <body>
 
-  <!-- ── SCROLL PROGRESS BAR ────────────────────────────────────────── -->
-  <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
+  <!-- ── HEADER WITH INTEGRATED ANNOUNCEMENT BAR & PROGRESS BAR ─────── -->
+  <header id="site-header" class="site-header">
+    <!-- Top Announcement Bar -->
+    <div id="top-announcement-bar" class="top-announcement-bar" role="banner" aria-label="Announcement">
+      <div class="container announcement-inner">
+        <div class="announcement-content">
+          <span class="announcement-badge">NEW</span>
+          <span class="announcement-text">VeriStock Connect B2B Peer Network &amp; 12 Indic Multilingual Engines are Live!</span>
+        </div>
+        <a href="pages/connect/index.html" class="announcement-link">Explore Network &rarr;</a>
+      </div>
+    </div>
 
-  <!-- ── TOP ANNOUNCEMENT BAR ─────────────────────────────────────────── -->
-  <div style="background: linear-gradient(90deg, #1A3FDB, #4F46E5); color: #FFFFFF; font-size: 0.8125rem; padding: 7px 12px; text-align: center; font-weight: 600; display: flex; justify-content: center; align-items: center; gap: 8px; z-index: 1000; position: relative;">
-    <span>🚀 <strong>NEW:</strong> VeriStock Connect B2B Peer Network &amp; 12 Indic Multilingual Engines are Live!</span>
-    <a href="pages/connect/index.html" style="color: #FDE047; text-decoration: underline; font-weight: 700; margin-left: 4px;">Explore Network &rarr;</a>
-  </div>
-
-  <!-- ── HEADER NAVBAR ────────────────────────────────────────────────── -->
-  <header>
-    <div class="container nav-container">
-      <a href="#" class="logo-link" aria-label="VeriStock Pro Home">
-        <!-- SVG Logo -->
-        <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="headerLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#1A3FDB" />
-              <stop offset="100%" stop-color="#4F46E5" />
-            </linearGradient>
-          </defs>
-          <path fill="url(#headerLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
-          <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
-          <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
-        </svg>
-        <span>VERISTOCK PRO</span>
-      </a>
-
-      <!-- Desktop Navigation Menu -->
-      <nav aria-label="Main Navigation">
-        <ul class="nav-menu">
-          <li><a href="pages/connect/index.html" class="nav-link" style="color: #ADC6FF; font-weight: 700;">B2B Connect <span style="font-size: 0.65rem; background: #22C55E; color: #000; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">NEW</span></a></li>
-          <li><a href="pages/wholesale-distribution/index.html" class="nav-link">Wholesale</a></li>
-          <li><a href="#features" class="nav-link">Features</a></li>
-          <li><a href="#why-veristock" class="nav-link">Why VeriStock</a></li>
-          <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
-          <li><a href="#pricing" class="nav-link">Pricing</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-          <li class="mobile-nav-divider"></li>
-          <li class="mobile-nav-cta">
-            <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm mobile-cta-btn" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-              Web App / CA Portal
-            </a>
-          </li>
-          <li class="mobile-nav-cta">
-            <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm mobile-cta-btn" target="_blank" rel="noopener">Get Android App</a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Header actions (Dark Mode & Mobile Menu trigger) -->
-      <div class="header-actions">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
-          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    <!-- Main Navigation Bar -->
+    <div class="nav-bar-wrapper">
+      <div class="container nav-container">
+        <a href="#" class="logo-link" aria-label="VeriStock Pro Home">
+          <!-- SVG Logo -->
+          <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="headerLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1A3FDB" />
+                <stop offset="100%" stop-color="#4F46E5" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#headerLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
+            <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
+            <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
           </svg>
-          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <span>VERISTOCK PRO</span>
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav aria-label="Main Navigation">
+          <ul class="nav-menu">
+            <li><a href="pages/connect/index.html" class="nav-link" style="color: #ADC6FF; font-weight: 700;">Connect <span style="font-size: 0.65rem; background: #22C55E; color: #000; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">NEW</span></a></li>
+            <li><a href="pages/wholesale-distribution/index.html" class="nav-link">Wholesale</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#why-veristock" class="nav-link">Why Us</a></li>
+            <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
+            <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            <li><a href="#faq" class="nav-link">FAQ</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li class="mobile-nav-divider"></li>
+            <li class="mobile-nav-cta">
+              <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm mobile-cta-btn" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Web Portal / CA Hub
+              </a>
+            </li>
+            <li class="mobile-nav-cta">
+              <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm mobile-cta-btn" target="_blank" rel="noopener">Get Android App</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Header actions (Theme Toggle, Web Portal & Android App) -->
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm header-portal-btn" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px;" title="Open VeriStock Pro Web & CA Portal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Web Portal</span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm header-app-btn" target="_blank" rel="noopener">
+            <span>Get App</span>
+          </a>
+        </div>
+
+        <!-- Hamburger mobile button -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
-        <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px;" title="Open VeriStock Pro Web & CA Portal">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-          Web App / CA
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get Android App</a>
       </div>
-
-      <!-- Hamburger mobile button -->
-      <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
     </div>
+
+    <!-- Scroll Progress Bar attached directly along bottom edge of header -->
+    <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
   </header>
 
   <!-- ── HERO SECTION ───────────────────────────────────────────────────── -->
@@ -262,7 +272,7 @@
       <div class="hero-content reveal">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">✓ Android App + Web Portal Dual Support | Live Cloud Sync</span>
+          <span class="hero-badge-text">✓ Dual Platform: Android App + Web Portal | Live Cloud Sync</span>
         </div>
         <h1>Run Your Business.<br>Not Your Problems.</h1>
         <p>India's premier <strong>Offline-First & Cloud-Synchronized ERP</strong> with full dual-platform support — <strong>Android Mobile App + Web Desktop Portal</strong>. Enjoy seamless sub-second live cloud sync across all your phones, tablets, counter terminals, and back-office PCs across 18 business verticals.</p>
@@ -287,6 +297,7 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>AES-256 SQLCipher & Firestore Multi-Tenant</span>
           </div>
+        </div>
           <!-- Hero Live Stat Pills -->
         <div class="hero-live-stats">
           <div class="hero-stat-pill" style="background: linear-gradient(135deg, rgba(26,63,219,0.25), rgba(79,70,229,0.15)); border-color: var(--primary-light);">

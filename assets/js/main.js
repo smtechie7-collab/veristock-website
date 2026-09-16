@@ -75,17 +75,24 @@ function initHeaderScroll() {
   const header = document.querySelector('header');
   if (!header) return;
 
+  let ticking = false;
   const handleScroll = () => {
-    if (window.scrollY > 40) {
+    if (window.scrollY > 24) {
       header.classList.add('scrolled');
     } else {
       header.classList.remove('scrolled');
     }
+    ticking = false;
   };
 
-  // Run on load and scroll
+  // Run on load and scroll with rAF
   handleScroll();
-  window.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
+  }, { passive: true });
 }
 
 /* ── 3. MOBILE MENU TRIGGER ─────────────────────────────────────────── */
@@ -1632,24 +1639,25 @@ function initVerticalsArchitectureHub() {
       chip.setAttribute('role', 'tab');
       chip.setAttribute('aria-selected', v.id === activeVerticalKey);
       chip.innerHTML = `<span>${v.icon}</span> <span>${v.name}</span> <span class="v-chip-code">${v.badge}</span>`;
-      chip.addEventListener('click', () => selectVertical(v.id));
+      chip.addEventListener('click', () => selectVertical(v.id, true));
       chipsContainer.appendChild(chip);
     });
   }
 
   // 2. Select & Render a vertical into the 5-tab Explorer Deck
-  function selectVertical(key) {
+  function selectVertical(key, shouldScroll = false) {
     const v = VERTICAL_ARCHETYPES[key];
     if (!v) return;
     activeVerticalKey = key;
 
-    // Update active chip styling & scroll into center view
+    // Update active chip styling & scroll chip into center horizontally only inside chipsContainer
     document.querySelectorAll('.v-chip-btn').forEach(btn => {
       const isActive = btn.dataset.vkey === key;
       btn.classList.toggle('active', isActive);
       btn.setAttribute('aria-selected', isActive);
-      if (isActive) {
-        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      if (isActive && shouldScroll && chipsContainer) {
+        const offset = btn.offsetLeft - (chipsContainer.clientWidth / 2) + (btn.clientWidth / 2);
+        chipsContainer.scrollTo({ left: offset, behavior: 'smooth' });
       }
     });
 
@@ -1776,7 +1784,7 @@ function initVerticalsArchitectureHub() {
 
   // Initialize
   renderChips();
-  selectVertical('MOBILE_SHOP');
+  selectVertical('MOBILE_SHOP', false);
 }
 
 /* ── 10. INTERACTIVE REPAIR TRACKER SIMULATOR ─────────────────────────── */
@@ -1826,12 +1834,22 @@ function initRepairSimulator() {
   const bar = document.getElementById('scroll-progress-bar');
   if (!bar) return;
 
-  window.addEventListener('scroll', () => {
+  let ticking = false;
+  const updateBar = () => {
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
     const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = Math.min(100, progress) + '%';
+    bar.style.width = Math.min(100, Math.max(0, progress)) + '%';
+    ticking = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(updateBar);
+      ticking = true;
+    }
   }, { passive: true });
+  updateBar();
 })();
 
 /* ── BACK TO TOP BUTTON ──────────────────────────────────────────────── */
