@@ -762,49 +762,106 @@ window.VERTICAL_ARCHETYPES = {
 
     ELECTRONICS: {
       id: 'ELECTRONICS',
-      name: 'Electronics & Appliances',
+      name: 'Electronics & Consumer Appliances',
       icon: '📺',
       dna: 'TECHNICAL_SERVICE',
       mode: 'RETAIL',
-      strategy: 'STANDARD',
-      badge: 'SERIAL & AMC',
-      desc: 'Serial number and warranty verification for consumer electronics, Annual Maintenance Contracts (AMC), installation logs, and brand service dispatches.',
-      features: ['Individual Unit Serial & Warranty Tracking', 'AMC Recurring Service Contract Manager', 'Brand-wise inventory and landed cost calculators', 'Installation & Demo service work orders'],
-      schema: ['serial_number', 'warranty_months', 'amc_contract_id', 'power_rating_star', 'installation_due_date'],
+      strategy: 'ELECTRONICS_SHOWROOM',
+      badge: 'DUAL-SERIAL & BEE STAR',
+      desc: 'Enterprise ERP for Consumer Electronics, Split ACs & Home Appliances. Split AC IDU/ODU dual-serial set tracking, BEE 1-5 Star Energy Ratings on invoices, 5-10 Year Compressor & Motor extended warranties in item notes, Customer Doorstep Delivery & Installation Tracker, Consumer EMI Finance, Auto-enforced 28% AC & 18% Washing Machine/Fridge GST, and E-Way Bill advisory.',
+      features: [
+        'Split AC IDU + ODU Dual-Serial Set Invariant (paired serial scanning, distinctness check & set delivery)',
+        'BEE Energy Star Rating (1 to 5 Stars) auto-mapped & printed on thermal & PDF tax invoices',
+        'Compressor & Motor 5-10 Year Extended Warranty tracking in invoice line item notes',
+        'Customer Doorstep Delivery & Installation Tracker with shipping address capture & technician dispatch',
+        'Consumer Finance & No-Cost EMI tenure tracking (Bajaj Finserv, PineLabs, HDB, Credit Card EMI)',
+        'Statutory Tax Compliance: 28% GST for ACs, 18% for Washers (HSN 8450) & Fridges (HSN 8418)',
+        'E-Way Bill Advisory auto-prompt for consignments exceeding ₹50,000 threshold',
+        'Showroom POS Hero Quick Actions: 1-Tap Appliance Sale & Delivery Challan Dispatch',
+        'Decontaminated Appliance Diagnostic QC Grid (Cabinet Dents, Gas Leakage, Compressor Hum, Cooling Coil)'
+      ],
+      schema: ['idu_serial', 'odu_serial', 'bee_star_rating', 'compressor_warranty_years', 'shipping_address', 'delivery_status', 'installation_technician', 'emi_tenure_months'],
       terminology: [
-        { standard: 'Customer', localized: 'Appliance Owner', purpose: 'Tracks address for on-site technician' },
-        { standard: 'Product', localized: 'Electronic Appliance', purpose: 'Serialized AC, Refrigerator, TV unit' },
-        { standard: 'Repair Job', localized: 'Installation / Service Ticket', purpose: 'On-site engineer service order' },
-        { standard: 'Stock Unit', localized: 'Unit / Set', purpose: 'Individual packed appliance' }
+        { standard: 'Customer', localized: 'Appliance Owner / Buyer', purpose: 'Captures full doorstep delivery address' },
+        { standard: 'Product', localized: 'Serialized Appliance (AC/TV/WM)', purpose: 'Appliance with serial sets & star rating' },
+        { standard: 'Repair Job', localized: 'Installation / Demo / AMC Ticket', purpose: 'On-site engineer service & demo order' },
+        { standard: 'Stock Unit', localized: 'Set / Unit (IDU + ODU)', purpose: 'Individual packed appliance set' },
+        { standard: 'Serial Number', localized: 'Dual Serial (IDU + ODU)', purpose: 'Split AC indoor & outdoor serial pairing' },
+        { standard: 'Delivery', localized: 'Doorstep Delivery Challan', purpose: 'Logistics dispatch & installation signoff' }
       ],
       widgets: [
-        { id: 'SALES_SUMMARY', priority: 1, feature: 'POS_BILLING', desc: 'Appliance turnover' },
-        { id: 'AMC_DUE_CALENDAR', priority: 5, feature: 'AMC_MANAGEMENT', desc: 'Upcoming seasonal maintenance visits' },
-        { id: 'WARRANTY_AUDIT', priority: 8, feature: 'WARRANTY_TRACKING', desc: 'Expiring manufacturer warranties' }
+        { id: 'SALES_SUMMARY', priority: 1, feature: 'POS_BILLING', desc: 'Appliance revenue, units sold & ticket size' },
+        { id: 'QUICK_ACTIONS', priority: 2, feature: 'POS_BILLING', desc: 'Fast Appliance Sale, Delivery Challan, Serial Scan' },
+        { id: 'PENDING_DELIVERIES', priority: 3, feature: 'DELIVERY_TRACKING', desc: 'Doorstep deliveries awaiting driver dispatch' },
+        { id: 'INSTALLATION_TRACKER', priority: 4, feature: 'SERVICE_REPAIR', desc: 'Scheduled technician installations & demos' },
+        { id: 'AMC_DUE_CALENDAR', priority: 5, feature: 'AMC_MANAGEMENT', desc: 'Seasonal AC & appliance preventive maintenance' },
+        { id: 'WARRANTY_AUDIT', priority: 8, feature: 'WARRANTY_TRACKING', desc: 'Expiring compressor & motor warranty records' }
       ],
       hsnCodes: [
-        { code: '85287217', desc: 'Color Television Sets', rate: '18% / 28% GST', rule: '18% for screen <= 32"; 28% above' },
-        { code: '84151010', desc: 'Window / Split Air Conditioners', rate: '28% GST', rule: 'CGST 14% + SGST 14%' },
-        { code: '84181010', desc: 'Combined Refrigerator-Freezers', rate: '18% GST', rule: 'CGST 9% + SGST 9%' }
+        { code: '84151010', desc: 'Window / Split Air Conditioners (Complete Set)', rate: '28% GST', rule: 'CGST 14% + SGST 14% Auto-Enforced' },
+        { code: '84501100', desc: 'Household Fully-Automatic Washing Machines', rate: '18% GST', rule: 'CGST 9% + SGST 9% (HSN 8450 Compliant)' },
+        { code: '84181010', desc: 'Combined Refrigerator-Freezers (Frost Free)', rate: '18% GST', rule: 'CGST 9% + SGST 9% (HSN 8418 Compliant)' },
+        { code: '85287217', desc: 'Smart LED TV & Display Monitors', rate: '18% / 28% GST', rule: '18% for screen <= 32 inches; 28% for larger' }
       ],
       kotlinCode: `BusinessCategory.ELECTRONICS to CategoryDefinition(
     category = BusinessCategory.ELECTRONICS,
-    features = baseRetailFeatures + setOf(Feature.WARRANTY_TRACKING, Feature.AMC_MANAGEMENT, Feature.SERVICE_REPAIR),
+    features = baseRetailFeatures + setOf(
+        Feature.WARRANTY_TRACKING,
+        Feature.AMC_MANAGEMENT,
+        Feature.SERVICE_REPAIR,
+        Feature.DELIVERY_TRACKING,
+        Feature.SERIAL_NUMBER_TRACKING,
+        Feature.CONSUMER_EMI
+    ),
     associatedMode = BusinessMode.RETAIL,
-    billingStrategy = BillingStrategyType.STANDARD
+    billingStrategy = BillingStrategyType.ELECTRONICS_SHOWROOM,
+    dashboardLayout = listOf(
+        WidgetConfig("SALES_SUMMARY", priority = 1),
+        WidgetConfig("QUICK_ACTIONS", priority = 2),
+        WidgetConfig("PENDING_DELIVERIES", priority = 3),
+        WidgetConfig("INSTALLATION_TRACKER", priority = 4)
+    )
 )`,
       renderTool: () => `
         <div class="v-tool-box">
           <div class="v-tool-header">
-            <span class="v-tool-title">Serial Warranty &amp; AMC Status Radar</span>
-            <span class="v-tool-badge success">VALID WARRANTY</span>
+            <span class="v-tool-title">Split AC Dual-Serial &amp; Installation Radar</span>
+            <span class="v-tool-badge success">IDU+ODU PAIRED</span>
           </div>
           <div class="v-tool-form">
-            <div style="font-size:0.625rem;color:#CBD5E1;display:flex;flex-direction:column;gap:4px;">
-              <div>Serial: <strong style="color:#fff;font-family:monospace;">SN-DAIKIN-15-4402</strong></div>
-              <div>Device: <strong style="color:#fff;">Daikin 1.5 Ton 5-Star Inverter Split AC</strong></div>
-              <div style="display:flex;justify-content:space-between;"><span>Warranty Status:</span><span style="color:#22C55E;font-weight:700;">ACTIVE (2.4 Years Remaining)</span></div>
-              <div style="display:flex;justify-content:space-between;"><span>AMC Scheduled:</span><span style="color:#F59E0B;">Summer Service Due in 45 Days</span></div>
+            <div style="font-size:0.625rem;color:#CBD5E1;display:flex;flex-direction:column;gap:5px;">
+              <div style="display:flex;justify-content:space-between;">
+                <span>Appliance Model:</span>
+                <strong style="color:#fff;">Voltas 1.5 Ton 5-Star Inverter Split AC</strong>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Indoor Unit (IDU SN):</span>
+                <span style="color:#ADC6FF;font-family:monospace;font-weight:700;">VOL-IDU-2026-9812</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Outdoor Unit (ODU SN):</span>
+                <span style="color:#ADC6FF;font-family:monospace;font-weight:700;">VOL-ODU-2026-4471</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>BEE Energy Star Rating:</span>
+                <span style="color:#F59E0B;font-weight:800;">⭐⭐⭐⭐⭐ 5-STAR (ISEER 5.10)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Compressor Warranty:</span>
+                <span style="color:#22C55E;font-weight:700;">10 Years Extended (Item Note)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Statutory GST Rate:</span>
+                <span class="v-chip-code" style="color:#22C55E;background:rgba(34,197,94,0.15);">28% GST (CGST 14% + SGST 14%)</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Doorstep Delivery:</span>
+                <span style="color:#38BDF8;font-weight:700;">Challan #DC-8041 • Out for Delivery</span>
+              </div>
+              <div style="display:flex;justify-content:space-between;">
+                <span>Technician Installation:</span>
+                <span style="color:#F59E0B;font-weight:700;">Scheduled Today, 4:00 PM</span>
+              </div>
             </div>
           </div>
         </div>`,
