@@ -149,6 +149,19 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 - `SHIFT_POLICY_AND_BREAK_ENGINE`: Shift grace thresholds, 4-way break state machines (Lunch/Tea/Prayer/Personal), and 1-tap owner regularization approvals.
 - `PAYSLIP_PDF_GENERATOR`: Professional A4 PDF payslip generation with SHA-256 integrity hash and 1-click WhatsApp/Email sharing.
 - `CA_WEB_PORTAL`: Real-time web-based P&L, GST liability matrix (GSTR-1/3B), and Ledger Audit portal for Chartered Accountants (`https://veristock-ad58d.web.app`).
+- `VERISTOCK_CONNECT`: India's 1st P2P B2B Wholesale Commerce & Inventory Discovery Network with GeoHash peer proximity, real-time in-app B2B chat, quote negotiations, and 1-tap auto-sync catalog.
+- `CONNECT_FRAUD_SHIELD`: 5-layer trust and anti-fraud shield (Strict SuperAdmin KYC approval, storefront verification, DPDP Act 2023 statutory consent, and anti-mock GPS guard).
+- `CONNECT_ESCROW_COMMERCE`: Escrow-backed purchase orders, OTP + Photo Proof of Delivery, and dynamic merchant Trust Scores (0-100).
+- `WHOLESALE_PACK_MOQ_BILLING`: Pack-size wholesale billing (Singles, Box of 10, Pack of 50, Master Carton) with strict Minimum Order Quantity (MOQ) enforcement.
+- `SPARE_PARTS_QUALITY_INDEX`: Quality Grade badging (Original OEM, OLED, First Copy, Refurbished, Tested A+) with model compatibility matrix search.
+- `STORAGE_LOCATION_INDEXING`: Rack-Shelf-Tray bin coordinates for 10,000+ tiny mobile spare parts and flex cables.
+- `RMA_DEFECT_RETURN_ENGINE`: Counter intake with 5-point physical inspection checklist, 1:1 piece exchange, customer credit notes, and defective quarantine bin.
+- `RMA_SUPPLIER_DISPATCH`: Batch defective quarantine dispatch with automated supplier Debit Notes, ITC reversal, and supplier ledger adjustment.
+- `STOCK_TRANSFER_NOTE_STN`: Inter-department (Counter ⇄ Service Lab ⇄ Warehouse) and inter-branch stock requisitions, approvals, and dispatch tracking.
+- `INDIC_MULTILINGUAL_SUITE`: Zero-latency native localization across 12 Indic languages (English, Hindi, Gujarati, Marathi, Tamil, Telugu, Kannada, Malayalam, Bengali, Punjabi, Urdu, Odia).
+- `SUPER_ADMIN_CONSOLE`: Founder backoffice for multi-tenant governance, live crash telemetry & diagnostics, tenant health monitoring, and security rule hardening.
+- `SMART_CASH_ASSISTANT`: In-line capital infusion assistant preventing negative cash drawer defects across all disbursements (Money Law Article 4.4/4.5).
+- `PURCHASE_RETURNS_AND_AUDIT`: Statutory purchase returns with Debit Note builder, supplier invoice search, ITC reversal, and physical stock reconciliation loss valuation.
 
 ---
 

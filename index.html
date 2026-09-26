@@ -36,6 +36,7 @@
 
   <!-- CSS Style -->
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/app-simulator.css">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="assets/images/logo.svg">
@@ -167,84 +168,102 @@
 </head>
 <body>
 
-  <!-- ── SCROLL PROGRESS BAR ────────────────────────────────────────── -->
-  <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
+  <!-- ── HEADER WITH INTEGRATED ANNOUNCEMENT BAR & PROGRESS BAR ─────── -->
+  <header id="site-header" class="site-header">
+    <!-- Top Announcement Bar -->
+    <div id="top-announcement-bar" class="top-announcement-bar" role="banner" aria-label="Announcement">
+      <div class="container announcement-inner">
+        <div class="announcement-content">
+          <span class="announcement-badge">NEW</span>
+          <span class="announcement-text">VeriStock Connect B2B Peer Network &amp; 12 Indic Multilingual Engines are Live!</span>
+        </div>
+        <a href="pages/connect/index.html" class="announcement-link">Explore Network &rarr;</a>
+      </div>
+    </div>
 
-  <!-- ── HEADER NAVBAR ────────────────────────────────────────────────── -->
-  <header>
-    <div class="container nav-container">
-      <a href="#" class="logo-link" aria-label="VeriStock Pro Home">
-        <!-- SVG Logo -->
-        <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="headerLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stop-color="#1A3FDB" />
-              <stop offset="100%" stop-color="#4F46E5" />
-            </linearGradient>
-          </defs>
-          <path fill="url(#headerLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
-          <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
-          <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
-        </svg>
-        <span>VERISTOCK PRO</span>
-      </a>
-
-      <!-- Desktop Navigation Menu -->
-      <nav aria-label="Main Navigation">
-        <ul class="nav-menu">
-          <li><a href="#features" class="nav-link">Features</a></li>
-          <li><a href="#why-veristock" class="nav-link">Why VeriStock</a></li>
-          <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
-          <li><a href="#pricing" class="nav-link">Pricing</a></li>
-          <li><a href="#faq" class="nav-link">FAQ</a></li>
-          <li><a href="#contact" class="nav-link">Contact</a></li>
-          <li class="mobile-nav-divider"></li>
-          <li class="mobile-nav-cta">
-            <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm mobile-cta-btn" target="_blank" rel="noopener">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-              Web App / CA Portal
-            </a>
-          </li>
-          <li class="mobile-nav-cta">
-            <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm mobile-cta-btn" target="_blank" rel="noopener">Get Android App</a>
-          </li>
-        </ul>
-      </nav>
-
-      <!-- Header actions (Dark Mode & Mobile Menu trigger) -->
-      <div class="header-actions">
-        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
-          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    <!-- Main Navigation Bar -->
+    <div class="nav-bar-wrapper">
+      <div class="container nav-container">
+        <a href="#" class="logo-link" aria-label="VeriStock Pro Home">
+          <!-- SVG Logo -->
+          <svg viewBox="0 0 108 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="headerLogoGrad" x1="0" y1="0" x2="108" y2="108" gradientUnits="userSpaceOnUse">
+                <stop offset="0%" stop-color="#1A3FDB" />
+                <stop offset="100%" stop-color="#4F46E5" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#headerLogoGrad)" d="M 54, 20 C 54, 20  33, 25  27, 32 L 27, 58 C 27, 73  40, 83  54, 90 C 68, 83  81, 73  81, 58 L 81, 32 C 75, 25  54, 20  54, 20 Z" />
+            <path fill="#FFFFFF" d="M 34, 35 L 42, 35 L 54, 62 L 66, 35 L 74, 35 L 57, 70 C 57, 70  55.5, 73  54, 73 C 52.5, 73  51, 70  51, 70 Z" />
+            <path stroke="#F59E0B" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none" d="M 64, 40 L 68, 45 L 76, 36" />
           </svg>
-          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          <span>VERISTOCK PRO</span>
+        </a>
+
+        <!-- Desktop Navigation Menu -->
+        <nav aria-label="Main Navigation">
+          <ul class="nav-menu">
+            <li><a href="pages/connect/index.html" class="nav-link" style="color: #ADC6FF; font-weight: 700;">Connect <span style="font-size: 0.65rem; background: #22C55E; color: #000; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">NEW</span></a></li>
+            <li><a href="pages/wholesale-distribution/index.html" class="nav-link">Wholesale</a></li>
+            <li><a href="#features" class="nav-link">Features</a></li>
+            <li><a href="#why-veristock" class="nav-link">Why Us</a></li>
+            <li><a href="#screenshots" class="nav-link">Screenshots</a></li>
+            <li><a href="#pricing" class="nav-link">Pricing</a></li>
+            <li><a href="#faq" class="nav-link">FAQ</a></li>
+            <li><a href="#contact" class="nav-link">Contact</a></li>
+            <li class="mobile-nav-divider"></li>
+            <li class="mobile-nav-cta">
+              <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm mobile-cta-btn" target="_blank" rel="noopener">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                Web Portal / CA Hub
+              </a>
+            </li>
+            <li class="mobile-nav-cta">
+              <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm mobile-cta-btn" target="_blank" rel="noopener">Get Android App</a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Header actions (Theme Toggle, Web Portal & Android App) -->
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Light/Dark Theme">
+            <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+            <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+          <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm header-portal-btn" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px;" title="Open VeriStock Pro Web & CA Portal">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+            <span>Web Portal</span>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm header-app-btn" target="_blank" rel="noopener">
+            <span>Get App</span>
+          </a>
+        </div>
+
+        <!-- Hamburger mobile button -->
+        <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
         </button>
-        <a href="https://veristock-ad58d.web.app" class="btn btn-secondary btn-sm" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 6px;" title="Open VeriStock Pro Web & CA Portal">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-          Web App / CA
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.veristock.pro" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Get Android App</a>
       </div>
-
-      <!-- Hamburger mobile button -->
-      <button id="menu-toggle" class="menu-toggle" aria-label="Open navigation menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"></line>
-          <line x1="3" y1="6" x2="21" y2="6"></line>
-          <line x1="3" y1="18" x2="21" y2="18"></line>
-        </svg>
-      </button>
     </div>
+
+    <!-- Scroll Progress Bar attached directly along bottom edge of header -->
+    <div id="scroll-progress-bar" role="progressbar" aria-label="Page scroll progress"></div>
   </header>
 
   <!-- ── HERO SECTION ───────────────────────────────────────────────────── -->
@@ -254,7 +273,7 @@
       <div class="hero-content reveal">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
-          <span class="hero-badge-text">✓ Android App + Web Portal Dual Support | Live Cloud Sync</span>
+          <span class="hero-badge-text">✓ Dual Platform: Android App + Web Portal | Live Cloud Sync</span>
         </div>
         <h1>Run Your Business.<br>Not Your Problems.</h1>
         <p>India's premier <strong>Offline-First & Cloud-Synchronized ERP</strong> with full dual-platform support — <strong>Android Mobile App + Web Desktop Portal</strong>. Enjoy seamless sub-second live cloud sync across all your phones, tablets, counter terminals, and back-office PCs across 18 business verticals.</p>
@@ -279,16 +298,20 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
             <span>AES-256 SQLCipher & Firestore Multi-Tenant</span>
           </div>
+        </div>
           <!-- Hero Live Stat Pills -->
         <div class="hero-live-stats">
           <div class="hero-stat-pill" style="background: linear-gradient(135deg, rgba(26,63,219,0.25), rgba(79,70,229,0.15)); border-color: var(--primary-light);">
             <span class="pill-val">Android + Web</span> Dual Live Sync
           </div>
-          <div class="hero-stat-pill">
-            <span class="pill-val">18</span> Business Types
+          <div class="hero-stat-pill" style="background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(16,185,129,0.1)); border-color: rgba(34,197,94,0.4);">
+            <span class="pill-val" style="color:#22C55E;">Connect</span> B2B Peer Network
           </div>
           <div class="hero-stat-pill">
-            <span class="pill-val">Real-Time</span> Multi-Device Sync
+            <span class="pill-val">12</span> Indic Languages
+          </div>
+          <div class="hero-stat-pill">
+            <span class="pill-val">18</span> Business Types
           </div>
           <div class="hero-stat-pill">
             <span class="pill-val">Staff</span> Role Governance
@@ -368,6 +391,75 @@
     </div>
   </section>
 
+  <!-- ── VERISTOCK CONNECT SHOWCASE SECTION ────────────────────────── -->
+  <section id="connect" class="section" style="background: radial-gradient(circle at 50% 30%, rgba(26, 86, 219, 0.14), transparent 70%), linear-gradient(180deg, rgba(10,10,15,0.4), rgba(17,17,24,0.9)); border-top: 1px solid rgba(26,86,219,0.25); border-bottom: 1px solid rgba(255,255,255,0.06);">
+    <div class="container">
+      <div class="section-title-wrap reveal" style="text-align: center; max-width: 850px; margin: 0 auto 48px auto;">
+        <div style="display: inline-flex; align-items: center; gap: 8px; background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); padding: 4px 12px; border-radius: 20px; font-size: 0.8125rem; font-weight: 700; color: #22C55E; margin-bottom: 16px;">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background: #22C55E; display: inline-block;"></span>
+          LIVE B2B PEER COMMERCE NETWORK
+        </div>
+        <h2 style="font-size: clamp(2rem, 4vw, 2.75rem); font-weight: 800; line-height: 1.2;">
+          VeriStock Connect: Never Lose a Sale Due to <span style="background: linear-gradient(135deg, #ADC6FF, #1A56DB); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Out of Stock</span>
+        </h2>
+        <p style="font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; margin-top: 12px;">
+          India's 1st P2P B2B inventory discovery and trading network embedded directly inside your ERP. Discover verified distributors and peer shops within 5 km, negotiate bulk quotes, auto-sync surplus stock, and transact safely with 5-layer KYC and escrow protection.
+        </p>
+      </div>
+
+      <div class="features-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; margin-bottom: 36px;">
+        <!-- Connect Pillar 1 -->
+        <div class="feature-card glass reveal" style="padding: 24px; border: 1px solid rgba(26,86,219,0.2);">
+          <div style="font-size: 2rem; margin-bottom: 12px;">📍</div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">GeoHash Proximity Discovery</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+            Browse live stock in nearby stores within 2 to 25 km. Store locations are privacy-fuzzed, displaying approximate distance bands until trade quotes are mutually confirmed.
+          </p>
+          <div style="margin-top: 12px; font-size: 0.75rem; font-family: monospace; color: #ADC6FF;">GeoHash L6 • Anti-Mock GPS Guard</div>
+        </div>
+
+        <!-- Connect Pillar 2 -->
+        <div class="feature-card glass reveal" style="padding: 24px; border: 1px solid rgba(34,197,94,0.2);">
+          <div style="font-size: 2rem; margin-bottom: 12px;">💬</div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Verified B2B Chat &amp; Quotes</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+            Direct in-app messaging between verified business owners. Submit counter-offers, attach part photos, agree on MOQ packaging, or bridge to WhatsApp in 1 tap.
+          </p>
+          <div style="margin-top: 12px; font-size: 0.75rem; font-family: monospace; color: #22C55E;">Firestore Channels • Counter-Offers</div>
+        </div>
+
+        <!-- Connect Pillar 3 -->
+        <div class="feature-card glass reveal" style="padding: 24px; border: 1px solid rgba(245,158,11,0.2);">
+          <div style="font-size: 2rem; margin-bottom: 12px;">🛡️</div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">5-Layer Anti-Fraud Shield</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+            Zero anonymous scammers. Strict SuperAdmin KYC verification with GSTIN, PAN, Aadhaar, physical storefront photos, and statutory DPDP Act 2023 legal consent.
+          </p>
+          <div style="margin-top: 12px; font-size: 0.75rem; font-family: monospace; color: #F59E0B;">SuperAdmin Approval • Verified Badges</div>
+        </div>
+
+        <!-- Connect Pillar 4 -->
+        <div class="feature-card glass reveal" style="padding: 24px; border: 1px solid rgba(168,85,247,0.2);">
+          <div style="font-size: 2rem; margin-bottom: 12px;">🤝</div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; margin-bottom: 8px;">Escrow &amp; Delivery Proof</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5;">
+            Protected payment releases. Funds are held in escrow until physical goods arrive and secret delivery OTP &amp; photo proof are confirmed by the receiver.
+          </p>
+          <div style="margin-top: 12px; font-size: 0.75rem; font-family: monospace; color: #C084FC;">Razorpay Escrow • Trust Score (0-100)</div>
+        </div>
+      </div>
+
+      <div style="text-align: center; display: flex; justify-content: center; gap: 14px; flex-wrap: wrap;">
+        <a href="pages/connect/index.html" class="btn btn-primary" style="display: inline-flex; align-items: center; gap: 8px;">
+          Learn More About VeriStock Connect &rarr;
+        </a>
+        <a href="https://veristock-ad58d.web.app" class="btn btn-secondary" target="_blank" rel="noopener">
+          Launch Connect on Web Portal
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ── FEATURES SECTION ──────────────────────────────────────────────── -->
   <section id="features" class="section">
     <div class="container">
@@ -391,6 +483,160 @@
             <span class="fc-vertical-tag">⚡ Multi-Device</span>
             <span class="fc-vertical-tag">☁️ Cloud ERP</span>
             <span class="fc-vertical-tag">🔄 Zero-Loss Sync</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: VeriStock Connect B2B Network -->
+        <div class="feature-card glass reveal" style="border-color: rgba(34, 197, 94, 0.3);">
+          <span class="fc-tier-badge pro" style="background: #22C55E; color: #000; font-weight: 800;">NEW • B2B</span>
+          <div class="feature-icon-wrapper" style="background: rgba(34, 197, 94, 0.15); color: #22C55E;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3"></circle>
+              <circle cx="6" cy="12" r="3"></circle>
+              <circle cx="18" cy="19" r="3"></circle>
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+          </div>
+          <h3>VeriStock Connect B2B Peer Network</h3>
+          <p>Direct peer-to-peer B2B inventory discovery. Find verified nearby retailers, negotiate wholesale quotes via real-time in-app chat, auto-sync surplus stock, and transact safely with 5-layer KYC and escrow protection.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📍 GeoHash Discovery</span>
+            <span class="fc-vertical-tag">💬 B2B Chat</span>
+            <span class="fc-vertical-tag">🛡️ Escrow Shield</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Mobile Spare Parts & Accessories Wholesale Suite -->
+        <div class="feature-card glass reveal" style="border-color: rgba(245, 158, 11, 0.3);">
+          <span class="fc-tier-badge pro">SPECIALIZED</span>
+          <div class="feature-icon-wrapper" style="background: rgba(245, 158, 11, 0.15); color: #F59E0B;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+          </div>
+          <h3>Mobile Spare Parts &amp; Accessories Wholesale Suite</h3>
+          <p>Built for mobile spares distributors and accessories super-stockists. Pack-size billing (Box of 10, Pack of 50, Master Carton), MOQ enforcement, Quality Grade Badging (Original, OLED, Tested A+), Model Compatibility Finder, and Rack-Shelf-Tray bin indexing.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📦 Pack MOQ Billing</span>
+            <span class="fc-vertical-tag">🏷️ Quality Grades</span>
+            <span class="fc-vertical-tag">🗄️ Rack-Shelf-Tray</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: RMA Defect Return Engine & Quarantine Bin -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">ENTERPRISE</span>
+          <div class="feature-icon-wrapper" style="background: rgba(239, 68, 68, 0.15); color: #EF4444;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"></polyline>
+              <polyline points="1 20 1 14 7 14"></polyline>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+            </svg>
+          </div>
+          <h3>RMA Defect Return Engine &amp; Quarantine Bin</h3>
+          <p>Intake defective parts with a 5-point physical checklist (seal, flex, glass, display, water damage). Issue 1:1 piece exchanges, manage locked capital in quarantine bins, and generate automated supplier Debit Notes with GST ITC reversal.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📋 5-Point Checklist</span>
+            <span class="fc-vertical-tag">🔒 Quarantine Bin</span>
+            <span class="fc-vertical-tag">📑 Debit Notes</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Stock Transfer Notes (STN) & Multi-Shop Logistics -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">ENTERPRISE</span>
+          <div class="feature-icon-wrapper" style="background: rgba(168, 85, 247, 0.15); color: #A855F7;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <h3>Stock Transfer Notes (STN) &amp; Multi-Shop Logistics</h3>
+          <p>Seamlessly transfer inventory between retail counters, service labs, and wholesale godowns. Full multi-stage lifecycle: requisition, manager approval, transit dispatch, and barcode inward verification.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🔄 Inter-Department</span>
+            <span class="fc-vertical-tag">🏢 Multi-Shop</span>
+            <span class="fc-vertical-tag">📊 Enterprise Stock</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: 12 Indic Languages Multilingual Suite -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge lite">ALL TIERS</span>
+          <div class="feature-icon-wrapper" style="background: rgba(14, 165, 233, 0.15); color: #0EA5E9;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          </div>
+          <h3>12 Indic Languages Multilingual Suite</h3>
+          <p>Run your store in your mother tongue with zero latency. 100% native localization across English, Hindi (हिंदी), Gujarati (ગુજરાતી), Marathi (मराठी), Tamil (தமிழ்), Telugu (తెలుగు), Kannada (ಕನ್ನಡ), Malayalam (മലയാളം), Bengali (বাংলা), Punjabi (ਪੰਜਾਬੀ), Urdu (اردو), and Odia (ଓଡ଼ିଆ).</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🇮🇳 12 Indian Languages</span>
+            <span class="fc-vertical-tag">⚡ Zero-Latency</span>
+            <span class="fc-vertical-tag">🗣️ Native Terms</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Smart Cash Assistant & Money Law Reliability -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge lite">CONSTITUTIONAL</span>
+          <div class="feature-icon-wrapper" style="background: rgba(34, 197, 94, 0.15); color: #22C55E;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+          </div>
+          <h3>Smart Cash Assistant &amp; Zero Negative Drawer Guard</h3>
+          <p>Financial perfection enforced at the architecture level. Blocks silent negative cash drawers on disbursements, prompts 1-tap owner fund infusions, and enforces zero 100x inflation math with immutable double-entry ledger posting.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🛡️ Zero Negative Cash</span>
+            <span class="fc-vertical-tag">⚖️ Money Law</span>
+            <span class="fc-vertical-tag">💵 1-Tap Infusion</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Purchase Returns & Physical Stock Reconciliation -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">ENTERPRISE</span>
+          <div class="feature-icon-wrapper" style="background: rgba(168, 85, 247, 0.15); color: #A855F7;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+          </div>
+          <h3>Purchase Returns &amp; Physical Stock Reconciliation</h3>
+          <p>Statutory purchase return workflow with Debit Note builder, supplier invoice search, ITC reversal, and supplier khata adjustment. Full physical stock take audit with damage write-offs and shrinkage loss valuation.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">📑 Debit Note Builder</span>
+            <span class="fc-vertical-tag">⚖️ ITC Reversal</span>
+            <span class="fc-vertical-tag">📉 Shrinkage Audit</span>
+          </div>
+        </div>
+
+        <!-- NEW FEATURE: Founder Backoffice & Enterprise SuperAdmin Console -->
+        <div class="feature-card glass reveal">
+          <span class="fc-tier-badge pro">ENTERPRISE</span>
+          <div class="feature-icon-wrapper" style="background: rgba(26, 86, 219, 0.15); color: #1A56DB;">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+          </div>
+          <h3>Founder Backoffice &amp; SuperAdmin Console</h3>
+          <p>Enterprise multi-tenant governance. Monitor tenant health across 18 verticals, review live crash telemetry and diagnostics, inspect sync outbox queues, and enforce Cloud Functions administrative APIs with hardened security rules.</p>
+          <div class="fc-verticals">
+            <span class="fc-vertical-tag">🏢 Multi-Tenant Health</span>
+            <span class="fc-vertical-tag">🩺 Crash Telemetry</span>
+            <span class="fc-vertical-tag">🔒 Hardened RBAC</span>
           </div>
         </div>
 
@@ -1450,7 +1696,93 @@
           </button>
           <div class="faq-panel" id="faq-p-dual-platform" role="region" aria-labelledby="faq-dual-platform">
             <div class="faq-content">
-              <strong>Yes, 100%!</strong> VeriStock Pro gives you complete dual-client support across both the <strong>Android Mobile App</strong> and the <strong>Web Desktop Portal</strong> (live at <a href="https://veristock-ad58d.web.app" target="_blank" rel="noopener">veristock-ad58d.web.app</a>). You can scan barcodes and bill customers using your Android phone or tablet at the sales counter, while simultaneously monitoring cash registers, purchasing stock, viewing live P&amp;L, managing staff, and filing GST returns on your desktop computer or laptop. Everything is kept in sub-second bi-directional synchronization through Google Cloud &amp; Firebase Firestore Live Sync.
+              <strong>Yes, 100%!</strong> VeriStock Pro gives you complete dual-client support across both the
+              <strong>Android Mobile App</strong> and the <strong>Web Desktop Portal</strong> (live at <a
+              href="https://veristock-ad58d.web.app" target="_blank" rel="noopener">veristock-ad58d.web.app</a>).
+              You can scan barcodes and bill customers using your Android phone or tablet at the sales counter,
+              while simultaneously monitoring cash registers, purchasing stock, viewing live P&amp;L, managing
+              staff, and filing GST returns on your desktop computer or laptop. Everything is kept in sub-second
+              bi-directional synchronization through Google Cloud &amp; Firebase Firestore Live Sync.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: VeriStock Connect -->
+        <div class="faq-item reveal">
+          <button class="faq-trigger" id="faq-connect-network">
+            <span>What is VeriStock Connect and how does it protect merchants from fraud?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-panel" id="faq-p-connect-network" role="region" aria-labelledby="faq-connect-network">
+            <div class="faq-content">
+              <strong>VeriStock Connect</strong> is India's first in-ERP peer-to-peer (P2P) B2B wholesale network.
+              It lets you discover verified distributors, wholesalers, and nearby retailers with GeoHash proximity
+              (using privacy distance fuzzing). You can negotiate bulk quotes via real-time in-app B2B chat,
+              submit counter-offers, and transact safely. Fraud is prevented via a <strong>5-layer trust
+              shield</strong>: strict SuperAdmin KYC verification (GSTIN, PAN, Aadhaar), physical storefront photo
+              audits, DPDP Act 2023 statutory consent, Anti-Mock GPS spoofing guards, and escrow-protected payouts
+              with delivery OTP and photo proof.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: Mobile Spares Wholesale & RMA -->
+        <div class="faq-item reveal">
+          <button class="faq-trigger" id="faq-wholesale-spares">
+            <span>How does the Mobile Spare Parts Wholesale Suite &amp; RMA Defect Return Engine work?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-panel" id="faq-p-wholesale-spares" role="region" aria-labelledby="faq-wholesale-spares">
+            <div class="faq-content">
+              Purpose-built for electronics and mobile spares hubs, this suite handles <strong>Pack-Size
+              Billing</strong> (Singles, Box of 10, Pack of 50, Master Carton) with strict MOQ validation,
+              <strong>Quality Grade Badging</strong> (Original OEM, OLED, First Copy, Refurbished, Tested A+), and
+              <strong>Rack-Shelf-Tray</strong> physical bin coordinates for picking. The <strong>RMA Defect Return
+              Engine</strong> enforces a 5-point physical intake checklist (flex, seal, glass, display, water
+              damage), allows 1:1 piece exchanges, tracks defective stock in a Quarantine Bin with locked capital
+              valuation, and dispatches batch supplier Debit Notes with automated GST ITC reversal.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: 12 Indic Languages -->
+        <div class="faq-item reveal">
+          <button class="faq-trigger" id="faq-languages">
+            <span>Which Indian languages are supported in VeriStock Pro?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-panel" id="faq-p-languages" role="region" aria-labelledby="faq-languages">
+            <div class="faq-content">
+              VeriStock Pro features a zero-latency native multilingual engine supporting <strong>12 Indic
+              languages</strong> across both Android and Web: English, Hindi (हिंदी), Gujarati (ગુજરાતી), Marathi
+              (मराठी), Tamil (தமிழ்), Telugu (తెలుగు), Kannada (ಕನ್ನಡ), Malayalam (മലയാളം), Bengali (বাংলা),
+              Punjabi (ਪੰਜਾਬੀ), Urdu (اردو), and Odia (ଓଡ଼ିଆ). All accounting terms, buttons, invoices, and
+              diagnostic receipts translate instantly into your preferred mother tongue.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ: Smart Cash Assistant -->
+        <div class="faq-item reveal">
+          <button class="faq-trigger" id="faq-smart-cash">
+            <span>How does the Smart Cash Assistant prevent cash drawer shortfalls?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </button>
+          <div class="faq-panel" id="faq-p-smart-cash" role="region" aria-labelledby="faq-smart-cash">
+            <div class="faq-content">
+              Under VeriStock Pro's <strong>Zero Negative Cash Guard</strong> (Money Law Article 4.4/4.5), any
+              cash disbursement (purchases, expenses, staff advances, supplier payments) checks current drawer
+              cash before posting. If drawer cash is insufficient, the system blocks negative cash creation and
+              offers an instant <strong>1-Tap Capital Infusion Assistant</strong> or prompts alternative digital
+              payment modes (UPI / Bank Transfer), ensuring your cash-in-hand matches your physical drawer 100%.
             </div>
           </div>
         </div>
@@ -1465,7 +1797,11 @@
           </button>
           <div class="faq-panel" id="faq-p1" role="region" aria-labelledby="faq-q1">
             <div class="faq-content">
-              Hybrid Offline-First means the app performs all calculations, database updates, stock adjustments, and invoice generations directly on your device with 100% operational autonomy — even during internet blackouts. When connected to the internet, all transactions and inventory changes automatically synchronize in real-time to Google Cloud &amp; Firebase Firestore, keeping all staff devices, branch counters, and your Command Centre dashboard perfectly aligned.
+              Hybrid Offline-First means the app performs all calculations, database updates, stock adjustments,
+              and invoice generations directly on your device with 100% operational autonomy — even during
+              internet blackouts. When connected to the internet, all transactions and inventory changes
+              automatically synchronize in real-time to Google Cloud &amp; Firebase Firestore, keeping all staff
+              devices, branch counters, and your Command Centre dashboard perfectly aligned.
             </div>
           </div>
         </div>
@@ -1480,7 +1816,11 @@
           </button>
           <div class="faq-panel" id="faq-p2" role="region" aria-labelledby="faq-q2">
             <div class="faq-content">
-              Absolutely. VeriStock Pro encrypts the local database at rest using military-grade SQLCipher (256-bit AES). When synchronizing with Google Cloud &amp; Firebase Firestore, data is encrypted in transit over TLS 1.3 and stored under strictly isolated multi-tenant security rules (<code style="color:var(--primary-light);">businesses/{bizId}/shops/{shopId}/*</code>). There is zero commercial telemetry or third-party ad tracking.
+              Absolutely. VeriStock Pro encrypts the local database at rest using military-grade SQLCipher
+              (256-bit AES). When synchronizing with Google Cloud &amp; Firebase Firestore, data is encrypted in
+              transit over TLS 1.3 and stored under strictly isolated multi-tenant security rules (<code
+              style="color:var(--primary-light);">businesses/{bizId}/shops/{shopId}/*</code>). There is zero
+              commercial telemetry or third-party ad tracking.
             </div>
           </div>
         </div>
@@ -1495,7 +1835,9 @@
           </button>
           <div class="faq-panel" id="faq-p3" role="region" aria-labelledby="faq-q3">
             <div class="faq-content">
-              Yes, VeriStock Pro fully complies with Indian GST requirements. It supports CGST, SGST, IGST tax structures, HSN code registration for products, itemized discount margins, and outputs structured GST CSV files for simplified tax returns filing.
+              Yes, VeriStock Pro fully complies with Indian GST requirements. It supports CGST, SGST, IGST tax
+              structures, HSN code registration for products, itemized discount margins, and outputs structured
+              GST CSV files for simplified tax returns filing.
             </div>
           </div>
         </div>
@@ -1510,7 +1852,10 @@
           </button>
           <div class="faq-panel" id="faq-p4" role="region" aria-labelledby="faq-q4">
             <div class="faq-content">
-              VeriStock Pro uses an enterprise Write-Ahead Outbox engine backed by WorkManager. Every sale, purchase, expense, and stock change is safely committed locally first, then synced automatically in the background to Google Cloud &amp; Firebase Firestore. In addition, you can export full encrypted database snapshots and CSV accounting reports on demand.
+              VeriStock Pro uses an enterprise Write-Ahead Outbox engine backed by WorkManager. Every sale,
+              purchase, expense, and stock change is safely committed locally first, then synced automatically in
+              the background to Google Cloud &amp; Firebase Firestore. In addition, you can export full encrypted
+              database snapshots and CSV accounting reports on demand.
             </div>
           </div>
         </div>
@@ -1525,7 +1870,9 @@
           </button>
           <div class="faq-panel" id="faq-p5" role="region" aria-labelledby="faq-q5">
             <div class="faq-content">
-              Repair Job Sheets are digital tickets for tracking repair workflows. They record item details, lock patterns, estimated parts cost, diagnostics notes, technician assignments, and repair status stages with live multi-device synchronization across your technicians.
+              Repair Job Sheets are digital tickets for tracking repair workflows. They record item details, lock
+              patterns, estimated parts cost, diagnostics notes, technician assignments, and repair status stages
+              with live multi-device synchronization across your technicians.
             </div>
           </div>
         </div>
@@ -1540,7 +1887,8 @@
           </button>
           <div class="faq-panel" id="faq-p6" role="region" aria-labelledby="faq-q6">
             <div class="faq-content">
-              The app supports all standard 2-inch (58mm) and 3-inch (80mm) ESC/POS thermal printers over Bluetooth. You can print invoices, repair intake receipts, and barcodes wirelessly.
+              The app supports all standard 2-inch (58mm) and 3-inch (80mm) ESC/POS thermal printers over
+              Bluetooth. You can print invoices, repair intake receipts, and barcodes wirelessly.
             </div>
           </div>
         </div>
@@ -1555,7 +1903,11 @@
           </button>
           <div class="faq-panel" id="faq-p7" role="region" aria-labelledby="faq-q7">
             <div class="faq-content">
-              You can trigger account deletion directly in the app via <strong>Settings → About App → Delete Account</strong>, or via our website's <a href="account-deletion/index.html">Account Deletion Page</a>. This permanently deletes your Firebase Auth profile, cloud session tokens, and linked cloud business records within 7 business days. Your local device database is removed when you uninstall the app.
+              You can trigger account deletion directly in the app via <strong>Settings → About App → Delete
+              Account</strong>, or via our website's <a href="account-deletion/index.html">Account Deletion
+              Page</a>. This permanently deletes your Firebase Auth profile, cloud session tokens, and linked
+              cloud business records within 7 business days. Your local device database is removed when you
+              uninstall the app.
             </div>
           </div>
         </div>
@@ -1570,7 +1922,8 @@
           </button>
           <div class="faq-panel" id="faq-p8" role="region" aria-labelledby="faq-q8">
             <div class="faq-content">
-              Yes, designed for mobile stores, you can register unique IMEI values or device serial codes for items and search for them instantly during billing or warranty validation.
+              Yes, designed for mobile stores, you can register unique IMEI values or device serial codes for
+              items and search for them instantly during billing or warranty validation.
             </div>
           </div>
         </div>
@@ -1585,7 +1938,8 @@
           </button>
           <div class="faq-panel" id="faq-p9" role="region" aria-labelledby="faq-q9">
             <div class="faq-content">
-              Yes, the app accesses your device's Camera to scan and identify product barcodes instantly. It also supports external physical USB/Bluetooth barcode scanners.
+              Yes, the app accesses your device's Camera to scan and identify product barcodes instantly. It also
+              supports external physical USB/Bluetooth barcode scanners.
             </div>
           </div>
         </div>
@@ -1600,7 +1954,9 @@
           </button>
           <div class="faq-panel" id="faq-p10" role="region" aria-labelledby="faq-q10">
             <div class="faq-content">
-              Uninstalling the Android app will erase local app-specific private folders and SQLCipher database on that handset. However, your synced cloud records in Firestore remain safe and can be restored immediately upon logging into your Firebase account on any new device.
+              Uninstalling the Android app will erase local app-specific private folders and SQLCipher database on
+              that handset. However, your synced cloud records in Firestore remain safe and can be restored
+              immediately upon logging into your Firebase account on any new device.
             </div>
           </div>
         </div>
@@ -1615,7 +1971,10 @@
           </button>
           <div class="faq-panel" id="faq-p11" role="region" aria-labelledby="faq-q11">
             <div class="faq-content">
-              Yes! VeriStock Pro includes a dedicated, secure <a href="https://veristock-ad58d.web.app" target="_blank" rel="noopener"><strong>CA &amp; Business Web Portal</strong></a>. Chartered Accountants and auditors can log in with their authorized credentials to review real-time P&amp;L summaries, balance ledgers, and download ready-to-file GSTR-1 and GSTR-3B tax reports.
+              Yes! VeriStock Pro includes a dedicated, secure <a href="https://veristock-ad58d.web.app"
+              target="_blank" rel="noopener"><strong>CA &amp; Business Web Portal</strong></a>. Chartered
+              Accountants and auditors can log in with their authorized credentials to review real-time P&amp;L
+              summaries, balance ledgers, and download ready-to-file GSTR-1 and GSTR-3B tax reports.
             </div>
           </div>
         </div>
@@ -1630,7 +1989,8 @@
           </button>
           <div class="faq-panel" id="faq-p12" role="region" aria-labelledby="faq-q12">
             <div class="faq-content">
-              Yes, the app features a customer ledger. You can record payments, outstanding balances, and send reminder details, keeping account relationships transparent across all branches.
+              Yes, the app features a customer ledger. You can record payments, outstanding balances, and send
+              reminder details, keeping account relationships transparent across all branches.
             </div>
           </div>
         </div>
@@ -1645,7 +2005,9 @@
           </button>
           <div class="faq-panel" id="faq-p13" role="region" aria-labelledby="faq-q13">
             <div class="faq-content">
-              You can export daily, weekly, or custom range sales, stock, and ledger books directly as CSV files from the Android app, or your Chartered Accountant can access them directly via the real-time CA Web Portal.
+              You can export daily, weekly, or custom range sales, stock, and ledger books directly as CSV files
+              from the Android app, or your Chartered Accountant can access them directly via the real-time CA Web
+              Portal.
             </div>
           </div>
         </div>
@@ -1660,7 +2022,8 @@
           </button>
           <div class="faq-panel" id="faq-p14" role="region" aria-labelledby="faq-q14">
             <div class="faq-content">
-              Yes, the app allows uploading your business name, mobile, address, GSTIN, and custom logo image to print at the header of your receipts automatically.
+              Yes, the app allows uploading your business name, mobile, address, GSTIN, and custom logo image to
+              print at the header of your receipts automatically.
             </div>
           </div>
         </div>
@@ -1675,7 +2038,12 @@
           </button>
           <div class="faq-panel" id="faq-p14b" role="region" aria-labelledby="faq-q14b">
             <div class="faq-content">
-              VeriStock Pro features a built-in <strong>Owner Control Tower</strong> with a live OpenStreetMap &amp; Leaflet fleet radar. Business owners and managers can define shop geofence perimeters and see real-time color-coded pulsing pins for staff (Green = In Store, Blue = On Field, Red = Geofence Breach) with 15-minute duty tracking. The system automatically tracks shift grace times, 4-way breaks (Lunch/Tea/Prayer/Personal), flags mock GPS tampering, and records complete 30-day visual attendance heatmaps.
+              VeriStock Pro features a built-in <strong>Owner Control Tower</strong> with a live OpenStreetMap
+              &amp; Leaflet fleet radar. Business owners and managers can define shop geofence perimeters and see
+              real-time color-coded pulsing pins for staff (Green = In Store, Blue = On Field, Red = Geofence
+              Breach) with 15-minute duty tracking. The system automatically tracks shift grace times, 4-way
+              breaks (Lunch/Tea/Prayer/Personal), flags mock GPS tampering, and records complete 30-day visual
+              attendance heatmaps.
             </div>
           </div>
         </div>
@@ -1690,7 +2058,12 @@
           </button>
           <div class="faq-panel" id="faq-p14c" role="region" aria-labelledby="faq-q14c">
             <div class="faq-content">
-              Yes! The <strong>Staff Advance Wallet</strong> allows owners to disburse salary advances with automatic double-entry ledger debiting (Article 4 compliant). Monthly payroll automatically factors in base salary, multi-tier overtime rates (Weekday 1.0x, Sunday 1.5x, Holiday 2.0x), real-time sales &amp; repair labor commissions, and auto-deducts outstanding advances. Owners can generate professional A4 PDF payslips with SHA-256 integrity verification and share them with staff directly over WhatsApp in 1 click.
+              Yes! The <strong>Staff Advance Wallet</strong> allows owners to disburse salary advances with
+              automatic double-entry ledger debiting (Article 4 compliant). Monthly payroll automatically factors
+              in base salary, multi-tier overtime rates (Weekday 1.0x, Sunday 1.5x, Holiday 2.0x), real-time sales
+              &amp; repair labor commissions, and auto-deducts outstanding advances. Owners can generate
+              professional A4 PDF payslips with SHA-256 integrity verification and share them with staff directly
+              over WhatsApp in 1 click.
             </div>
           </div>
         </div>
@@ -1705,7 +2078,8 @@
           </button>
           <div class="faq-panel" id="faq-p15" role="region" aria-labelledby="faq-q15">
             <div class="faq-content">
-              VeriStock Pro requires Android 8.0 (Oreo) or above. It needs at least 2GB of RAM and 100MB of free storage space. Barcode scanning requires a camera with auto-focus.
+              VeriStock Pro requires Android 8.0 (Oreo) or above. It needs at least 2GB of RAM and 100MB of free
+              storage space. Barcode scanning requires a camera with auto-focus.
             </div>
           </div>
         </div>
@@ -1720,7 +2094,12 @@
           </button>
           <div class="faq-panel" id="faq-p16" role="region" aria-labelledby="faq-q16">
             <div class="faq-content">
-              Yes! VeriStock Pro features a complete Multi-User &amp; Staff Management architecture with Role-Based Access Control (RBAC). Business owners can invite Managers, Salesmen, Technicians, Accountants, and CAs via Firebase email invites. Each staff member logs into their own device and only sees the features and data permitted for their role (e.g. salesmen cannot see purchase cost prices, and technicians only see assigned repair tickets). All transactions sync across all store devices in real-time.
+              Yes! VeriStock Pro features a complete Multi-User &amp; Staff Management architecture with
+              Role-Based Access Control (RBAC). Business owners can invite Managers, Salesmen, Technicians,
+              Accountants, and CAs via Firebase email invites. Each staff member logs into their own device and
+              only sees the features and data permitted for their role (e.g. salesmen cannot see purchase cost
+              prices, and technicians only see assigned repair tickets). All transactions sync across all store
+              devices in real-time.
             </div>
           </div>
         </div>
@@ -1735,7 +2114,8 @@
           </button>
           <div class="faq-panel" id="faq-p17" role="region" aria-labelledby="faq-q17">
             <div class="faq-content">
-              No. VeriStock Pro is a premium B2B utility. It is completely ad-free. Your screen workspace will never show promotional banner ads.
+              No. VeriStock Pro is a premium B2B utility. It is completely ad-free. Your screen workspace will
+              never show promotional banner ads.
             </div>
           </div>
         </div>
@@ -1750,7 +2130,8 @@
           </button>
           <div class="faq-panel" id="faq-p18" role="region" aria-labelledby="faq-q18">
             <div class="faq-content">
-              Yes, our email and remote support coordinates handle inquiries in English, Hindi, and Gujarati. Write to us at smtechie7@gmail.com for configuration help.
+              Yes, our email and remote support coordinates handle inquiries in English, Hindi, and Gujarati.
+              Write to us at smtechie7@gmail.com for configuration help.
             </div>
           </div>
         </div>
@@ -1765,7 +2146,8 @@
           </button>
           <div class="faq-panel" id="faq-p19" role="region" aria-labelledby="faq-q19">
             <div class="faq-content">
-              Basic inventory, invoice logs, and printer setups are free. Advanced feature bundles require license activation keys, distributed via SM Technologies channel partners.
+              Basic inventory, invoice logs, and printer setups are free. Advanced feature bundles require license
+              activation keys, distributed via SM Technologies channel partners.
             </div>
           </div>
         </div>
@@ -1780,7 +2162,8 @@
           </button>
           <div class="faq-panel" id="faq-p20" role="region" aria-labelledby="faq-q20">
             <div class="faq-content">
-              Yes, you can register repair parts (e.g. screens, charging chips, battery sheets) in your general inventory and deduct them directly when completing repair sheets.
+              Yes, you can register repair parts (e.g. screens, charging chips, battery sheets) in your general
+              inventory and deduct them directly when completing repair sheets.
             </div>
           </div>
         </div>
@@ -2086,6 +2469,7 @@
       <div class="footer-col">
         <h4>Product</h4>
         <ul>
+          <li><a href="pages/connect/index.html" style="color: #ADC6FF; font-weight: 600;">🤝 VeriStock Connect (B2B)</a></li>
           <li><a href="#features">Features Overview</a></li>
           <li><a href="pages/features/index.html">Full Feature Reference</a></li>
           <li><a href="#why-veristock">Why Offline-First</a></li>
@@ -2097,6 +2481,7 @@
       <div class="footer-col">
         <h4>Industries</h4>
         <ul>
+          <li><a href="pages/wholesale-distribution/index.html" style="color: #F59E0B; font-weight: 600;">📦 Wholesale &amp; Spares</a></li>
           <li><a href="pages/mobile-shop/">📱 Mobile Shop</a></li>
           <li><a href="pages/pharmacy/">💊 Pharmacy</a></li>
           <li><a href="pages/clinic/index.html">🩺 Clinic &amp; OPD</a></li>
@@ -2166,6 +2551,7 @@
   </div>
 
   <!-- JS Logic -->
+  <script src="assets/js/data/verticals-data.js"></script>
   <script src="assets/js/app-simulator.js"></script>
   <script src="assets/js/main.js"></script>
   <script>

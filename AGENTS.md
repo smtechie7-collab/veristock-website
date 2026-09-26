@@ -130,6 +130,14 @@ When editing feature lists, pricing tables, or documentation, maintain exact fea
   - `JOB_WORK_TRACKING` (Outsource vendor challans)
   - `PROJECT_EXPENSES` (Construction site expense tracking)
   - `REPORTS_ADVANCED` (5-Pillar Health Score 0-100, Receivables Aging 0-180+ days)
+  - `VERISTOCK_CONNECT` & `CONNECT_FRAUD_SHIELD` (P2P B2B Wholesale Network, GeoHash, In-App Chat, 5-layer KYC)
+  - `WHOLESALE_PACK_MOQ_BILLING` & `SPARE_PARTS_QUALITY_INDEX` (Quality Grade Badges, Rack-Shelf-Tray Indexing)
+  - `RMA_DEFECT_RETURN_ENGINE` & `RMA_SUPPLIER_DISPATCH` (5-point checklist, 1:1 piece exchange, Quarantine bin)
+  - `STOCK_TRANSFER_NOTE_STN` (Inter-department Counter ⇄ Service Lab ⇄ Godown transfers)
+  - `INDIC_MULTILINGUAL_SUITE` (12 Indic Languages native localization)
+  - `SMART_CASH_ASSISTANT` (Zero Negative Drawer Cash Guard & Money Law Article 4.4/4.5)
+  - `SUPER_ADMIN_CONSOLE` (Founder Backoffice Telemetry, Health Scores & Governance)
+  - `PURCHASE_RETURNS_AND_AUDIT` (Debit note builder, ITC reversal, stock shrinkage reconciliation)
 
 ### 4.2 Vertical Terminology Engine Rules
 Never substitute or confuse industry-specific terminology across verticals:

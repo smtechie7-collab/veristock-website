@@ -41,16 +41,16 @@
     <p>To enable multi-user store management, real-time staff access control, and web-based financial auditing, VeriStock Pro collects and synchronizes the following data types:</p>
     <ul>
       <li><strong>Account Metadata:</strong> User name, email address, phone number, business profile, and staff role assignments.</li>
-      <li><strong>Transactional Financial Records:</strong> Encrypted records of sales invoices, purchase bills, operating expenses, repair job cards, and tax components (CGST, SGST, IGST).</li>
-      <li><strong>Device Identifiers:</strong> Secure device identifiers used strictly for multi-device sync conflict resolution and audit trail logging.</li>
+          <li><strong>Transactional Financial Records:</strong> Encrypted records of sales invoices, purchase bills, operating expenses, repair job cards, and tax components (CGST, SGST, IGST).</li>
+          <li><strong>Device Identifiers:</strong> Secure device identifiers used strictly for multi-device sync conflict resolution and audit trail logging.</li>
     </ul>
 
     <h2>3. Cloud Infrastructure & Security Controls</h2>
     <p>All cloud synchronization is backed by <strong>Google Cloud & Firebase Infrastructure (Project: veristock-ad58d)</strong> under strict security protocols:</p>
     <ul>
       <li><strong>Encryption in Transit:</strong> Mandatory TLS 1.3 / HTTPS encryption for all data transmitted between Android devices, Web Portals, and Cloud Databases.</li>
-      <li><strong>Encryption at Rest:</strong> Local Android databases use 256-bit AES SQLCipher encryption (`android-database-sqlcipher`). Cloud Firestore documents are protected by Google Cloud zero-trust server-side encryption.</li>
-      <li><strong>Role-Based Security Rules (RBAC):</strong> Multi-tenant isolation enforced at the database level. Staff members, Managers, and CAs can only read or write collections corresponding to their verified Business and Shop permissions.</li>
+          <li><strong>Encryption at Rest:</strong> Local Android databases use 256-bit AES SQLCipher encryption (`android-database-sqlcipher`). Cloud Firestore documents are protected by Google Cloud zero-trust server-side encryption.</li>
+          <li><strong>Role-Based Security Rules (RBAC):</strong> Multi-tenant isolation enforced at the database level. Staff members, Managers, and CAs can only read or write collections corresponding to their verified Business and Shop permissions.</li>
     </ul>
 
     <h2>4. Staff Invitations & Email Communication</h2>
@@ -64,6 +64,6 @@
 
     <h2>7. Contact & Data Protection Officer</h2>
     <p>For privacy inquiries, security audits, or data deletion requests, contact our privacy compliance team at <a href="mailto:privacy@veristockpro.com">privacy@veristockpro.com</a>.</p>
-  </div>
+      </div>
 </body>
 </html>
