@@ -109,8 +109,9 @@ function initMobileMenu() {
     menuToggle.setAttribute('aria-expanded', isOpen);
   });
 
-  // Close menu when a link is clicked
-  navLinks.forEach(link => {
+  // Close menu when a destination link is clicked (excluding dropdown-toggle)
+  const navActionLinks = document.querySelectorAll('.nav-link:not(.dropdown-toggle), .dropdown-item, .dropdown-footer-link');
+  navActionLinks.forEach(link => {
     link.addEventListener('click', () => {
       document.body.classList.remove('nav-open');
       menuToggle.setAttribute('aria-expanded', 'false');

@@ -203,12 +203,54 @@
         <!-- Desktop Navigation Menu -->
         <nav aria-label="Main Navigation">
           <ul class="nav-menu">
-            <li><a href="#pulse" class="nav-link" style="color: #F43F5E; font-weight: 700;">Pulse <span style="font-size: 0.65rem; background: #F43F5E; color: #fff; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">REELS</span></a></li>
-            <li><a href="pages/connect/index.html" class="nav-link" style="color: #ADC6FF; font-weight: 700;">Connect <span style="font-size: 0.65rem; background: #22C55E; color: #000; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">B2B</span></a></li>
-            <li><a href="pages/electronics/index.html" class="nav-link" style="color: #38BDF8; font-weight: 700;">Electronics <span style="font-size: 0.65rem; background: #38BDF8; color: #000; padding: 2px 5px; border-radius: 4px; font-weight: 800; vertical-align: middle;">AC/BEE</span></a></li>
-            <li><a href="pages/wholesale-distribution/index.html" class="nav-link">Wholesale</a></li>
             <li><a href="#features" class="nav-link">Features</a></li>
-            <li><a href="#why-veristock" class="nav-link">Why Us</a></li>
+            <li><a href="#pulse" class="nav-link nav-highlight-pulse">Pulse <span class="nav-badge pulse">REELS</span></a></li>
+            <li><a href="pages/connect/index.html" class="nav-link nav-highlight-connect">Connect <span class="nav-badge b2b">B2B</span></a></li>
+            
+            <!-- Industries Dropdown -->
+            <li class="nav-item-dropdown">
+              <a href="#verticals" class="nav-link dropdown-toggle" aria-haspopup="true" aria-expanded="false">
+                <span>Industries</span>
+                <svg class="dropdown-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </a>
+              <div class="dropdown-menu glass" role="menu">
+                <a href="pages/electronics/index.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-icon">📺</span>
+                  <div class="dropdown-text">
+                    <span class="dropdown-title">Electronics &amp; Appliances</span>
+                    <small>Split AC dual-serial, BEE star, warranty</small>
+                  </div>
+                  <span class="dropdown-tag new">NEW</span>
+                </a>
+                <a href="pages/wholesale-distribution/index.html" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-icon">📦</span>
+                  <div class="dropdown-text">
+                    <span class="dropdown-title">Wholesale &amp; Spares</span>
+                    <small>Tiered price slabs, carton packing, ledger</small>
+                  </div>
+                </a>
+                <a href="pages/mobile-shop/" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-icon">📱</span>
+                  <div class="dropdown-text">
+                    <span class="dropdown-title">Mobile Shop &amp; Repair</span>
+                    <small>IMEI tracking, job sheets, pattern canvas</small>
+                  </div>
+                </a>
+                <a href="pages/pharmacy/" class="dropdown-item" role="menuitem">
+                  <span class="dropdown-icon">💊</span>
+                  <div class="dropdown-text">
+                    <span class="dropdown-title">Pharmacy &amp; Health</span>
+                    <small>Batch expiries, strip/tablet cuts, Schedule H</small>
+                  </div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#verticals" class="dropdown-footer-link">
+                  <span>Explore All 18 Supported Verticals</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </a>
+              </div>
+            </li>
+
             <li><a href="#pricing" class="nav-link">Pricing</a></li>
             <li><a href="#faq" class="nav-link">FAQ</a></li>
             <li><a href="#contact" class="nav-link">Contact</a></li>
