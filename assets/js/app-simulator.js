@@ -883,6 +883,115 @@
         </div>`
     },
 
+    // Customer Khata & Udhaar Ledger Screen
+    customers: {
+      title: 'Customer Khata & Udhaar',
+      badge: 'Active Ledger',
+      badgeColor: 'warning',
+      render: (v) => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-daybook-summary">
+            <div class="sim-daybook-box sim-daybook-debit">
+              <span>Total Market Udhaar</span>
+              <strong class="sim-error-text">${v.stats.dues}</strong>
+            </div>
+            <div class="sim-daybook-box sim-daybook-credit">
+              <span>Today Collected</span>
+              <strong class="sim-success-text">₹12,450.00</strong>
+            </div>
+          </div>
+          <div class="sim-customer-list" style="margin-top:6px;">
+            <div class="sim-customer-card">
+              <div class="sim-avatar" style="background:#1A56DB;">RM</div>
+              <div class="sim-customer-info">
+                <div class="sim-item-name">R.S. Malek <span class="sim-chip sim-chip-active">GSTIN Verified</span></div>
+                <div class="sim-item-meta">Anand • Last payment 2 days ago</div>
+              </div>
+              <div style="text-align:right;">
+                <strong class="sim-error-text" style="font-size:0.75rem;">₹18,500 Due</strong>
+                <div class="sim-item-meta" style="color:#22C55E;">💬 WhatsApp</div>
+              </div>
+            </div>
+            <div class="sim-customer-card">
+              <div class="sim-avatar" style="background:#0D9488;">BS</div>
+              <div class="sim-customer-info">
+                <div class="sim-item-name">Basit Shaikh</div>
+                <div class="sim-item-meta">Retail Walk-in • Phone: 98251...</div>
+              </div>
+              <div style="text-align:right;">
+                <strong class="sim-error-text" style="font-size:0.75rem;">₹4,200 Due</strong>
+                <div class="sim-item-meta" style="color:#22C55E;">💬 WhatsApp</div>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:6px;">+ ADD NEW CUSTOMER / RECORD PAYMENT</button>
+        </div>`
+    },
+
+    // VeriStock Connect P2P Discovery Sub-Screen
+    connect: {
+      title: 'VeriStock Connect B2B',
+      badge: 'Verified Peers',
+      badgeColor: 'success',
+      render: (v) => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-connect-banner">
+            <div style="display:flex;align-items:center;gap:6px;">
+              <span style="font-size:1.1rem;">🤝</span>
+              <div>
+                <strong style="font-size:0.7rem;color:#fff;">P2P Wholesale Network</strong>
+                <div class="sim-item-meta">Zero Commissions • Direct UPI/Bank Settlement</div>
+              </div>
+            </div>
+            <span class="sim-top-badge sim-badge-success">LIVE RADAR</span>
+          </div>
+          <div class="sim-customer-list" style="margin-top:6px;">
+            <div class="sim-customer-card">
+              <div class="sim-avatar" style="background:#1A56DB;">ND</div>
+              <div class="sim-customer-info">
+                <div class="sim-item-name">National Electronics Hub <span class="sim-top-badge sim-badge-success">KYC VERIFIED</span></div>
+                <div class="sim-item-meta">Lamington Road (1.2 km away) • 420 Items Listed</div>
+              </div>
+              <button class="sim-chip sim-chip-active">Chat / PO</button>
+            </div>
+            <div class="sim-customer-card">
+              <div class="sim-avatar" style="background:#0D9488;">SP</div>
+              <div class="sim-customer-info">
+                <div class="sim-item-name">Shreeji Spare Parts Depot <span class="sim-top-badge sim-badge-success">KYC VERIFIED</span></div>
+                <div class="sim-item-meta">GIDC Phase 2 (3.8 km away) • Displays &amp; ICs</div>
+              </div>
+              <button class="sim-chip sim-chip-active">Chat / PO</button>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:6px;">🌐 DISCOVER NEARBY WHOLESALERS</button>
+        </div>`
+    },
+
+    // All ERP Modules Hub Screen
+    moreHubs: {
+      title: 'All ERP Modules & Hubs',
+      badge: 'Enterprise Suite',
+      badgeColor: 'warning',
+      render: (v) => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-section-label">Core Operations</div>
+          <div class="sim-qa-grid">
+            <button class="sim-qa-item" data-screen="pos"><span class="sim-qa-icon">⚡</span><span class="sim-qa-label">Counter POS</span></button>
+            <button class="sim-qa-item" data-screen="invoice"><span class="sim-qa-icon">🧾</span><span class="sim-qa-label">Tax Invoice</span></button>
+            <button class="sim-qa-item" data-screen="inventory"><span class="sim-qa-icon">📦</span><span class="sim-qa-label">Inventory</span></button>
+            <button class="sim-qa-item" data-screen="customers"><span class="sim-qa-icon">👥</span><span class="sim-qa-label">Khata Udhaar</span></button>
+            <button class="sim-qa-item" data-screen="daybook"><span class="sim-qa-icon">📖</span><span class="sim-qa-label">Day Book</span></button>
+            <button class="sim-qa-item" data-screen="profitloss"><span class="sim-qa-icon">📊</span><span class="sim-qa-label">P&L Report</span></button>
+            <button class="sim-qa-item" data-screen="caHub"><span class="sim-qa-icon">🏛️</span><span class="sim-qa-label">CA &amp; GST Hub</span></button>
+            <button class="sim-qa-item" data-screen="commandCentre"><span class="sim-qa-icon">🛡️</span><span class="sim-qa-label">Command Hub</span></button>
+            <button class="sim-qa-item" data-screen="connect"><span class="sim-qa-icon">🤝</span><span class="sim-qa-label">B2B Connect</span></button>
+            <button class="sim-qa-item" data-screen="intelliAudit"><span class="sim-qa-icon">🎖️</span><span class="sim-qa-label">IntelliAudit</span></button>
+            <button class="sim-qa-item" data-screen="settings"><span class="sim-qa-icon">⚙️</span><span class="sim-qa-label">Settings</span></button>
+            <button class="sim-qa-item" data-screen="${v.primaryActions[0] ? v.primaryActions[0].id : 'pos'}"><span class="sim-qa-icon">${v.icon}</span><span class="sim-qa-label">${v.name.split(' ')[0]}</span></button>
+          </div>
+        </div>`
+    },
+
     // 11. Quick POS Billing Counter Mode
     pos: {
       title: 'Quick Counter POS',
@@ -1051,7 +1160,8 @@
       this.currentVerticalKey = 'MOBILE_SHOP';
       this.screenStack = [];
       this.isSyncing = false;
-      this.isFabExpanded = false;
+      this.currentTab = 'cockpit';
+      this.isSetupPillDismissed = false;
       this.init();
     }
 
@@ -1104,19 +1214,12 @@
               </div>
             </div>
 
-            <!-- 4. Floating Action Button (Expandable HomeExpandableFab) -->
-            <div class="sim-fab-wrapper ${this.isFabExpanded ? 'sim-fab-expanded' : ''}">
-              <div class="sim-fab-menu">
-                <button class="sim-fab-mini-btn" data-screen="pos" title="Fast POS"><span>⚡</span> Fast POS</button>
-                <button class="sim-fab-mini-btn" data-screen="invoice" title="New Invoice"><span>🧾</span> Tax Invoice</button>
-                <button class="sim-fab-mini-btn" data-screen="daybook" title="Day Book"><span>📖</span> Day Book</button>
-              </div>
-              <button class="sim-fab" id="sim-main-fab" aria-label="Quick Actions Floating Menu">
-                <span>+</span>
-              </button>
+            <!-- 4. VeriStockBottomNavBar (Article 53: 5-Tab Material 3 Navigation) -->
+            <div class="sim-bottom-nav-container">
+              ${this.renderBottomNav()}
             </div>
 
-            <!-- 5. Android Gesture Home Indicator (No bottom nav in real Android Scaffold) -->
+            <!-- 5. Android Gesture Home Indicator -->
             <div class="sim-home-indicator" aria-hidden="true"></div>
 
             <!-- Simulated Toast -->
@@ -1161,7 +1264,7 @@
           </div>
 
           <div class="sim-top-bar-right">
-            <!-- 1. 5-State Live Sync Indicator (SYNC_UX_RELIABILITY_CONTRACT.md) -->
+            <!-- 1. 5-State Live Sync Indicator -->
             <button class="sim-sync-btn ${this.isSyncing ? 'sim-sync-spinning' : ''}" id="sim-manual-sync" title="Cloud Sync Status: Sub-second Outbox Active" aria-label="Manual Cloud Sync">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
@@ -1170,90 +1273,163 @@
               <span class="sim-sync-dot"></span>
             </button>
 
-            <!-- 2. Command Centre Shield Button (AdminPanelSettings) -->
+            <!-- 2. Pulse Beacon Button (Pulse Broadcasts) -->
+            <button class="sim-icon-btn sim-pulse-btn" data-screen="commandCentre" title="Pulse Telemetry Beacon" aria-label="Pulse Beacon">
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F59E0B" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            </button>
+
+            <!-- 3. Command Centre Shield Button -->
             <button class="sim-icon-btn" data-screen="commandCentre" title="Open Command Centre" aria-label="Command Centre">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#F59E0B" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#3B82F6" stroke-width="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </button>
 
-            <!-- 3. Search Icon (VeriStockProTopAppBar onSearchClick) -->
+            <!-- 4. Search Icon -->
             <button class="sim-icon-btn" data-screen="pos" title="Search Catalog & POS" aria-label="Search">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.5" y2="16.5"></line></svg>
             </button>
 
-            <!-- 4. Badged Notifications -->
+            <!-- 5. Badged Notifications -->
             <div class="sim-notif-wrap" data-screen="daybook" title="Notifications & Audit Logs" aria-label="Notifications" style="cursor:pointer;">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
               <span class="sim-notif-badge">2</span>
             </div>
 
-            <!-- 5. Settings Gear Icon (VeriStockProTopAppBar onProfileClick) -->
+            <!-- 6. Settings Gear Icon -->
             <button class="sim-icon-btn" data-screen="settings" title="Settings & Shop Setup" aria-label="Settings">
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09"></path></svg>
+              <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09"></path></svg>
             </button>
           </div>
         </div>`;
     }
 
-    // ── RENDER HOME CONTENT (Mirrors HomeScreen.kt in veristockpro-android) ──
+    // ── RENDER 5-TAB BOTTOM NAVIGATION BAR (Article 53) ────────────
+    renderBottomNav() {
+      const activeTab = this.screenStack.length === 0 ? 'cockpit' : this.currentTab;
+      return `
+        <nav class="sim-bottom-nav">
+          <button class="sim-nav-tab ${activeTab === 'cockpit' ? 'sim-nav-tab-active' : ''}" data-nav="cockpit" title="Cockpit Dashboard">
+            <div class="sim-nav-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <span class="sim-nav-label">Cockpit</span>
+          </button>
+
+          <button class="sim-nav-tab ${activeTab === 'inventory' ? 'sim-nav-tab-active' : ''}" data-nav="inventory" title="Inventory Stock">
+            <div class="sim-nav-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            </div>
+            <span class="sim-nav-label">Stock</span>
+          </button>
+
+          <button class="sim-nav-tab sim-nav-tab-center ${activeTab === 'bill' ? 'sim-nav-tab-active' : ''}" data-nav="bill" title="Quick Bill POS">
+            <div class="sim-nav-fab-btn">
+              <span>+</span>
+            </div>
+            <span class="sim-nav-label">Quick Bill</span>
+          </button>
+
+          <button class="sim-nav-tab ${activeTab === 'connect' ? 'sim-nav-tab-active' : ''}" data-nav="connect" title="VeriStock Connect B2B">
+            <div class="sim-nav-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <span class="sim-nav-label">Connect</span>
+          </button>
+
+          <button class="sim-nav-tab ${activeTab === 'hubs' ? 'sim-nav-tab-active' : ''}" data-nav="hubs" title="All ERP Modules">
+            <div class="sim-nav-icon">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </div>
+            <span class="sim-nav-label">All Hubs</span>
+          </button>
+        </nav>`;
+    }
+
+    // ── RENDER HOME CONTENT (Mirrors HomeScreen.kt Article 53 Law) ──
     renderTabContent() {
       const v = this.activeVertical;
 
       return `
-        <!-- 1. Revenue Overview Card -->
-        <div class="sim-revenue-card" style="background:${v.accentGradient}">
-          <div class="sim-revenue-header">
-            <span class="sim-revenue-label">Today's Revenue</span>
-            <span class="sim-revenue-month-badge">Month: ${v.stats.monthRevenue}</span>
-          </div>
-          <div class="sim-revenue-amount-row">
-            <span class="sim-revenue-amount">${v.stats.todayRevenue}</span>
-            <span class="sim-revenue-growth">${v.stats.growth}</span>
-          </div>
-          <div class="sim-revenue-dues" data-screen="customers" style="cursor:pointer;" title="Customer Accounts & Dues Ledger">
-            <div class="sim-dues-left">
-              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="#FFCDD2" stroke-width="3"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line></svg>
-              <span>Total Customer Dues: ${v.stats.dues}</span>
+        <!-- 1. Store Setup Checklist (Article 47: 36dp Dismissible Smart Pill) -->
+        ${!this.isSetupPillDismissed ? `
+          <div class="sim-setup-pill">
+            <div class="sim-setup-pill-body" data-screen="settings" title="Complete Store Setup">
+              <span class="sim-setup-pill-icon">⚙️</span>
+              <span class="sim-setup-pill-text"><strong>Setup 75%</strong> • Add GSTIN / Bank ›</span>
             </div>
-            <span class="sim-dues-arrow">›</span>
+            <button class="sim-setup-pill-close" id="sim-dismiss-setup" aria-label="Dismiss Setup Pill">×</button>
+          </div>
+        ` : ''}
+
+        <!-- 2. Bento KPI Cockpit (Article 53: 136dp Unified Bento Grid) -->
+        <div class="sim-bento-grid">
+          <!-- Bento 1: Today's Revenue -->
+          <div class="sim-bento-card sim-bento-revenue" style="background:${v.accentGradient};" data-screen="profitloss" title="View P&L Report">
+            <div class="sim-bento-header">
+              <span class="sim-bento-label">Today's Revenue</span>
+              <span class="sim-revenue-month-badge">Month: ${v.stats.monthRevenue}</span>
+            </div>
+            <div class="sim-revenue-amount-row">
+              <span class="sim-revenue-amount">${v.stats.todayRevenue}</span>
+              <span class="sim-revenue-growth">${v.stats.growth}</span>
+            </div>
+          </div>
+
+          <!-- Bento 2: Till Cash (Cash In Hand) -->
+          <div class="sim-bento-card sim-bento-sub" data-screen="daybook" title="View Cash Drawer & Day Book">
+            <div class="sim-bento-sub-header">
+              <span class="sim-mini-label">TILL CASH</span>
+              <span class="sim-online-dot" style="background:#22C55E;"></span>
+            </div>
+            <span class="sim-bento-val">${v.stats.cashInHand}</span>
+            <span class="sim-bento-note" style="color:#22C55E;">● Drawer Safe</span>
+          </div>
+
+          <!-- Bento 3: Customer Udhaar (Khata Due) -->
+          <div class="sim-bento-card sim-bento-sub" data-screen="customers" title="View Customer Khata & Dues">
+            <div class="sim-bento-sub-header">
+              <span class="sim-mini-label">KHATA DUES</span>
+              <span class="sim-dues-arrow">›</span>
+            </div>
+            <span class="sim-bento-val" style="color:#F87171;">${v.stats.dues}</span>
+            <span class="sim-bento-note" style="color:#94A3B8;">Market Udhaar</span>
+          </div>
+
+          <!-- Bento 4: Today Bills / Orders -->
+          <div class="sim-bento-card sim-bento-sub" data-screen="pos" title="View Bills Counter">
+            <div class="sim-bento-sub-header">
+              <span class="sim-mini-label">TODAY BILLS</span>
+              <span style="font-size:0.6rem;">🧾</span>
+            </div>
+            <span class="sim-bento-val">${v.stats.ordersCount}</span>
+            <span class="sim-bento-note">Avg ${v.stats.avgTicket}</span>
           </div>
         </div>
 
-        <!-- 2. Mini KPI Counters -->
-        <div class="sim-mini-stats">
-          <div class="sim-mini-card" data-screen="purchases">
-            <div class="sim-mini-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;">🚚</div>
-            <div><span class="sim-mini-label">PURCHASES</span><span class="sim-mini-value">${v.stats.purchases}</span></div>
-          </div>
-          <div class="sim-mini-card" data-screen="daybook">
-            <div class="sim-mini-icon" style="background:rgba(16,185,129,0.1);color:#10B981;">💵</div>
-            <div><span class="sim-mini-label">CASH IN HAND</span><span class="sim-mini-value">${v.stats.cashInHand}</span></div>
-          </div>
-        </div>
-        <div class="sim-mini-stats">
-          <div class="sim-mini-card" data-screen="pos">
-            <div class="sim-mini-icon" style="background:rgba(99,102,241,0.1);color:#6366F1;">🧾</div>
-            <div><span class="sim-mini-label">TODAY BILLS</span><span class="sim-mini-value">${v.stats.ordersCount}</span></div>
-          </div>
-          <div class="sim-mini-card" data-screen="profitloss">
-            <div class="sim-mini-icon" style="background:rgba(139,92,246,0.1);color:#8B5CF6;">📈</div>
-            <div><span class="sim-mini-label">AVG TICKET</span><span class="sim-mini-value">${v.stats.avgTicket}</span></div>
-          </div>
-        </div>
-
-        <!-- 3. Primary Action Buttons -->
-        <div class="sim-primary-actions">
-          ${v.primaryActions.map(a => `
-            <button class="sim-primary-btn ${a.color === 'blue' ? 'sim-primary-btn-blue' : 'sim-primary-btn-slate'}" data-screen="${a.id}">
-              <span class="sim-primary-btn-icon">${a.icon}</span>
-              <div>
-                <span class="sim-primary-btn-title">${a.title}</span>
-                <span class="sim-primary-btn-sub">${a.sub}</span>
-              </div>
-            </button>
-          `).join('')}
+        <!-- 3. 4-Launcher Compact Action Strip (Article 53: Max 64dp single-row) -->
+        <div class="sim-launcher-strip">
+          <button class="sim-launcher-chip sim-launcher-chip-primary" data-screen="pos" title="Start New Bill">
+            <span class="sim-launcher-icon">⚡</span>
+            <span class="sim-launcher-text">New Sale</span>
+          </button>
+          <button class="sim-launcher-chip" data-screen="inventory" title="Add or View Stock">
+            <span class="sim-launcher-icon">📦</span>
+            <span class="sim-launcher-text">Add Stock</span>
+          </button>
+          <button class="sim-launcher-chip" data-screen="customers" title="Customer Udhaar & Ledger">
+            <span class="sim-launcher-icon">👥</span>
+            <span class="sim-launcher-text">Khata</span>
+          </button>
+          <button class="sim-launcher-chip" data-screen="${v.primaryActions[0] ? v.primaryActions[0].id : 'invoice'}" title="${v.primaryActions[0] ? v.primaryActions[0].title : 'Action'}">
+            <span class="sim-launcher-icon">${v.icon}</span>
+            <span class="sim-launcher-text">${v.primaryActions[0] ? v.primaryActions[0].title.split(' ')[0] : 'Hero'}</span>
+          </button>
+          <button class="sim-launcher-chip sim-launcher-chip-more" data-nav="hubs" title="More Operations">
+            <span class="sim-launcher-icon">⋯</span>
+            <span class="sim-launcher-text">More</span>
+          </button>
         </div>
 
-        <!-- 4. Dynamic Context-Aware Vertical Widget (DASHBOARD_WIDGET_REGISTRY.md) -->
+        <!-- 4. Dynamic Context-Aware Vertical Widget -->
         <div class="sim-qa-section">
           <div class="sim-section-label" style="display:flex;justify-content:space-between;align-items:center;">
             ${v.contextWidget.title}
@@ -1272,57 +1448,15 @@
           </div>
         </div>
 
-        <!-- 5. IntelliAudit 5-Pillar Health Score (Priority 10 per DASHBOARD_WIDGET_REGISTRY.md) -->
-        <div class="sim-qa-section">
-          <div class="sim-section-label" style="display:flex;justify-content:space-between;align-items:center;">
-            IntelliAudit Governance
-            <span class="sim-view-all" data-screen="intelliAudit">Full Audit ›</span>
-          </div>
-          <div class="sim-audit-home-card" data-screen="intelliAudit" style="cursor:pointer;" title="Tap to view 5 Governance Pillars & Audit Analysis">
-            <div class="sim-audit-score-circle" style="width:42px;height:42px;flex-shrink:0;">
-              <span class="sim-audit-score-val" style="font-size:1rem;">${v.stats.healthScore}</span>
-              <span class="sim-audit-score-max" style="font-size:0.5rem;">/100</span>
-            </div>
-            <div class="sim-audit-home-meta" style="flex:1;min-width:0;">
-              <div style="display:flex;justify-content:space-between;align-items:center;">
-                <strong style="font-size:0.75rem;color:#fff;">Constitutional ERP Health</strong>
-                <span class="sim-top-badge sim-badge-success" style="font-size:0.5rem;">EXCELLENT</span>
-              </div>
-              <div style="font-size:0.5625rem;color:#94A3B8;margin-top:2px;">5 Governance Pillars Verified • Zero Fiscal Drift</div>
-              <div class="sim-mini-pillars" style="display:flex;gap:3px;margin-top:5px;">
-                <div style="flex:1;height:3px;background:#22C55E;border-radius:2px;" title="Cash Flow: ${v.stats.healthPillars.cashFlow}%"></div>
-                <div style="flex:1;height:3px;background:#22C55E;border-radius:2px;" title="Velocity: ${v.stats.healthPillars.velocity}%"></div>
-                <div style="flex:1;height:3px;background:#22C55E;border-radius:2px;" title="Compliance: ${v.stats.healthPillars.compliance}%"></div>
-                <div style="flex:1;height:3px;background:#22C55E;border-radius:2px;" title="Receivables: ${v.stats.healthPillars.receivables}%"></div>
-                <div style="flex:1;height:3px;background:#22C55E;border-radius:2px;" title="Margin: ${v.stats.healthPillars.margin}%"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 6. Quick Actions Grid -->
-        <div class="sim-qa-section">
-          <div class="sim-section-label">Quick Actions</div>
-          <div class="sim-qa-grid">
-            ${v.quickActions.map(qa => `
-              <button class="sim-qa-item" data-screen="${qa.screen}">
-                <span class="sim-qa-icon">${qa.icon}</span>
-                <span class="sim-qa-label">${qa.label}</span>
-                ${qa.badge ? `<span class="sim-qa-badge">${qa.badge}</span>` : ''}
-              </button>
-            `).join('')}
-          </div>
-        </div>
-
-        <!-- 7. Recent Operations -->
-        <div class="sim-qa-section">
+        <!-- 5. Top 3 Recent Bills Micro-List (Max 140dp) -->
+        <div class="sim-qa-section" style="margin-bottom: 6px;">
           <div class="sim-section-label" style="display:flex;justify-content:space-between;align-items:center;">
             Recent Operations
-            <span class="sim-view-all" data-screen="daybook">View Day Book ›</span>
+            <span class="sim-view-all" data-screen="daybook">Day Book ›</span>
           </div>
           <div class="sim-recent-list">
-            ${v.recentTx.map(tx => `
-              <div class="sim-recent-item">
+            ${v.recentTx.slice(0, 3).map(tx => `
+              <div class="sim-recent-item" data-screen="daybook" style="cursor:pointer;">
                 <div class="sim-recent-icon ${tx.type === 'credit' ? 'sim-bg-green' : 'sim-bg-red'}">
                   ${tx.type === 'credit' ? '↓' : '↑'}
                 </div>
@@ -1347,7 +1481,7 @@
           if (VERTICALS[newKey] && newKey !== this.currentVerticalKey) {
             this.currentVerticalKey = newKey;
             this.screenStack = [];
-            this.isFabExpanded = false;
+            this.currentTab = 'cockpit';
             this.render();
             // Sync active class on all pills on page
             document.querySelectorAll('[data-vertical]').forEach(b => {
@@ -1366,30 +1500,43 @@
           return;
         }
 
-        // 2. Complete sale action (in invoice screen)
+        // 2. Dismiss Setup Pill
+        const dismissSetupBtn = e.target.closest('#sim-dismiss-setup');
+        if (dismissSetupBtn) {
+          e.stopPropagation();
+          this.isSetupPillDismissed = true;
+          const pill = this.container.querySelector('.sim-setup-pill');
+          if (pill) {
+            pill.style.opacity = '0';
+            pill.style.transform = 'scale(0.95)';
+            setTimeout(() => pill.remove(), 200);
+          }
+          return;
+        }
+
+        // 3. Complete sale action (in invoice screen)
         const completeBtn = e.target.closest('[data-action="complete-sale"]');
         if (completeBtn) {
           this.triggerCloudSync(true);
           return;
         }
 
-        // 3. Manual sync button
+        // 4. Manual sync button
         const syncBtn = e.target.closest('#sim-manual-sync');
         if (syncBtn) {
           this.triggerCloudSync(false);
           return;
         }
 
-        // 4. Main FAB button
-        const fabBtn = e.target.closest('#sim-main-fab');
-        if (fabBtn) {
-          this.isFabExpanded = !this.isFabExpanded;
-          const wrapper = this.container.querySelector('.sim-fab-wrapper');
-          if (wrapper) wrapper.classList.toggle('sim-fab-expanded', this.isFabExpanded);
+        // 5. Bottom Navigation Bar tab clicks
+        const navBtn = e.target.closest('[data-nav]');
+        if (navBtn) {
+          const navTarget = navBtn.dataset.nav;
+          this.handleBottomNav(navTarget);
           return;
         }
 
-        // 5. Screen navigation (Quick actions, buttons, mini cards, top bar icons)
+        // 6. Screen navigation (Quick actions, buttons, mini cards, top bar icons)
         const screenBtn = e.target.closest('[data-screen]');
         if (screenBtn) {
           const screenId = screenBtn.dataset.screen;
@@ -1399,16 +1546,48 @@
       });
     }
 
+    // ── BOTTOM NAVIGATION DISPATCHER ────────────────────────────────
+    handleBottomNav(navTarget) {
+      if (navTarget === 'cockpit') {
+        this.screenStack = [];
+        this.currentTab = 'cockpit';
+        this.updateScreenContent();
+      } else if (navTarget === 'inventory') {
+        this.currentTab = 'inventory';
+        this.screenStack = ['inventory'];
+        this.updateScreenContent();
+      } else if (navTarget === 'bill') {
+        this.currentTab = 'bill';
+        this.screenStack = ['pos'];
+        this.updateScreenContent();
+      } else if (navTarget === 'connect') {
+        this.currentTab = 'connect';
+        this.screenStack = ['connect'];
+        this.updateScreenContent();
+      } else if (navTarget === 'hubs') {
+        this.currentTab = 'hubs';
+        this.screenStack = ['moreHubs'];
+        this.updateScreenContent();
+      }
+    }
+
     // ── NAVIGATION CONTROLLER ───────────────────────────────────────
     openScreen(screenId) {
       this.screenStack.push(screenId);
-      this.isFabExpanded = false;
+      if (screenId === 'inventory') this.currentTab = 'inventory';
+      else if (screenId === 'pos' || screenId === 'invoice') this.currentTab = 'bill';
+      else if (screenId === 'connect') this.currentTab = 'connect';
+      else if (screenId === 'moreHubs') this.currentTab = 'hubs';
+      else this.currentTab = '';
       this.updateScreenContent();
     }
 
     goBack() {
       if (this.screenStack.length > 0) {
         this.screenStack.pop();
+        if (this.screenStack.length === 0) {
+          this.currentTab = 'cockpit';
+        }
         this.updateScreenContent();
       }
     }
@@ -1416,7 +1595,7 @@
     updateScreenContent() {
       const appBarContainer = this.container.querySelector('.sim-app-bar-container');
       const contentArea = this.container.querySelector('.sim-content-area');
-      const fabWrapper = this.container.querySelector('.sim-fab-wrapper');
+      const navContainer = this.container.querySelector('.sim-bottom-nav-container');
 
       if (appBarContainer) appBarContainer.innerHTML = this.renderTopBar();
 
@@ -1430,14 +1609,16 @@
         } else {
           contentHtml = SUB_SCREENS._featurePreview('⚡', currentScreenId, 'Enterprise ERP feature registered in Feature.kt');
         }
-        if (fabWrapper) fabWrapper.style.display = 'none';
       } else {
         contentHtml = this.renderTabContent();
-        if (fabWrapper) fabWrapper.style.display = 'block';
       }
 
       if (contentArea) {
         contentArea.innerHTML = `<div class="sim-screen-layer sim-screen-active" data-layer="main">${contentHtml}</div>`;
+      }
+
+      if (navContainer) {
+        navContainer.innerHTML = this.renderBottomNav();
       }
     }
 
