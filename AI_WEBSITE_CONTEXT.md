@@ -101,7 +101,7 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 
 ---
 
-## ⚙️ 7. FEATURE FLAG CATALOG & TIER MATRIX (43 FEATURES)
+## ⚙️ 7. FEATURE FLAG CATALOG & TIER MATRIX (54 FEATURES)
 
 ### LITE Tier (Included in Starter Free Version):
 - `POS_BILLING`: Express Billing, ESC/POS Thermal Printing.
@@ -162,6 +162,17 @@ Under Google Play Policy (Deletability Section), users must have a pathway to re
 - `SUPER_ADMIN_CONSOLE`: Founder backoffice for multi-tenant governance, live crash telemetry & diagnostics, tenant health monitoring, and security rule hardening.
 - `SMART_CASH_ASSISTANT`: In-line capital infusion assistant preventing negative cash drawer defects across all disbursements (Money Law Article 4.4/4.5).
 - `PURCHASE_RETURNS_AND_AUDIT`: Statutory purchase returns with Debit Note builder, supplier invoice search, ITC reversal, and physical stock reconciliation loss valuation.
+- `VERISTOCK_EXPLORE`: B2C Hyperlocal discovery web portal (`https://veristockpro.com/explore`), 15s Dukaan Reels, real-time stock availability with Quantity Obfuscation Law, 2-Hour pickup holds (`#VS-HOLD-XXXX`), and Android Native POS counter chime and 1-tap cart claim.
+- `DPDP_ACT_2023_WATERMARK`: High-contrast indelible photo watermarking (`FOR VERISTOCK VERIFICATION ONLY • DPDP ACT 2023 • SEC 411 BNS COMPLIANT`) on Aadhaar, Voter ID, seller photos, and purchase bill evidence.
+- `AADHAAR_VERHOEFF_GUARD`: Real-time Verhoeff Algorithm checksum validation halting invalid or forged 12-digit Aadhaar inputs at the counter.
+- `MINOR_SELLER_PROTECTION`: Minor seller (<18) protection under Indian Contract Act § 11 protecting merchants against Section 411 BNS stolen property liability.
+- `SAFE_BOX_STORAGE_INDEXING`: Physical Safe Box / Storage Tray Location tracking (`Locker 1`, `Locker 2`, `Tray A-1`, `Tray B-2`).
+- `CARRIER_AND_CLOUD_LOCK_DIAGNOSTICS`: Automated diagnostics for Apple iCloud Activation Lock, Google FRP, Samsung Knox / Finance lock, and Carrier SIM lock; auto-halts direct resale and routes units to Refurbishment or Scrap.
+- `WORKSHOP_REFURBISHMENT_PIPELINE`: 4-stage refurbishment pipeline (*Waiting for Parts → Under Repair → QC Testing → Ready for Sale*) with dynamic True Landed Cost recalculation (`Buyback Price + Parts Cost + Labor`).
+- `CONTINUOUS_BARCODE_GUN_AUDIO`: Continuous barcode gun scanner mode with synthesized 880Hz (valid) and 220Hz (error) audio feedback and auto-advance.
+- `FLOATING_BILL_HUD`: Non-modal pinch-to-zoom paper bill inspector keeping supplier physical invoice visible during line item entry.
+- `VITRINE_THERMAL_STICKERS`: 50mm × 30mm showcase display labels with Condition Grades (Grade A+, A, B), storage bin coordinates, and warranty terms.
+- `STAFF_OPERATIONAL_AUDIT_TRAIL`: Immutable audit logging across sales, discounts, refunds, cash drawers, and stock mutations with actor UID, role, timestamp, and terminal ID (`SPEC-AUDIT-001`), plus real-time Command Centre stream for owners.
 
 ---
 
