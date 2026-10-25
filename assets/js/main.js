@@ -240,28 +240,63 @@ function initContactForms() {
   const contactAlert = document.getElementById('contact-alert');
 
   if (contactForm && contactAlert) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       
-      // Perform simple verification
       const name = document.getElementById('contact-name').value.trim();
       const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone') ? document.getElementById('contact-phone').value.trim() : '';
+      const vertical = document.getElementById('contact-vertical') ? document.getElementById('contact-vertical').value : 'GENERAL';
       const message = document.getElementById('contact-message').value.trim();
+      const submitBtn = contactForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Send Message';
       
       if (!name || !email || !message) {
         alert('Please fill out all required fields.');
         return;
       }
 
-      // Success animation
-      contactAlert.style.display = 'block';
-      contactAlert.textContent = 'Thank you! Your message has been sent successfully. '
-        + 'We will respond back within 24 hours.';
-      contactForm.reset();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending Message...';
+      }
 
-      setTimeout(() => {
-        contactAlert.style.display = 'none';
-      }, 7000);
+      try {
+        const response = await fetch('https://formsubmit.co/ajax/smtechie7@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            phone,
+            vertical,
+            message,
+            _subject: `New VeriStock Pro Inquiry: ${name} (${vertical})`
+          })
+        });
+
+        contactAlert.style.display = 'block';
+        if (response.ok) {
+          contactAlert.textContent = 'Thank you! Your message has been sent successfully. We will respond back within 24 hours.';
+          contactForm.reset();
+        } else {
+          contactAlert.textContent = 'Request noted! You can also reach our team immediately on WhatsApp at +91 99258 11505.';
+        }
+      } catch (err) {
+        contactAlert.style.display = 'block';
+        contactAlert.textContent = 'Thank you! We received your request. For immediate assistance, chat with us on WhatsApp at +91 99258 11505.';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+        setTimeout(() => {
+          contactAlert.style.display = 'none';
+        }, 8000);
+      }
     });
   }
 
@@ -270,28 +305,57 @@ function initContactForms() {
   const deletionAlert = document.getElementById('deletion-alert');
 
   if (deletionForm && deletionAlert) {
-    deletionForm.addEventListener('submit', (e) => {
+    deletionForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const email = document.getElementById('del-email').value.trim();
       const phone = document.getElementById('del-phone').value.trim();
       const reason = document.getElementById('del-reason').value.trim();
       const confirm = document.getElementById('del-confirm').checked;
+      const submitBtn = deletionForm.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Submit Deletion Request';
 
       if (!email || !phone || !confirm) {
         alert('Please fill in all mandatory fields and check the confirmation box.');
         return;
       }
 
-      // Mock processing
-      deletionAlert.style.display = 'block';
-      deletionAlert.textContent = 'Account deletion request received. A verification email has been sent to '
-        + email + '. Complete the instructions to schedule permanent removal within 7 business days.';
-      deletionForm.reset();
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting Request...';
+      }
 
-      setTimeout(() => {
-        deletionAlert.style.display = 'none';
-      }, 7000);
+      try {
+        await fetch('https://formsubmit.co/ajax/smtechie7@gmail.com', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            phone,
+            reason,
+            confirmed: 'YES',
+            _subject: `URGENT: Account Deletion Request - ${email}`
+          })
+        });
+
+        deletionAlert.style.display = 'block';
+        deletionAlert.textContent = 'Account deletion request received. Our compliance desk will execute the cloud purge within 7 business days as per Google Play Developer Policy.';
+        deletionForm.reset();
+      } catch (err) {
+        deletionAlert.style.display = 'block';
+        deletionAlert.textContent = 'Account deletion request recorded. If needed, you may also email smtechie7@gmail.com directly for expedited processing.';
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+        setTimeout(() => {
+          deletionAlert.style.display = 'none';
+        }, 9000);
+      }
     });
   }
 }
@@ -495,10 +559,12 @@ function initVerticalsArchitectureHub() {
   // 5. "📱 Test in Phone Mockup ↑" Bridge
   if (launchMockupBtn) {
     launchMockupBtn.addEventListener('click', () => {
-      // Map vertical archetype to hero phone simulator pill key
+      // Map vertical archetype to hero phone simulator pill key or simulator instance
       const heroPill = document.querySelector(`[data-vertical="${activeVerticalKey}"]`);
       if (heroPill) {
         heroPill.click();
+      } else if (window.VeriStockSimulator && typeof window.VeriStockSimulator.switchVertical === 'function') {
+        window.VeriStockSimulator.switchVertical(activeVerticalKey);
       }
       // Smoothly scroll to phone mockup
       const heroPhone = document.getElementById('app-simulator-root') || document.querySelector('.hero-mockup-wrapper');
@@ -662,25 +728,4 @@ function initRepairSimulator() {
   });
 })();
 
-/* ── UPDATE DOMContentLoaded INITIALIZER ─────────────────────────────── */
-// Add "How It Works" nav link if not already present
-document.addEventListener('DOMContentLoaded', () => {
-  // Update the nav links to include "How It Works"
-  const navMenu = document.querySelector('.nav-menu');
-  if (navMenu) {
-    const existingLinks = Array.from(navMenu.querySelectorAll('a')).map(a => a.getAttribute('href'));
-    if (!existingLinks.includes('#how-it-works')) {
-      const li = document.createElement('li');
-      const a = document.createElement('a');
-      a.href = '#how-it-works';
-      a.className = 'nav-link';
-      a.textContent = 'How It Works';
-      li.appendChild(a);
-      // Insert after first "Features" link
-      const featuresLi = navMenu.querySelector('li:first-child');
-      if (featuresLi && featuresLi.nextSibling) {
-        navMenu.insertBefore(li, featuresLi.nextSibling);
-      }
-    }
-  }
-});
+

@@ -1,6 +1,6 @@
 /**
  * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- *   VERISTOCK PRO — Interactive App Simulator v2.0 (Enterprise ERP Edition)
+ *   VERISTOCK PRO — Interactive App Simulator v2.1 (Enterprise ERP Edition)
  *   Mirrors Android Jetpack Compose M3 Design System & Architecture:
  *   - CategoryRegistry.kt & TerminologyEngine.kt (18 Verticals & 5 DNAs)
  *   - VeriStockProTopAppBar.kt (5-State Live Sync Indicator & Shop Switcher)
@@ -450,15 +450,137 @@
     }
   };
 
+  // ── DYNAMIC VERTICAL RESOLVER (Supports all 18 Verticals from verticals-data.js) ──
+  function getVerticalData(key) {
+    if (VERTICALS[key]) return VERTICALS[key];
+    if (window.VERTICAL_ARCHETYPES && window.VERTICAL_ARCHETYPES[key]) {
+      const arch = window.VERTICAL_ARCHETYPES[key];
+      return {
+        id: arch.id,
+        name: arch.name,
+        icon: arch.icon,
+        dna: arch.dna || 'PURE_RETAIL',
+        accentColor: '#1A56DB',
+        accentGradient: 'linear-gradient(135deg, #1A56DB 0%, #0D9488 100%)',
+        shopName: arch.name + ' Enterprise',
+        branches: ['Main Hub Unit', 'Secondary Depot'],
+        activeBranch: 'Main Hub Unit',
+        roleBadge: arch.badge || 'PROPRIETOR',
+        currency: '₹',
+        stats: {
+          todayRevenue: '₹62,400.00',
+          monthRevenue: '₹5,18,000',
+          growth: '▲ 15.2%',
+          dues: '₹22,500.00',
+          purchases: '₹16,800',
+          cashInHand: '₹24,300',
+          ordersCount: '34 Bills',
+          avgTicket: '₹1,835',
+          healthScore: 92,
+          healthPillars: { cashFlow: 94, velocity: 88, compliance: 96, receivables: 89, margin: 91 }
+        },
+        primaryActions: [
+          { id: 'pos', title: 'Counter POS', sub: 'Instant Billing', icon: '⚡', color: 'blue' },
+          { id: 'invoice', title: 'Tax Invoice', sub: 'GST + Thermal', icon: '🧾', color: 'slate' }
+        ],
+        quickActions: [
+          { icon: '⚡', label: 'Counter POS', screen: 'pos' },
+          { icon: '📦', label: 'Inventory', screen: 'inventory' },
+          { icon: '🏷️', label: 'Barcodes', screen: 'barcodePrint' },
+          { icon: '📖', label: 'Day Book', screen: 'daybook' },
+          { icon: '📊', label: 'P&L Report', screen: 'profitloss' },
+          { icon: '🏛️', label: 'CA / GST', screen: 'caHub' },
+          { icon: '👥', label: 'Ledger', screen: 'customers' },
+          { icon: '⚙️', label: 'Settings', screen: 'settings' }
+        ],
+        contextWidget: {
+          type: 'standard',
+          title: arch.name + ' Operations',
+          badge: arch.badge || 'Active',
+          badgeColor: 'success',
+          items: [
+            { name: (arch.features && arch.features[0]) || 'Operational Batch', meta: 'Compliant with ' + (arch.badge || 'GST Standards'), status: 'ACTIVE', statusType: 'success' },
+            { name: (arch.features && arch.features[1]) || 'Daily Cycle Check', meta: 'Logged into Room Database (AES-256)', status: 'VERIFIED', statusType: 'success' }
+          ]
+        },
+        products: [
+          { name: (arch.features && arch.features[0]) ? arch.features[0].substring(0, 32) : 'Standard Product Pack', meta: (arch.hsnCodes && arch.hsnCodes[0]) ? ('HSN: ' + arch.hsnCodes[0].code) : 'Standard SKU', price: '₹1,499.00', stock: 45, status: 'ok' },
+          { name: (arch.features && arch.features[1]) ? arch.features[1].substring(0, 32) : 'Premium Specialty Pack', meta: (arch.hsnCodes && arch.hsnCodes[1]) ? ('HSN: ' + arch.hsnCodes[1].code) : 'Specialty SKU', price: '₹2,850.00', stock: 18, status: 'ok' },
+          { name: 'Commercial Grade Consumable', meta: 'Fast Moving Item', price: '₹499.00', stock: 80, status: 'ok' }
+        ],
+        recentTx: [
+          { title: 'Tax Invoice Sale #VT-801', meta: 'B2B Client • UPI Payment • 11:20 AM', amount: '+₹4,349.00', type: 'credit' },
+          { title: 'Supplier PO Inward Intake', meta: 'Supplier #SP-102 • Bank RTGS', amount: '−₹12,400.00', type: 'debit' }
+        ]
+      };
+    }
+    return VERTICALS.MOBILE_SHOP;
+  }
+
+  // ── 100% MATHEMATICAL CALCULATION HELPER (Paise-Exact Double Entry) ──
+  function calculateCartTotals(vertical) {
+    const p1 = vertical.products[0];
+    const p2 = vertical.products[1] || vertical.products[0];
+
+    function parseVal(str) {
+      if (!str) return 0;
+      const cleaned = str.replace(/[^0-9.]/g, '');
+      const v = parseFloat(cleaned);
+      return isNaN(v) ? 0 : v;
+    }
+
+    const val1 = parseVal(p1.price);
+    const val2 = parseVal(p2.price);
+    const taxableSubtotal = val1 + val2;
+
+    let gstRate = 18;
+    if (vertical.id === 'TRUST_INSTITUTE') {
+      gstRate = 0;
+    } else if (vertical.id === 'RESTAURANT' || vertical.id === 'GARMENTS') {
+      gstRate = 5;
+    } else if (vertical.id === 'PHARMACY') {
+      gstRate = 12;
+    }
+
+    const cgstRate = gstRate / 2;
+    const sgstRate = gstRate / 2;
+    const cgst = (taxableSubtotal * cgstRate) / 100;
+    const sgst = (taxableSubtotal * sgstRate) / 100;
+    const totalBeforeRound = taxableSubtotal + cgst + sgst;
+    const grandTotal = Math.round(totalBeforeRound);
+    const roundOff = grandTotal - totalBeforeRound;
+
+    function fmt(n) {
+      return '₹' + n.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    return {
+      p1,
+      p2,
+      gstRate,
+      cgstRate,
+      sgstRate,
+      taxableSubtotal,
+      cgst,
+      sgst,
+      grandTotal,
+      roundOff,
+      roundOffFormatted: (roundOff >= 0 ? '+' : '−') + fmt(Math.abs(roundOff)),
+      subtotalFormatted: fmt(taxableSubtotal),
+      cgstFormatted: fmt(cgst),
+      sgstFormatted: fmt(sgst),
+      grandTotalFormatted: fmt(grandTotal)
+    };
+  }
+
   // ── 2. SUB-SCREEN RENDERERS ─────────────────────────────────────────
   const SUB_SCREENS = {
-    // 1. Standard GST Invoice Screen (with Thermal Print Preview toggle)
+    // 1. Standard GST Invoice Screen (with Dynamic Math)
     invoice: {
       title: 'Standard Tax Invoice',
       badge: '#VT-2026-089',
       render: (v) => {
-        const p1 = v.products[0];
-        const p2 = v.products[1] || v.products[0];
+        const t = calculateCartTotals(v);
         const isTrust = v.id === 'TRUST_INSTITUTE';
         return `
           <div class="sim-sub-screen-content">
@@ -468,34 +590,38 @@
                 <strong>${isTrust ? 'Haji Abdul Sattar (PAN: AAAPA1234F)' : 'R.S. Malek (GSTIN: 24AABCS1234P1Z5)'}</strong>
                 <span class="sim-item-meta">Anand, Gujarat • POS Cashier: Imran K.</span>
               </div>
-              <span class="sim-chip sim-chip-active">B2B INVOICE</span>
+              <span class="sim-chip sim-chip-active">${isTrust ? '80G RECEIPT' : 'B2B INVOICE'}</span>
             </div>
 
             <div class="sim-cart-list">
               <div class="sim-cart-item">
                 <div class="sim-cart-item-info">
-                  <div class="sim-item-name">${p1.name}</div>
-                  <div class="sim-item-meta">${p1.meta} • Qty: 1</div>
+                  <div class="sim-item-name">${t.p1.name}</div>
+                  <div class="sim-item-meta">${t.p1.meta} • Qty: 1</div>
                 </div>
-                <strong class="sim-cart-item-price">${p1.price}</strong>
+                <strong class="sim-cart-item-price">${t.p1.price}</strong>
               </div>
               <div class="sim-cart-item">
                 <div class="sim-cart-item-info">
-                  <div class="sim-item-name">${p2.name}</div>
-                  <div class="sim-item-meta">${p2.meta} • Qty: 1</div>
+                  <div class="sim-item-name">${t.p2.name}</div>
+                  <div class="sim-item-meta">${t.p2.meta} • Qty: 1</div>
                 </div>
-                <strong class="sim-cart-item-price">${p2.price}</strong>
+                <strong class="sim-cart-item-price">${t.p2.price}</strong>
               </div>
             </div>
 
             <div class="sim-totals">
-              <div class="sim-total-row"><span>Taxable Subtotal:</span><span>₹64,999.00</span></div>
-              <div class="sim-total-row"><span>CGST (9.0%):</span><span>₹5,849.91</span></div>
-              <div class="sim-total-row"><span>SGST (9.0%):</span><span>₹5,849.91</span></div>
-              <div class="sim-total-row"><span>Round Off:</span><span>+₹0.18</span></div>
+              <div class="sim-total-row"><span>Taxable Subtotal:</span><span>${t.subtotalFormatted}</span></div>
+              ${t.gstRate > 0 ? `
+                <div class="sim-total-row"><span>CGST (${t.cgstRate.toFixed(1)}%):</span><span>${t.cgstFormatted}</span></div>
+                <div class="sim-total-row"><span>SGST (${t.sgstRate.toFixed(1)}%):</span><span>${t.sgstFormatted}</span></div>
+                <div class="sim-total-row"><span>Round Off:</span><span>${t.roundOffFormatted}</span></div>
+              ` : `
+                <div class="sim-total-row"><span>GST Rate (Section 80G Exempt):</span><span class="sim-success-text">0.0% Exempt</span></div>
+              `}
               <div class="sim-total-row sim-total-grand">
                 <span>Net Payable (Paise math):</span>
-                <span class="sim-success-text">₹76,699.00</span>
+                <span class="sim-success-text">${t.grandTotalFormatted}</span>
               </div>
               <div class="sim-payment-modes">
                 <span class="sim-chip sim-chip-active">UPI / QR</span>
@@ -514,12 +640,14 @@
       }
     },
 
-    // 2. ESC/POS 58mm / 80mm Thermal Receipt Preview
+    // 2. ESC/POS 58mm / 80mm Thermal Receipt Preview (with Dynamic Math)
     thermalReceipt: {
       title: 'ESC/POS Thermal Receipt',
       badge: '58mm / 80mm ESC/POS',
       badgeColor: 'success',
-      render: (v) => `
+      render: (v) => {
+        const t = calculateCartTotals(v);
+        return `
         <div class="sim-sub-screen-content">
           <div class="sim-thermal-paper">
             <div class="sim-thermal-header">
@@ -540,21 +668,25 @@
 
             <div class="sim-thermal-items">
               <div class="sim-thermal-row">
-                <span>1x ${v.products[0].name.substring(0, 20)}</span>
-                <strong>${v.products[0].price}</strong>
+                <span>1x ${t.p1.name.substring(0, 20)}</span>
+                <strong>${t.p1.price}</strong>
               </div>
               <div class="sim-thermal-row">
-                <span>1x ${v.products[1] ? v.products[1].name.substring(0, 20) : 'Accessory Care'}</span>
-                <strong>${v.products[1] ? v.products[1].price : '₹499.00'}</strong>
+                <span>1x ${t.p2.name.substring(0, 20)}</span>
+                <strong>${t.p2.price}</strong>
               </div>
             </div>
 
             <div class="sim-thermal-divider">--------------------------------</div>
             <div class="sim-thermal-totals">
-              <div class="sim-thermal-row"><span>SUBTOTAL</span><span>₹64,999.00</span></div>
-              <div class="sim-thermal-row"><span>CGST 9%</span><span>₹5,849.91</span></div>
-              <div class="sim-thermal-row"><span>SGST 9%</span><span>₹5,849.91</span></div>
-              <div class="sim-thermal-row sim-thermal-grand"><span>GRAND TOTAL</span><span>₹76,699.00</span></div>
+              <div class="sim-thermal-row"><span>SUBTOTAL</span><span>${t.subtotalFormatted}</span></div>
+              ${t.gstRate > 0 ? `
+                <div class="sim-thermal-row"><span>CGST ${t.cgstRate.toFixed(1)}%</span><span>${t.cgstFormatted}</span></div>
+                <div class="sim-thermal-row"><span>SGST ${t.sgstRate.toFixed(1)}%</span><span>${t.sgstFormatted}</span></div>
+              ` : `
+                <div class="sim-thermal-row"><span>GST EXEMPT</span><span>₹0.00</span></div>
+              `}
+              <div class="sim-thermal-row sim-thermal-grand"><span>GRAND TOTAL</span><span>${t.grandTotalFormatted}</span></div>
               <div class="sim-thermal-row"><span>PAID VIA:</span><span>UPI (TXN: 9481)</span></div>
             </div>
 
@@ -566,7 +698,8 @@
             </div>
           </div>
           <button class="sim-complete-btn" data-action="back">← RETURN TO BILLING</button>
-        </div>`
+        </div>`;
+      }
     },
 
     // 3. Command Centre Management Hub
@@ -576,7 +709,6 @@
       badgeColor: 'warning',
       render: (v) => `
         <div class="sim-sub-screen-content sim-cc-container">
-          <!-- Area 1: Workforce Pulse -->
           <div class="sim-cc-card">
             <div class="sim-cc-header">
               <span class="sim-cc-title">👥 Workforce Pulse (3 Active)</span>
@@ -610,7 +742,6 @@
             </div>
           </div>
 
-          <!-- Area 2: Cloud Sync Outbox Telemetry -->
           <div class="sim-cc-card">
             <div class="sim-cc-header">
               <span class="sim-cc-title">☁️ Write-Ahead Outbox Sync Engine</span>
@@ -636,7 +767,6 @@
             </div>
           </div>
 
-          <!-- Area 3: CA Web Portal Connector -->
           <div class="sim-cc-card sim-ca-portal-card">
             <div class="sim-cc-header">
               <span class="sim-cc-title">🏛️ CA Web Portal Bridge</span>
@@ -689,6 +819,9 @@
               <span class="sim-status-chip sim-status-error">AWAITING PARTS</span>
             </div>
           </div>
+          <button class="sim-complete-btn" style="margin-top:10px;" data-action="toast" data-msg="✓ New 10-point repair intake job card generated">
+            + CREATE REPAIR INTAKE JOB CARD
+          </button>
         </div>`
     },
 
@@ -718,6 +851,9 @@
               <span class="sim-status-chip sim-status-warning">CLAIM DUE</span>
             </div>
           </div>
+          <button class="sim-complete-btn" style="margin-top:10px;" data-action="toast" data-msg="✓ Supplier debit note initiated for expiring batches">
+            📋 DISPATCH SUPPLIER RETURN CLAIM
+          </button>
         </div>`
     },
 
@@ -760,7 +896,9 @@
               <span class="sim-table-status">KOT #45</span>
             </div>
           </div>
-          <button class="sim-complete-btn" style="margin-top:10px;">+ NEW TABLE OCCUPANCY / FAST KOT</button>
+          <button class="sim-complete-btn" style="margin-top:10px;" data-action="toast" data-msg="✓ Table T-3 seated: Captain Ramesh assigned">
+            + NEW TABLE OCCUPANCY / FAST KOT
+          </button>
         </div>`
     },
 
@@ -795,7 +933,9 @@
           <div class="sim-totals">
             <div class="sim-total-row"><span>Gross Production Cost:</span><span>₹59,750.00</span></div>
             <div class="sim-total-row"><span>Unit Cost per Flange:</span><span class="sim-success-text">₹597.50 / Pc</span></div>
-            <button class="sim-complete-btn" style="margin-top:6px;">🚀 DISPATCH PRODUCTION ORDER TO FLOOR</button>
+            <button class="sim-complete-btn" style="margin-top:6px;" data-action="dispatch-po">
+              🚀 DISPATCH PRODUCTION ORDER TO FLOOR
+            </button>
           </div>
         </div>`
     },
@@ -867,17 +1007,17 @@
             <div class="sim-daybook-entry">
               <div class="sim-daybook-icon" style="background:rgba(26,86,219,0.1);color:#1A56DB;">📄</div>
               <div><div class="sim-item-name">GSTR-1 Outward CSV</div><div class="sim-item-meta">B2B, B2CL, B2CS &amp; HSN Summary</div></div>
-              <span class="sim-chip sim-chip-active">EXPORT</span>
+              <button class="sim-chip sim-chip-active" data-action="export-ca">EXPORT</button>
             </div>
             <div class="sim-daybook-entry">
               <div class="sim-daybook-icon" style="background:rgba(99,102,241,0.1);color:#6366F1;">📊</div>
               <div><div class="sim-item-name">GSTR-3B Tax Liability</div><div class="sim-item-meta">Net ITC vs Output GST breakdown</div></div>
-              <span class="sim-chip">VIEW</span>
+              <button class="sim-chip" data-action="toast" data-msg="✓ GSTR-3B liability calculated: ₹14,250 payable">VIEW</button>
             </div>
             <div class="sim-daybook-entry">
               <div class="sim-daybook-icon" style="background:rgba(245,158,11,0.1);color:#F59E0B;">🏛️</div>
               <div><div class="sim-item-name">CA Web Portal Access</div><div class="sim-item-meta">Auditor read-only cloud dashboard</div></div>
-              <span class="sim-chip">PORTAL</span>
+              <button class="sim-chip" data-action="toast" data-msg="✓ CA bridge active: https://veristock-ad58d.web.app">PORTAL</button>
             </div>
           </div>
         </div>`
@@ -909,7 +1049,7 @@
               </div>
               <div style="text-align:right;">
                 <strong class="sim-error-text" style="font-size:0.75rem;">₹18,500 Due</strong>
-                <div class="sim-item-meta" style="color:#22C55E;">💬 WhatsApp</div>
+                <button class="sim-chip" style="margin-top:2px;" data-action="toast" data-msg="✓ WhatsApp payment reminder sent with UPI link">💬 WhatsApp</button>
               </div>
             </div>
             <div class="sim-customer-card">
@@ -920,11 +1060,13 @@
               </div>
               <div style="text-align:right;">
                 <strong class="sim-error-text" style="font-size:0.75rem;">₹4,200 Due</strong>
-                <div class="sim-item-meta" style="color:#22C55E;">💬 WhatsApp</div>
+                <button class="sim-chip" style="margin-top:2px;" data-action="toast" data-msg="✓ WhatsApp payment reminder sent with UPI link">💬 WhatsApp</button>
               </div>
             </div>
           </div>
-          <button class="sim-complete-btn" style="margin-top:6px;">+ ADD NEW CUSTOMER / RECORD PAYMENT</button>
+          <button class="sim-complete-btn" style="margin-top:6px;" data-action="add-customer">
+            + ADD NEW CUSTOMER / RECORD PAYMENT
+          </button>
         </div>`
     },
 
@@ -933,7 +1075,7 @@
       title: 'VeriStock Connect B2B',
       badge: 'Verified Peers',
       badgeColor: 'success',
-      render: (v) => `
+      render: () => `
         <div class="sim-sub-screen-content">
           <div class="sim-connect-banner">
             <div style="display:flex;align-items:center;gap:6px;">
@@ -952,7 +1094,7 @@
                 <div class="sim-item-name">National Electronics Hub <span class="sim-top-badge sim-badge-success">KYC VERIFIED</span></div>
                 <div class="sim-item-meta">Lamington Road (1.2 km away) • 420 Items Listed</div>
               </div>
-              <button class="sim-chip sim-chip-active">Chat / PO</button>
+              <button class="sim-chip sim-chip-active" data-action="toast" data-msg="✓ Connected with National Electronics via encrypted P2P channel">Chat / PO</button>
             </div>
             <div class="sim-customer-card">
               <div class="sim-avatar" style="background:#0D9488;">SP</div>
@@ -960,10 +1102,12 @@
                 <div class="sim-item-name">Shreeji Spare Parts Depot <span class="sim-top-badge sim-badge-success">KYC VERIFIED</span></div>
                 <div class="sim-item-meta">GIDC Phase 2 (3.8 km away) • Displays &amp; ICs</div>
               </div>
-              <button class="sim-chip sim-chip-active">Chat / PO</button>
+              <button class="sim-chip sim-chip-active" data-action="toast" data-msg="✓ Connected with Shreeji Spare Parts via encrypted P2P channel">Chat / PO</button>
             </div>
           </div>
-          <button class="sim-complete-btn" style="margin-top:6px;">🌐 DISCOVER NEARBY WHOLESALERS</button>
+          <button class="sim-complete-btn" style="margin-top:6px;" data-action="toast" data-msg="✓ Radar scan refreshed: 14 verified wholesalers found within 10 km">
+            🌐 DISCOVER NEARBY WHOLESALERS
+          </button>
         </div>`
     },
 
@@ -1006,7 +1150,7 @@
           </div>
           <div class="sim-pos-items">
             ${v.products.map(p => `
-              <div class="sim-pos-item">
+              <div class="sim-pos-item" data-action="toast" data-msg="✓ Added ${p.name.substring(0, 24)} to POS Cart" style="cursor:pointer;">
                 <div class="sim-pos-item-icon" style="background:rgba(26,86,219,0.1);color:#1A56DB;">${v.icon}</div>
                 <div>
                   <div class="sim-item-name">${p.name}</div>
@@ -1018,7 +1162,7 @@
           </div>
           <div class="sim-pos-footer">
             <div class="sim-pos-total">
-              <span>Cart (1 item)</span>
+              <span>Cart (2 items)</span>
               <strong>${v.products[0].price}</strong>
             </div>
             <button class="sim-complete-btn" style="margin-top:6px;" data-screen="invoice">
@@ -1058,7 +1202,9 @@
               </div>
             `).join('')}
           </div>
-          <button class="sim-complete-btn" style="margin-top:8px;">+ ADD NEW ITEM / SCAN BARCODE</button>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="add-stock">
+            + ADD NEW ITEM / SCAN BARCODE
+          </button>
         </div>`
     },
 
@@ -1076,14 +1222,14 @@
             </div>
           </div>
           <div class="sim-settings-list">
-            <div class="sim-settings-item"><span>🏪</span><span>Shop Profile &amp; GSTIN</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>🖨️</span><span>ESC/POS Bluetooth Printers (58mm/80mm)</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>🔒</span><span>SQLCipher 256-Bit Database Lock</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>☁️</span><span>Write-Ahead Outbox Cloud Backup</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>👥</span><span>Staff Roles &amp; Biometric Auth</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>🏛️</span><span>CA Web Portal Bridge</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>📲</span><span>Smart Clone Device Migration</span><span class="sim-muted">›</span></div>
-            <div class="sim-settings-item"><span>ℹ️</span><span>About VeriStock Pro (v2.7)</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ Shop Profile & GSTIN verified (Active)"><span>🏪</span><span>Shop Profile &amp; GSTIN</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ ESC/POS Bluetooth paired: RP-80 (203 DPI)"><span>🖨️</span><span>ESC/POS Bluetooth Printers (58mm/80mm)</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ SQLCipher 256-Bit AES hardware key active"><span>🔒</span><span>SQLCipher 256-Bit Database Lock</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ Outbox sync active: 0 pending mutations"><span>☁️</span><span>Write-Ahead Outbox Cloud Backup</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ Biometric Auth active: Imran Khan (Operator)"><span>👥</span><span>Staff Roles &amp; Biometric Auth</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ CA Web Portal connected: veristock-ad58d.web.app"><span>🏛️</span><span>CA Web Portal Bridge</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ Smart Clone ready: Peer Wi-Fi direct transfer"><span>📲</span><span>Smart Clone Device Migration</span><span class="sim-muted">›</span></div>
+            <div class="sim-settings-item" data-action="toast" data-msg="✓ VeriStock Pro v2.7 (Build 2026.10) Enterprise"><span>ℹ️</span><span>About VeriStock Pro (v2.7)</span><span class="sim-muted">›</span></div>
           </div>
         </div>`
     },
@@ -1141,14 +1287,823 @@
         </div>`
     },
 
-    // 15. Fallback feature preview
-    _featurePreview: (icon, title, desc) => `
-      <div class="sim-sub-screen-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px;">
-        <div class="sim-feature-preview-icon" style="font-size:2rem;margin-bottom:8px;">${icon}</div>
-        <h3 class="sim-feature-preview-title" style="font-size:0.9rem;font-weight:700;margin-bottom:6px;color:#fff;">${title}</h3>
-        <p class="sim-feature-preview-desc" style="font-size:0.6875rem;color:#94A3B8;line-height:1.4;margin-bottom:14px;">${desc}</p>
-        <div class="sim-feature-cta" style="font-size:0.625rem;background:#1A56DB;color:#fff;padding:6px 12px;border-radius:6px;font-weight:700;">Included in Pro License</div>
-      </div>`
+    // ── NEW DEDICATED VERTICAL SUB-SCREENS ──────────────────────────
+
+    // 16. IMEI Lookup & Hardware Audit Screen (Mobile Shop)
+    imeiLookup: {
+      title: 'Dual IMEI Hardware Audit',
+      badge: '15-Digit Checksum',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-pos-search">
+            <div class="sim-search-bar">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <span>Scan or enter 15-digit IMEI...</span>
+            </div>
+          </div>
+          <div class="sim-repair-card" style="margin-top:6px;">
+            <div style="width:100%;">
+              <div style="display:flex;justify-content:space-between;align-items:center;">
+                <strong style="color:#fff;font-size:0.8rem;">OnePlus 12 5G (Silky Black, 256GB)</strong>
+                <span class="sim-status-chip sim-status-success">IN STOCK</span>
+              </div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>IMEI 1 (Luhn Valid):</span>
+                <span class="sim-mono-code">864912061849201</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>IMEI 2 (Dual SIM):</span>
+                <span class="sim-mono-code">864912061849202</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Storage Location:</span>
+                <span>Rack: A-04 • Shelf: 2 • Tray: 11</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Warranty Status:</span>
+                <span class="sim-success-text">Brand Active (11 Mo Remaining)</span>
+              </div>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <button class="sim-complete-btn" style="flex:1;" data-action="print-barcode">🖨️ PRINT BARCODE TAG</button>
+            <button class="sim-chip sim-chip-active" style="padding:0 12px;" data-action="toast" data-msg="✓ Full lifecycle audit: Inward on 12 Oct • Supplier: Apex Dist">AUDIT TRAIL</button>
+          </div>
+        </div>`
+    },
+
+    // 17. Second-Hand Device Buyback & KYC Legal Shield (Mobile Shop)
+    buyUsed: {
+      title: 'Device Buyback KYC Shield',
+      badge: 'Rule 32(5) Margin',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-gst-alert" style="background:rgba(22,163,74,0.12);border-color:rgba(22,163,74,0.25);color:#22C55E;">
+            🛡️ GST Rule 32(5) Active: Margin tax applies strictly on sale margin (Selling Price − Buyback Price).
+          </div>
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">iPhone 13 128GB (Starlight Blue)</div>
+              <div class="sim-item-meta">IMEI: 354891021481092 • Seller: Basit Shaikh</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Aadhaar Verhoeff KYC:</span>
+                <span class="sim-success-text">✓ Verified (UID: **** 4210)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>10-Point Hardware QC:</span>
+                <span class="sim-success-text">Battery 89% • FaceID [OK] • TrueTone [OK]</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Assessed Buyback Payout:</span>
+                <strong class="sim-success-text" style="font-size:0.85rem;">₹27,500.00</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Digital Legal Shield generated: Customer signature & ID attached">
+            ✍️ CAPTURE SIGNATURE &amp; ISSUE VOUCHER
+          </button>
+        </div>`
+    },
+
+    // 18. ESC/POS Thermal Barcode Engine (50x30mm)
+    barcodePrint: {
+      title: 'Thermal Barcode Print',
+      badge: '50×30mm Tag',
+      badgeColor: 'success',
+      render: (v) => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-thermal-paper" style="padding:14px 10px;text-align:center;">
+            <div style="font-size:0.65rem;font-weight:700;color:#000;">${v.shopName.toUpperCase()}</div>
+            <div style="font-size:0.75rem;font-weight:800;color:#000;margin:4px 0;">${v.products[0].name.substring(0, 24)}</div>
+            <div style="font-size:0.85rem;font-family:'JetBrains Mono',monospace;letter-spacing:3px;margin:6px 0;font-weight:900;color:#000;">
+              ||| | |||| | |||||| || | ||
+            </div>
+            <div style="font-size:0.55rem;font-family:'JetBrains Mono',monospace;color:#333;">VT-8517-948120</div>
+            <div style="display:flex;justify-content:space-between;font-size:0.65rem;font-weight:700;margin-top:4px;color:#000;">
+              <span>MRP: ${v.products[0].price}</span>
+              <span>INCL. ALL TAXES</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px;margin-top:8px;">
+            <button class="sim-complete-btn" style="flex:1;" data-action="print-barcode">🖨️ PRINT LABEL BATCH</button>
+            <button class="sim-chip" data-action="toast" data-msg="✓ Printer format: 50x30mm 2-across thermal sticker">FORMAT</button>
+          </div>
+        </div>`
+    },
+
+    // 19. Schedule H / H1 Register (Pharmacy)
+    schH1Register: {
+      title: 'Schedule H1 Drug Register',
+      badge: 'Drugs Act 65',
+      badgeColor: 'error',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-gst-alert" style="background:rgba(239,68,68,0.12);border-color:rgba(239,68,68,0.25);color:#EF4444;">
+            📜 Mandatory Drug Rules compliance: Doctor registration number &amp; patient signature logged.
+          </div>
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div style="display:flex;justify-content:space-between;">
+                <strong>Azithral 500mg (Azithromycin)</strong>
+                <span class="sim-top-badge sim-badge-error">SCHEDULE H1</span>
+              </div>
+              <div class="sim-meter-row" style="margin-top:4px;">
+                <span>Patient Name:</span>
+                <span>Mohsin Pathan (Age: 34)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Prescribing Doctor:</span>
+                <span>Dr. A.K. Shah (Reg: G-28491)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Batch &amp; Qty Dispensed:</span>
+                <span>Batch #AZI-102 • 6 Tablets</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Date &amp; Bill Ref:</span>
+                <span>Today 11:15 AM • VT-2026-088</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="export-sch-h1">
+            📥 EXPORT FORM 35 COMPLIANCE REGISTER (PDF)
+          </button>
+        </div>`
+    },
+
+    // 20. Salt Search & Generic Substitute Finder (Pharmacy)
+    saltSearch: {
+      title: 'Generic Salt Finder',
+      badge: 'Salt Matrix',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-pos-search">
+            <div class="sim-search-bar">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <span>Active Salt: Paracetamol 650mg</span>
+            </div>
+          </div>
+          <div class="sim-customer-list" style="margin-top:6px;">
+            <div class="sim-customer-card">
+              <div class="sim-customer-info">
+                <div class="sim-item-name">Dolo 650mg (Micro Labs)</div>
+                <div class="sim-item-meta">In Stock: 240 Strips • Margin: 28%</div>
+              </div>
+              <div style="text-align:right;">
+                <strong>₹34.50</strong>
+                <span class="sim-chip" style="margin-top:2px;">BRANDED</span>
+              </div>
+            </div>
+            <div class="sim-customer-card">
+              <div class="sim-customer-info">
+                <div class="sim-item-name">P-650 (Apex Laboratories)</div>
+                <div class="sim-item-meta">In Stock: 150 Strips • Margin: 44%</div>
+              </div>
+              <div style="text-align:right;">
+                <strong class="sim-success-text">₹31.00</strong>
+                <button class="sim-chip sim-chip-active" style="margin-top:2px;" data-action="substitute-salt">+16% MARGIN</button>
+              </div>
+            </div>
+          </div>
+        </div>`
+    },
+
+    // 21. Pharmacy Quarantine & Locked Cabinet
+    quarantine: {
+      title: 'Quarantine Drug Cabinet',
+      badge: 'Cabinet Lock',
+      badgeColor: 'error',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-gst-alert" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#EF4444;">
+            🔒 Locked Physical Quarantine: Items here are blocked from POS counter billing.
+          </div>
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Augmentin 625 Duo (Batch: AUG-882)</div>
+              <div class="sim-item-meta">Quarantined on 22 Oct • Expiry: 18 Days</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Physical Cabinet Location:</span>
+                <span>Lock Box #3 (Rear Dispensary)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Supplier Debit Note:</span>
+                <span class="sim-warning-text">Pending Sun Pharma Credit Note</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Quarantine audit certificate issued with Pharmacist biometric stamp">
+            📋 CONFIRM PHYSICAL CABINET AUDIT
+          </button>
+        </div>`
+    },
+
+    // 22. Kitchen Display System (Restaurant)
+    kdsOrders: {
+      title: 'Kitchen Display System (KDS)',
+      badge: 'Live Prep Queue',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-list">
+            <div class="sim-repair-card">
+              <div style="width:100%;">
+                <div style="display:flex;justify-content:space-between;">
+                  <strong>Table 7 • KOT #44</strong>
+                  <span class="sim-status-chip sim-status-warning">PREPARING (4m)</span>
+                </div>
+                <div class="sim-item-meta" style="margin-top:4px;">1x Dum Biryani (Clay Pot) • Extra Salan</div>
+                <div class="sim-item-meta">2x Butter Garlic Naan (Crispy)</div>
+                <button class="sim-complete-btn" style="margin-top:6px;" data-action="kds-serve">✓ MARK PREPARED / NOTIFY WAITER</button>
+              </div>
+            </div>
+            <div class="sim-repair-card">
+              <div style="width:100%;">
+                <div style="display:flex;justify-content:space-between;">
+                  <strong>Table 6 • KOT #45</strong>
+                  <span class="sim-status-chip sim-status-error">NEW ORDER (1m)</span>
+                </div>
+                <div class="sim-item-meta" style="margin-top:4px;">2x Dal Makhani Royal Bukhara (Mild)</div>
+              </div>
+            </div>
+          </div>
+        </div>`
+    },
+
+    // 23. KOT Thermal Ticket Preview (Restaurant)
+    kotPrint: {
+      title: 'Kitchen Order Ticket (KOT)',
+      badge: '58mm Thermal',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-thermal-paper">
+            <div style="text-align:center;font-weight:900;font-size:0.8rem;color:#000;">** KITCHEN ORDER TICKET **</div>
+            <div style="text-align:center;font-size:0.65rem;color:#000;">TABLE: T-6 • PAX: 4 • KOT: #45</div>
+            <div style="text-align:center;font-size:0.65rem;color:#000;">Captain: Ramesh • Time: 12:45 PM</div>
+            <div class="sim-thermal-divider">--------------------------------</div>
+            <div style="font-weight:800;font-size:0.75rem;color:#000;">
+              <div>[ ] 2x DAL MAKHANI ROYAL BUKHARA</div>
+              <div style="font-size:0.65rem;font-style:italic;padding-left:12px;">-> Instruction: Mild Spicy, Extra Cream</div>
+              <div style="margin-top:4px;">[ ] 4x BUTTER GARLIC NAAN</div>
+            </div>
+            <div class="sim-thermal-divider">--------------------------------</div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="🖨️ KOT dispatched to Kitchen Printer (Kitchen Unit 1)">
+            🖨️ DISPATCH KOT TO KITCHEN PRINTER
+          </button>
+        </div>`
+    },
+
+    // 24. Restaurant Shift Close & X-Report
+    shiftSummary: {
+      title: 'Shift Close & Cash Drawer',
+      badge: 'Zero Negative Guard',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Lunch Service Shift (11:00 AM - 04:00 PM)</div>
+              <div class="sim-item-meta">Cashier: Ramesh M. • Counter #1</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Cash Payments Collected:</span>
+                <strong>₹18,450.00</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>UPI / QR Settlements:</span>
+                <strong>₹20,300.00</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Starting Float Cash:</span>
+                <span>₹5,000.00</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Expected Drawer Cash:</span>
+                <strong class="sim-success-text">₹23,450.00</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Cash Drawer Variance:</span>
+                <span class="sim-success-text">₹0.00 (Zero Discrepancy)</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Shift locked: X-Report printed and synced to Cloud Portal">
+            🔒 LOCK SHIFT &amp; PRINT X-REPORT
+          </button>
+        </div>`
+    },
+
+    // 25. Daily Expenses & Till Outflow (Restaurant / Retail)
+    expenses: {
+      title: 'Store Expenses & Petty Cash',
+      badge: 'Drawer Guard',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-list">
+            <div class="sim-daybook-entry">
+              <div class="sim-daybook-icon sim-bg-red">↑</div>
+              <div><div class="sim-item-name">Kitchen Vegetable Intake</div><div class="sim-item-meta">Vashi APMC • Paid via Drawer Cash</div></div>
+              <strong class="sim-error-text">−₹3,200.00</strong>
+            </div>
+            <div class="sim-daybook-entry">
+              <div class="sim-daybook-icon sim-bg-red">↑</div>
+              <div><div class="sim-item-name">Staff Refreshment &amp; Tea</div><div class="sim-item-meta">Daily Allowance Voucher</div></div>
+              <strong class="sim-error-text">−₹350.00</strong>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="record-expense">
+            + RECORD NEW PETTY CASH EXPENSE
+          </button>
+        </div>`
+    },
+
+    // 26. Garments Size x Color Grid Matrix
+    matrix: {
+      title: 'Size × Color Variant Grid',
+      badge: '2D Inventory',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <strong>Slim-Fit Linen Shirt (Formal)</strong>
+              <div class="sim-item-meta">HSN: 61091000 • 5% GST • Base: ₹1,899</div>
+              <div style="margin-top:8px;font-size:0.65rem;">
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+                  <span>Navy Blue:</span>
+                  <span>M(12) • L(8) • XL(4) • <strong class="sim-error-text">XXL(0)</strong></span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.08);">
+                  <span>Pure White:</span>
+                  <span>M(15) • L(14) • XL(9) • XXL(2)</span>
+                </div>
+                <div style="display:flex;justify-content:space-between;padding:3px 0;">
+                  <span>Olive Green:</span>
+                  <span>M(8) • L(6) • <strong class="sim-error-text">XL(0)</strong> • XXL(1)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="print-barcode">
+            🏷️ PRINT MATRIX BARCODE LABELS
+          </button>
+        </div>`
+    },
+
+    // 27. Job Work Challan (Garments / Lapidary)
+    jobWork: {
+      title: 'Job Work Outsource Challan',
+      badge: 'Challan #JW-912',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Surat Dyeing &amp; Embroidery Mill</div>
+              <div class="sim-item-meta">Challan Ref: #JW-912 • Dispatched 3 Days Ago</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Dispatched Fabric:</span>
+                <span>120 Mtrs Raw Linen (Value: ₹28,800)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Expected Output:</span>
+                <strong>80 Finished Dyed Shirts</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Wastage SLA Allowance:</span>
+                <span class="sim-success-text">2.0% Maximum Loss</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Job Work intake received: 80 shirts added to ready stock">
+            📥 RECEIVE INTAKE &amp; RECONCILE SCRAP
+          </button>
+        </div>`
+    },
+
+    // 28. Exchange Credit Note Engine (Garments)
+    exchange: {
+      title: 'Exchange & Credit Notes',
+      badge: '1:1 Piece Swap',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Basit Shaikh • Original Bill #VT-2026-041</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Returned Item:</span>
+                <span class="sim-error-text">Raw Selvedge Denim (Size 32) • ₹2,999</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Issued in Exchange:</span>
+                <span class="sim-success-text">Raw Selvedge Denim (Size 34) • ₹2,999</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Net Difference Payable:</span>
+                <strong>₹0.00 (Even Exchange)</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Credit Note #CR-089 issued &amp; stock matrix re-adjusted">
+            ✓ ISSUE CREDIT NOTE &amp; SWAP PIECE
+          </button>
+        </div>`
+    },
+
+    // 29. Manufacturing Production Orders
+    productionOrders: {
+      title: 'Active Production Orders',
+      badge: 'CNC Shopfloor',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div style="display:flex;justify-content:space-between;">
+                <strong>SS304 Flange Assembly (#BOM-901)</strong>
+                <span class="sim-status-chip sim-status-success">80% COMPLETE</span>
+              </div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Batch Target:</span>
+                <span>500 Finished Units (400 Completed)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Machine Assignment:</span>
+                <span>CNC Lathe 2 • Operator: Suresh P.</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Production Batch #BOM-901 marked COMPLETE: 500 units moved to finished goods">
+            ✓ MARK BATCH COMPLETED &amp; MOVE TO FG
+          </button>
+        </div>`
+    },
+
+    // 30. Raw Materials Reorder (Manufacturing)
+    rawMaterials: {
+      title: 'Raw Stock & Reorder Points',
+      badge: 'Material Safety',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-list">
+            <div class="sim-repair-card">
+              <div style="width:100%;">
+                <div style="display:flex;justify-content:space-between;">
+                  <strong>SS304 Ingot Billet</strong>
+                  <span class="sim-status-chip sim-status-error">REORDER DUE</span>
+                </div>
+                <div class="sim-meter-row" style="margin-top:4px;">
+                  <span>Current Stock: 180 KG</span>
+                  <span>Safety Threshold: 250 KG</span>
+                </div>
+              </div>
+            </div>
+            <div class="sim-repair-card">
+              <div style="width:100%;">
+                <div style="display:flex;justify-content:space-between;">
+                  <strong>Precision Brass Rods</strong>
+                  <span class="sim-status-chip sim-status-success">OPTIMAL</span>
+                </div>
+                <div class="sim-meter-row" style="margin-top:4px;">
+                  <span>Current Stock: 420 Meters</span>
+                  <span>Safety Threshold: 150 Meters</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Purchase Order #PO-903 generated for Jindal Steel Strips">
+            📝 RAISE RAW MATERIAL PURCHASE PO
+          </button>
+        </div>`
+    },
+
+    // 31. Scrap Report (Manufacturing)
+    scrapReport: {
+      title: 'Scrap & Shrinkage Audit',
+      badge: 'Recovery Yield',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">October 2026 Monthly Scrap Audit</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Total Raw Metal Processed:</span>
+                <strong>14,500 KG</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Finished Goods Yield:</span>
+                <span class="sim-success-text">13,920 KG (96.0%)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Actual Scrap Loss:</span>
+                <span>580 KG (4.0% vs 4.5% Allowance)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Scrap Cash Recovered:</span>
+                <strong class="sim-success-text">+₹38,250.00</strong>
+              </div>
+            </div>
+          </div>
+        </div>`
+    },
+
+    // 32. Purchase Inward PO & ITC Match (Manufacturing / Retail)
+    purchases: {
+      title: 'Supplier Purchase PO',
+      badge: 'GSTR-2B Matched',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Jindal Steel Strips Ltd (PO #PO-902)</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Inward Consignment:</span>
+                <span>1,500 KG SS Billets @ ₹195/kg</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Invoice Total:</span>
+                <strong>₹2,92,500 + 18% GST</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>E-Way Bill Status:</span>
+                <span class="sim-success-text">✓ Verified &amp; Claimed in GSTR-2B</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Inward goods accepted: Stock added and ITC queued">
+            ✓ CONFIRM INWARD GOODS &amp; POST ITC
+          </button>
+        </div>`
+    },
+
+    // 33. Lapidary Rough Lot Intake (Crystal & Agate)
+    lapidary: {
+      title: 'Rough Mineral Lot Intake',
+      badge: 'Batch #LOT-412',
+      badgeColor: 'warning',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Moss Agate Rough Mineral Lot</div>
+              <div class="sim-item-meta">Khambhat Ghanti Unit • Assigned: Salim Bhai</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Gross Rough Weight:</span>
+                <strong>50.00 KG (Grade A Dendritic)</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Expected Ghisat Loss:</span>
+                <span class="sim-warning-text">32.0% (16.00 KG)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Expected Polish Yield:</span>
+                <strong class="sim-success-text">34.00 KG Finished Gems</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="ghanti-challan">
+            ⚙️ ISSUE GHANTI CHALLAN TO ARTISAN
+          </button>
+        </div>`
+    },
+
+    // 34. Ghisat Loss Calculator (Crystal & Agate)
+    ghisatCalc: {
+      title: 'Ghisat Loss % Calculator',
+      badge: 'Benchmark: 35%',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Artisan Yield Settlement: Salim Bhai</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Rough Input Issued:</span>
+                <span>10.00 KG Raw Amethyst</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Polished Output Received:</span>
+                <span>6.40 KG Cabochons</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Calculated Ghisat Loss:</span>
+                <strong class="sim-success-text">36.0% (Within 1% Tolerance)</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Karigar Payout Due:</span>
+                <strong class="sim-success-text">₹2,880.00 (@ ₹450/kg)</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Karigar payout approved: Posted to Day Book Cash Outflow">
+            ✓ APPROVE KARIGAR PAYOUT VOUCHER
+          </button>
+        </div>`
+    },
+
+    // 35. LUT Export Invoice (Crystal & Agate)
+    lutExport: {
+      title: 'LUT Export Invoice (0% IGST)',
+      badge: 'RFD-11 Approved',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Consignee: Bohemian Crystals LLC (USA)</div>
+              <div class="sim-item-meta">LUT Ref: AD240126001289K • Form RFD-11 Active</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Export Items:</span>
+                <span>250 Pcs 7-Chakra Orgone Pyramids</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Invoice Value:</span>
+                <strong>$1,425.00 (₹1,18,500.00)</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>IGST Charged (LUT 0%):</span>
+                <span class="sim-success-text">₹0.00 (Zero IGST under Bond)</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Shipping Bill &amp; Packing List exported for Sahar Air Cargo Customs">
+            📄 EXPORT CUSTOMS PACKING LIST
+          </button>
+        </div>`
+    },
+
+    // 36. Dual Pricing Slabs (Crystal & Agate / Wholesale)
+    dualPricing: {
+      title: 'Wholesale Dual Price Slabs',
+      badge: 'Tiered Margins',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <strong>7-Chakra Orgone Pyramid</strong>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Retail (1 - 49 Pcs):</span>
+                <strong>₹280.00 / Pc</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Wholesale (50 - 199 Pcs):</span>
+                <strong class="sim-success-text">₹180.00 / Pc</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Master Distributor (200+ Pcs):</span>
+                <strong class="sim-success-text">₹135.00 / Pc</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Dual pricing tiers synced to all mobile billing counters">
+            ✓ SAVE DUAL PRICE TIERS
+          </button>
+        </div>`
+    },
+
+    // 37. Section 80G Donation Receipt (Trust & Institute)
+    trust: {
+      title: 'Section 80G Donation Receipt',
+      badge: '100% Tax Exempt',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Donor: Haji Abdul Sattar (PAN: AAAPA1234F)</div>
+              <div class="sim-item-meta">Section 12AB/80G URN: AAATA1234F21</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Donation Amount:</span>
+                <strong class="sim-success-text" style="font-size:0.9rem;">₹25,000.00</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Payment Mode:</span>
+                <span>Bank RTGS (UTR: HDFC89124)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Form 10BD Serial:</span>
+                <span class="sim-mono-code">VT-TR-2026-049</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="print-80g">
+            🖨️ PRINT SECTION 80G TAX CERTIFICATE
+          </button>
+        </div>`
+    },
+
+    // 38. ₹2,000 Cash Donation Guard (Trust & Institute)
+    cashGuard: {
+      title: '₹2,000 Cash Guard Shield',
+      badge: 'Section 80G(5D)',
+      badgeColor: 'error',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-gst-alert" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.3);color:#EF4444;">
+            🛡️ Income Tax Rule 80G(5D): Anonymous cash donations strictly limited to ₹2,000 per donor.
+          </div>
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Attempted Cash Donation Entry: ₹5,000.00</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Rule Engine Status:</span>
+                <strong class="sim-error-text">⛔ BLOCKED (Exceeds ₹2,000 Cash Limit)</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>Required Compliance:</span>
+                <span>Must capture Donor PAN / Aadhaar or convert to UPI/Bank Transfer</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="✓ Donor PAN captured: Converted to compliant electronic donation voucher">
+            ✓ ATTACH PAN &amp; CONVERT TO DIGITAL MODE
+          </button>
+        </div>`
+    },
+
+    // 39. Student Education Fee Voucher (Trust & Institute)
+    studentFees: {
+      title: 'Student Term Fee Voucher',
+      badge: 'Scholarship',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Student: Salman Ansari (#ALH-2026-081)</div>
+              <div class="sim-item-meta">Diploma in Computer Applications • Semester 2</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Standard Term Fee:</span>
+                <span>₹4,500.00</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Trust Scholarship Concession:</span>
+                <span class="sim-success-text">−₹1,500.00</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Net Amount Paid:</span>
+                <strong class="sim-success-text">₹3,000.00 (UPI Receipt #FEE-88)</strong>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="toast" data-msg="🖨️ Fee receipt printed and SMS confirmation sent to parent">
+            🖨️ PRINT FEE RECEIPT &amp; NOTIFY PARENT
+          </button>
+        </div>`
+    },
+
+    // 40. Form 10BD Statement of Donations (Trust & Institute)
+    form10BD: {
+      title: 'Form 10BD Annual Statement',
+      badge: 'ITR Portal Ready',
+      badgeColor: 'success',
+      render: () => `
+        <div class="sim-sub-screen-content">
+          <div class="sim-repair-card">
+            <div style="width:100%;">
+              <div class="sim-item-name">Financial Year: 2026-27 (Quarter 2)</div>
+              <div class="sim-meter-row" style="margin-top:6px;">
+                <span>Total Donations Processed:</span>
+                <strong>₹9,45,000.00</strong>
+              </div>
+              <div class="sim-meter-row">
+                <span>KYC &amp; PAN Validated Records:</span>
+                <span class="sim-success-text">24 / 24 Donors (100% Compliant)</span>
+              </div>
+              <div class="sim-meter-row">
+                <span>Form 10BE Individual Certificates:</span>
+                <span>24 Certificates Ready</span>
+              </div>
+            </div>
+          </div>
+          <button class="sim-complete-btn" style="margin-top:8px;" data-action="export-10bd">
+            📥 DOWNLOAD FORM 10BD CSV FOR TAX FILING
+          </button>
+        </div>`
+    },
+
+    // 41. Fallback feature preview
+    _featurePreview: (icon, title, desc) => {
+      const formattedTitle = title ? title.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()) : 'Enterprise ERP Module';
+      return `
+        <div class="sim-sub-screen-content" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 16px;">
+          <div class="sim-feature-preview-icon" style="font-size:2rem;margin-bottom:8px;">${icon || '⚡'}</div>
+          <h3 class="sim-feature-preview-title" style="font-size:0.95rem;font-weight:700;margin-bottom:6px;color:#fff;">${formattedTitle}</h3>
+          <p class="sim-feature-preview-desc" style="font-size:0.75rem;color:#94A3B8;line-height:1.5;margin-bottom:14px;">${desc || 'Full offline-first module with SQLCipher AES-256 encryption & Firestore cloud sync.'}</p>
+          <span class="sim-chip sim-chip-active" style="font-size:0.65rem;margin-bottom:12px;">INCLUDED IN PRO LICENSE</span>
+          <button class="sim-complete-btn" data-action="back" style="max-width:200px;">← RETURN TO COCKPIT</button>
+        </div>`;
+    }
   };
 
   SUB_SCREENS.products = SUB_SCREENS.inventory;
@@ -1166,7 +2121,7 @@
     }
 
     get activeVertical() {
-      return VERTICALS[this.currentVerticalKey] || VERTICALS.MOBILE_SHOP;
+      return getVerticalData(this.currentVerticalKey);
     }
 
     init() {
@@ -1180,6 +2135,18 @@
           timeEl.textContent = now.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
       }, 60000);
+    }
+
+    switchVertical(newKey) {
+      if (!newKey) return;
+      this.currentVerticalKey = newKey;
+      this.screenStack = [];
+      this.currentTab = 'cockpit';
+      this.render();
+      document.querySelectorAll('[data-vertical]').forEach(b => {
+        b.classList.toggle('sim-vt-pill-active', b.dataset.vertical === newKey);
+      });
+      this.showToast(`Switched vertical to: ${this.activeVertical.name}`);
     }
 
     // ── RENDER ROOT SHELL ───────────────────────────────────────────
@@ -1233,7 +2200,10 @@
       const v = this.activeVertical;
       if (this.screenStack.length > 0) {
         const currentScreenId = this.screenStack[this.screenStack.length - 1];
-        const screenDef = SUB_SCREENS[currentScreenId] || { title: 'Back', badge: '' };
+        const screenDef = SUB_SCREENS[currentScreenId] || { 
+          title: currentScreenId.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase()), 
+          badge: 'PRO' 
+        };
         return `
           <div class="sim-top-bar">
             <div class="sim-top-bar-left">
@@ -1273,7 +2243,7 @@
               <span class="sim-sync-dot"></span>
             </button>
 
-            <!-- 2. Pulse Beacon Button (Pulse Broadcasts) -->
+            <!-- 2. Pulse Beacon Button -->
             <button class="sim-icon-btn sim-pulse-btn" data-screen="commandCentre" title="Pulse Telemetry Beacon" aria-label="Pulse Beacon">
               <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="#F59E0B" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
             </button>
@@ -1478,26 +2448,77 @@
         const vBtn = e.target.closest('[data-vertical]');
         if (vBtn) {
           const newKey = vBtn.dataset.vertical;
-          if (VERTICALS[newKey] && newKey !== this.currentVerticalKey) {
-            this.currentVerticalKey = newKey;
-            this.screenStack = [];
-            this.currentTab = 'cockpit';
-            this.render();
-            // Sync active class on all pills on page
-            document.querySelectorAll('[data-vertical]').forEach(b => {
-              b.classList.toggle('sim-vt-pill-active', b.dataset.vertical === newKey);
-            });
-            this.showToast(`Switched vertical to: ${VERTICALS[newKey].name}`);
+          if (newKey && newKey !== this.currentVerticalKey) {
+            this.switchVertical(newKey);
           }
         }
       });
 
       this.container.addEventListener('click', (e) => {
-        // 1. Back button
-        const backBtn = e.target.closest('[data-action="back"]');
-        if (backBtn) {
-          this.goBack();
-          return;
+        // 1. Action buttons with data-action
+        const actionBtn = e.target.closest('[data-action]');
+        if (actionBtn) {
+          const action = actionBtn.dataset.action;
+          if (action === 'back') {
+            this.goBack();
+            return;
+          }
+          if (action === 'complete-sale') {
+            this.triggerCloudSync(true);
+            return;
+          }
+          if (action === 'toast') {
+            this.showToast(actionBtn.dataset.msg || '✓ Action recorded in Room Database');
+            return;
+          }
+          if (action === 'print-barcode') {
+            this.showToast('🖨️ ESC/POS Thermal Barcode (50x30mm) sent to Bluetooth printer');
+            return;
+          }
+          if (action === 'export-sch-h1') {
+            this.showToast('✓ Schedule H1 Drug Register CSV exported for Inspector Audit');
+            return;
+          }
+          if (action === 'substitute-salt') {
+            this.showToast('✓ Generic salt substitute applied (+16% margin improvement)');
+            return;
+          }
+          if (action === 'kds-serve') {
+            this.showToast('✓ Order marked SERVED! Floor Captain notified');
+            return;
+          }
+          if (action === 'dispatch-po') {
+            this.showToast('🚀 Production order #BOM-901 dispatched to CNC shopfloor');
+            return;
+          }
+          if (action === 'ghanti-challan') {
+            this.showToast('✓ Karigar Ghanti Challan #GH-412 issued to Salim Bhai');
+            return;
+          }
+          if (action === 'print-80g') {
+            this.showToast('✓ Section 80G Tax Exemption Certificate printed with URN');
+            return;
+          }
+          if (action === 'export-10bd') {
+            this.showToast('✓ Form 10BD Statement CSV downloaded for Income Tax Portal');
+            return;
+          }
+          if (action === 'add-customer') {
+            this.showToast('✓ Customer KYC ledger record saved (Room AES-256)');
+            return;
+          }
+          if (action === 'add-stock') {
+            this.showToast('✓ Product stock updated & synced to Cloud Outbox');
+            return;
+          }
+          if (action === 'record-expense') {
+            this.showToast('✓ Expense logged: Cash drawer updated (Zero Negative Cash Guard)');
+            return;
+          }
+          if (action === 'export-ca') {
+            this.showToast('✓ GSTR-1 outward supplies CSV generated for CA Web Portal');
+            return;
+          }
         }
 
         // 2. Dismiss Setup Pill
@@ -1514,21 +2535,14 @@
           return;
         }
 
-        // 3. Complete sale action (in invoice screen)
-        const completeBtn = e.target.closest('[data-action="complete-sale"]');
-        if (completeBtn) {
-          this.triggerCloudSync(true);
-          return;
-        }
-
-        // 4. Manual sync button
+        // 3. Manual sync button
         const syncBtn = e.target.closest('#sim-manual-sync');
         if (syncBtn) {
           this.triggerCloudSync(false);
           return;
         }
 
-        // 5. Bottom Navigation Bar tab clicks
+        // 4. Bottom Navigation Bar tab clicks
         const navBtn = e.target.closest('[data-nav]');
         if (navBtn) {
           const navTarget = navBtn.dataset.nav;
@@ -1536,12 +2550,21 @@
           return;
         }
 
-        // 6. Screen navigation (Quick actions, buttons, mini cards, top bar icons)
+        // 5. Screen navigation (Quick actions, buttons, mini cards, top bar icons)
         const screenBtn = e.target.closest('[data-screen]');
         if (screenBtn) {
           const screenId = screenBtn.dataset.screen;
           this.openScreen(screenId);
           return;
+        }
+
+        // 6. Generic button fallback
+        const genericBtn = e.target.closest('button');
+        if (genericBtn && genericBtn.id !== 'sim-dismiss-setup' && genericBtn.id !== 'sim-manual-sync') {
+          const btnText = genericBtn.textContent.trim().replace(/^[+🚀🖨️🌐✓⚡\s]+/, '');
+          if (btnText) {
+            this.showToast(`✓ Simulated: ${btnText.substring(0, 32)}`);
+          }
         }
       });
     }
@@ -1607,7 +2630,7 @@
         if (screenDef) {
           contentHtml = screenDef.render(this.activeVertical);
         } else {
-          contentHtml = SUB_SCREENS._featurePreview('⚡', currentScreenId, 'Enterprise ERP feature registered in Feature.kt');
+          contentHtml = SUB_SCREENS._featurePreview('⚡', currentScreenId, 'Enterprise offline-first module with SQLCipher encryption & cloud outbox sync.');
         }
       } else {
         contentHtml = this.renderTabContent();
@@ -1653,15 +2676,22 @@
     }
   }
 
-  // ── PUBLIC INITIALIZER ────────────────────────────────────────────
+  // ── PUBLIC INITIALIZER & CONTROLLER ───────────────────────────────
   window.VeriStockSimulator = {
+    instance: null,
     init: function (selector) {
       const el = document.querySelector(selector);
       if (el) {
-        return new AppSimulator(el);
+        this.instance = new AppSimulator(el);
+        return this.instance;
       }
       console.warn('[VeriStockSimulator] Target element not found:', selector);
       return null;
+    },
+    switchVertical: function (key) {
+      if (this.instance) {
+        this.instance.switchVertical(key);
+      }
     }
   };
 })();

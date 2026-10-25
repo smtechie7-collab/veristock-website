@@ -806,16 +806,17 @@ body.dark .hero-content h1 {
 }
 
 .phone-mockup {
-  width: 300px;
-  height: 615px;
-  border-radius: 40px;
+  width: 340px;
+  max-width: 95vw;
+  height: 660px;
+  border-radius: 36px;
   background-color: #000000;
-  border: 12px solid #1E293B;
+  border: 10px solid #1E293B;
   box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.4);
   position: relative;
   overflow: hidden;
-  transform: rotateY(-8deg) rotateX(6deg);
-  transition: transform var(--transition-slow);
+  transform: none;
+  transition: transform var(--transition-normal), box-shadow var(--transition-normal);
 }
 
 body.dark .phone-mockup {
@@ -824,21 +825,23 @@ body.dark .phone-mockup {
 }
 
 .phone-mockup:hover {
-  transform: rotateY(0deg) rotateX(0deg);
+  transform: translateY(-3px);
+  box-shadow: 0 30px 60px -12px rgba(26, 86, 219, 0.25);
 }
 
-/* Speaker Notch */
+/* Subtle Speaker / Dynamic Island Indicator (Non-blocking) */
 .phone-mockup::before {
   content: '';
   position: absolute;
-  top: 10px;
+  top: 6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 100px;
-  height: 20px;
-  background-color: #000000;
-  border-radius: 10px;
+  width: 60px;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
   z-index: 10;
+  pointer-events: none;
 }
 
 .phone-screen {
@@ -1863,7 +1866,7 @@ footer {
     transform: none;
   }
   .phone-mockup:hover {
-    transform: rotateY(-10deg) rotateX(10deg);
+    transform: none;
   }
 }
 
